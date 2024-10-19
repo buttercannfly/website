@@ -284,7 +284,7 @@ export default function Home() {
               className="bg-white dark:bg-gray-800 text-purple-600 dark:text-purple-400 border-purple-600 dark:border-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900"
             >
               <Github className="mr-2 h-5 w-5" />{' '}
-              <a href="https://github.com/buttercannfly/AIpex">
+              <a href="https://github.com/buttercannfly/AIpex" target="_blank" >
                 {' '}
                 View AIpex on GitHub
               </a>
@@ -292,11 +292,33 @@ export default function Home() {
           </section>
         </main>
 
-        <footer className="text-center text-gray-600 dark:text-gray-400">
-          <p>
-            &copy; 2024 AIpex - The Best Tab Manager Extension for Google
-            Chrome. All rights reserved.
-          </p>
+        <footer className="text-center text-gray-600 dark:text-gray-400 py-6">
+          <div className="mb-4">
+            <p className="mb-3">
+              &copy; 2024 AIpex - The Best Tab Manager Extension for Google Chrome. All rights reserved.
+            </p>
+            <div className="flex justify-center gap-4 text-sm">
+              <a 
+                href="https://fluxai.pro/" 
+                title="Flux AI Pro"
+                className="hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                Flux AI Pro
+              </a>
+              <span className="text-gray-400">•</span>
+              <a 
+                href="https://aiwith.me/" 
+                title="AI With Me: Discover thousands of AI Tools"
+                className="hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                AI With Me
+              </a>
+            </div>
+          </div>
         </footer>
       </div>
     </div>
