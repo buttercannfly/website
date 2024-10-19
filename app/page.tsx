@@ -134,7 +134,7 @@ export default function Home() {
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-6">
-                      <div className="relative w-full h-96 overflow-hidden rounded-lg">
+                      <div className="relative w-full h-120 overflow-hidden rounded-lg">
                         <img
                           src={item.src}
                           alt={item.alt}
