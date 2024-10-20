@@ -318,6 +318,8 @@ export default function Home() {
                 AI With Me
               </a>
               <a href="https://bai.tools/" title="Best AI Tools Directory" target="_blank"  className="hover:text-gray-800 dark:hover:text-gray-200 transition-colors">Bai.tools</a>
+              <a href="https://perchance-ai.net" target="_blank" rel="noopener noreferrer">Perchance AI</a>
+
             </div>
           </div>
         </footer>
