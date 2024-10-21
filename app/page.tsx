@@ -22,6 +22,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import AipexFeatures from '@/components/ui/inner-link';
 
 export default function Home() {
   return (
@@ -220,6 +221,8 @@ export default function Home() {
               ))}
             </Tabs>
           </section>
+
+          <AipexFeatures />
 
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
