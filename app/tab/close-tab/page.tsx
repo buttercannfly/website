@@ -17,23 +17,23 @@ import { Metadata } from 'next';
 import AipexFeatures from '@/components/ui/inner-link';
 
 export const metadata: Metadata = {
-    title: 'AIpex - group tabs',
-    description: ' With AIPex, you can group tabs in one keyword shorcut',
-    keywords: 'group tabs, How to group tabs on chrome, organize tabs',
+    title: 'AIpex - close tab',
+    description: 'With AIPex, you can close tabs in one keyword shortcut',
+    keywords: 'close tab, How to close tab on chrome, manage tabs',
     openGraph: {
-      title: 'AIpex - group tabs',
-      description: 'With AIPex, you can group tabs in one keyword shorcut',
-      images: [{ url: 'With AIPex, you can group tabs in one keyword shorcut' }],
+      title: 'AIpex - close tab',
+      description: 'With AIPex, you can close tabs in one keyword shortcut',
+      images: [{ url: 'With AIPex, you can close tabs in one keyword shortcut' }],
     },
     twitter: {
       card: 'summary_large_image',
       title: 'AIpex - Intelligent Chrome Extension',
-      description: 'With AIPex, you can group tabs in one keyword shorcut',
+      description: 'With AIPex, you can close tabs in one keyword shortcut',
       images: ['https://source.unsplash.com/random/1200x630?chrome+extension'],
     },
   };
 
-export default function GroupTabs() {
+export default function CloseTab() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-100 to-white dark:from-purple-900 dark:to-gray-900">
       <div className="container mx-auto px-4 py-8">
@@ -41,12 +41,12 @@ export default function GroupTabs() {
           <div className="relative inline-block">
             <div className="absolute inset-0 bg-purple-500 blur-3xl opacity-20 rounded-full"></div>
             <h1 className="text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600 relative">
-              How to group tabs in Chrome?
+              How to close tabs in Chrome?
             </h1>
           </div>
           <p className="text-2xl text-gray-600 dark:text-gray-300 mb-8">
             <a href='https://aipex.quest'>
-              With AIPex, organize and group your tabs with a simple keyboard shortcut
+              With AIPex, close any tab with a simple keyboard shortcut
             </a>
           </p>
           <Button
@@ -63,7 +63,7 @@ export default function GroupTabs() {
         <main>
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              Group tabs with AIPex
+              Close tabs with AIPex
             </h2>
             <div className="grid grid-cols-1 gap-12">
               <div className="relative group">
@@ -71,19 +71,19 @@ export default function GroupTabs() {
                 <Card className="relative bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300">
                   <CardHeader>
                     <CardTitle className="text-2xl font-semibold text-gray-800 dark:text-white">
-                      group open tabs chrome
+                      close tabs on chrome
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div className="relative w-full h-120 overflow-hidden rounded-lg">
                       <img
-                        src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*9C-GLUsdt2kk2lgSnbSyxw.gif"
-                        alt="group tabs"
+                        src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*IqAGAVkCJ8MYH0MqdLANkQ.gif"
+                        alt="close tab"
                         className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
                       />
                     </div>
                     <p className="text-lg text-gray-600 dark:text-gray-300">
-                      How to group tabs in Chrome? Press Command/Ctrl + M and type "organize" to instantly group your open tabs!
+                      How to close tabs on Chrome? Press Command/Ctrl + M and type "closetab" - it's that simple!
                     </p>
                   </CardContent>
                 </Card>
@@ -93,7 +93,7 @@ export default function GroupTabs() {
 
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              How to Group Tabs with AIPex?
+              How to Close Tabs with AIPex?
             </h2>
             
             <div className="max-w-3xl mx-auto">
@@ -122,9 +122,9 @@ export default function GroupTabs() {
                       <span className="text-white font-bold">2</span>
                     </div>
                     <div>
-                      <h3 className="text-xl font-semibold mb-2 dark:text-white">Type "organize"</h3>
+                      <h3 className="text-xl font-semibold mb-2 dark:text-white">Type "closetab"</h3>
                       <p className="text-gray-600 dark:text-gray-300">
-                        Simply type "organize" to automatically group your open tabs
+                        Simply type "closetab" to instantly close your current tab
                       </p>
                     </div>
                   </div>
@@ -138,7 +138,7 @@ export default function GroupTabs() {
                       </svg>
                     </div>
                     <p className="ml-3 text-sm text-gray-600 dark:text-gray-300">
-                      <span className="font-medium">Pro tip:</span> AIPex intelligently groups your tabs based on content and domain similarities
+                      <span className="font-medium">Pro tip:</span> You can use this shortcut on any tab to quickly close it when you're done browsing
                     </p>
                   </div>
                 </div>
@@ -148,10 +148,9 @@ export default function GroupTabs() {
 
           <AipexFeatures />
 
-
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              Frequently Asked Questions about grouping tabs
+              Frequently Asked Questions about closing tabs
             </h2>
             <Accordion
               type="single"
@@ -160,28 +159,24 @@ export default function GroupTabs() {
             >
               {[
                 {
-                  "question": "How can I quickly group tabs in Chrome using AIPex?",
-                  "answer": "With AIPex, grouping tabs is as simple as pressing Command+M and typing 'organize'. This quick keyboard shortcut automatically organizes your tabs into logical groups based on content and domain similarities."
+                  "question": "What's the shortcut key to close tabs in Chrome using AIPex?",
+                  "answer": "With AIPex, closing tabs is as simple as pressing Command+M and typing 'closetab'. This quick keyboard shortcut makes tab management effortless and instantaneous."
                 },
                 {
-                  "question": "How organize chrome extensions into sub folders ?",
-                  "answer": "With AIPex, pressing Command+M and typing 'organize'. This quick keyboard shortcut automatically organizes your tabs into logical groups based on content and domain similarities."
+                  "question": "How to close tabs on Chrome with AIPex?",
+                  "answer": "AIPex's tab closing feature offers a more streamlined experience with a single keyboard shortcut (Command+M). Unlike Chrome's traditional methods, AIPex makes the process faster and more intuitive."
                 },
                 {
-                  "question": "What makes AIPex's tab grouping feature better than Chrome's built-in options?",
-                  "answer": "AIPex's tab grouping feature uses AI to intelligently organize your tabs based on content relationships, not just domains. It's faster than manual grouping and more accurate than traditional automated solutions."
+                  "question": "Can I close multiple tabs at once with AIPex?",
+                  "answer": "Yes, AIPex allows you to efficiently close multiple tabs. Simply use Command+M and type 'closetab' for each tab you want to close. The process is quick and seamless."
                 },
                 {
-                  "question": "How does AIPex decide how to group my tabs?",
-                  "answer": "AIPex analyzes tab content, URLs, and page context to create meaningful groups. It intelligently identifies related content and creates logical groupings that make sense for your workflow."
+                  "question": "Is AIPex's tab closing feature free to use?",
+                  "answer": "Yes, AIPex's tab closing feature is completely free. You can close unlimited tabs using the Command+M shortcut without any subscription or hidden costs."
                 },
                 {
-                  "question": "Is AIPex's tab grouping feature free to use?",
-                  "answer": "Yes, AIPex's tab grouping feature is completely free. You can organize unlimited tabs using the Command+M shortcut without any subscription or hidden costs."
-                },
-                {
-                  "question": "Why should I use AIPex for grouping tabs?",
-                  "answer": "AIPex offers the most intelligent and efficient way to organize tabs with just Command+M and typing 'organize'. Its AI-powered grouping, combined with the simple shortcut, makes it the ideal choice for users who want to keep their tabs organized automatically."
+                  "question": "Why should I use AIPex for closing tabs?",
+                  "answer": "AIPex offers the fastest and most convenient way to close tabs with just Command+M and typing 'closetab'. This simple approach, combined with its reliability and efficiency, makes it the ideal choice for users who frequently work with multiple tabs."
                 }
               ].map((item, index) => (
                 <AccordionItem key={index} value={`item-${index + 1}`}>

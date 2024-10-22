@@ -42,25 +42,52 @@ const AipexFeatures = () => {
       },
     {
       value: 'main',
-      title: '',
+      title: 'AIPex',
       description: 'AIPex - The Best Tab Manager Extension for Google Chrome',
       content:
         "AIpex is an open-source Chrome extension that helps you manage tabs, history, and bookmarks with an integrated ChatGPT sidebar.",
       alt: '',
       link: 'https://aipex.quest'
+    },
+    {
+      value: 'close',
+      title: 'Close Window',
+      description: 'Close window in  one second',
+      content:
+        "With AIPex, just command/ctrl + M and then you get the close window",
+      alt: '',
+      link: 'https://aipex.quest/tab/close'
+    },
+    {
+      value: 'close-tab',
+      title: 'Close Tab',
+      description: 'Close Tab in one second',
+      content:
+        "With AIPex, type command/ctrl + M and then search for close",
+      alt: '',
+      link: 'https://aipex.quest/tab/close-tab'
+    },
+    {
+      value: 'maximize-window',
+      title: 'Maximize Window',
+      description: 'Maximize window in one second',
+      content:
+        "With AIPex, type command/ctrl + M and then search for fullsreen",
+      alt: '',
+      link: 'https://aipex.quest/tab/maximize'
     }
   ];
 
   return (
-    <section className="w-full max-w-7xl mx-auto px-4 mb-24">
+    <section className="w-full max-w-24xl mx-auto px-4 mb-24">
       <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
         AIpex: The AI Chrome Extension in Action
       </h2>
       <Tabs defaultValue="tabs" className="w-full">
-        <TabsList className="grid w-full grid-cols-4 mb-8">
+        <TabsList className="grid w-full grid-cols-8 mb-8">
           {features.map((item) => (
             <TabsTrigger key={item.value} value={item.value} className="text-lg">
-              {item.title}
+              {item.title || 'Overview'}
             </TabsTrigger>
           ))}
         </TabsList>
@@ -76,7 +103,7 @@ const AipexFeatures = () => {
               <Card className="relative bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300">
                 <CardHeader>
                   <CardTitle className="text-2xl font-bold text-gray-800 dark:text-white">
-                    {item.title}
+                    {item.title || 'Overview'}
                   </CardTitle>
                   <CardDescription className="text-gray-600 dark:text-gray-300">
                     {item.description}
