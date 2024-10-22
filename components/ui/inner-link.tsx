@@ -29,7 +29,7 @@ const AipexFeatures = () => {
       content:
         'AIpex only utilizes one step to open an incognito tab, without any knowledge on shortcuts',
       alt: 'incognito tab',
-      link: 'https://aipex.quest/incognito'
+      link: 'https://aipex.quest/tab/incognito'
     },
     {
         value: 'duplicate',
@@ -38,7 +38,7 @@ const AipexFeatures = () => {
         content:
           'AIpex only utilizes one step to duplicate a tab, without any knowledge on shortcuts',
         alt: 'duplicate tab',
-        link: 'https://aipex.quest/duplicate'
+        link: 'https://aipex.quest/tab/duplicate'
       },
     {
       value: 'main',
