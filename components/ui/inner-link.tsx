@@ -146,10 +146,10 @@ const AipexFeatures = () => {
             <Card className="relative bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300">
               <CardHeader>
                 <CardTitle className="text-2xl font-bold text-gray-800 dark:text-white">
-                  {features[currentIndex].title}
+                  <h3>{features[currentIndex].title}</h3>
                 </CardTitle>
                 <CardDescription className="text-gray-600 dark:text-gray-300">
-                  {features[currentIndex].description}
+                  <h4>{features[currentIndex].description}</h4>
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
