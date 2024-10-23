@@ -182,6 +182,10 @@ export default function GroupTabs() {
                 {
                   "question": "Why should I use AIPex for grouping tabs?",
                   "answer": "AIPex offers the most intelligent and efficient way to organize tabs with just Command+M and typing 'organize'. Its AI-powered grouping, combined with the simple shortcut, makes it the ideal choice for users who want to keep their tabs organized automatically."
+                },
+                {
+                  "question": "How organize chrome extensions into sub folders",
+                  "answer": "With AIPex, grouping tabs is as simple as pressing Command+M and typing 'organize'"
                 }
               ].map((item, index) => (
                 <AccordionItem key={index} value={`item-${index + 1}`}>

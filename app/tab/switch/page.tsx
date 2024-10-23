@@ -26,20 +26,9 @@ import { Metadata } from 'next';
 import AipexFeatures from '@/components/ui/inner-link';
 
 export const metadata: Metadata = {
-    title: 'AIpex - Restore tabs',
-    description: ' With AIPex, you can restore tabs in one keyword shorcut',
-    keywords: 'restore tabs,How to restore tabs on chrome',
-    openGraph: {
-      title: 'AIpex - Restore tabs',
-      description: 'Manage your tabs, history, and bookmarks with AI-powered assistance.',
-      images: [{ url: 'With AIPex, you can restore tabs in one keyword shorcut' }],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: 'AIpex - Intelligent Chrome Extension',
-      description: 'Manage your tabs, history, and bookmarks with AI-powered assistance.',
-      images: ['https://source.unsplash.com/random/1200x630?chrome+extension'],
-    },
+    title: 'AIpex - Switch tabs',
+    description: ' With AIPex, you can switch between open tabs in chrome​ in one keyword shorcut',
+    keywords: 'switch tab, How to switch tabs with keyboard, hotkey to switch tabs, tab search'
   };
 
 export default function Restore() {
@@ -50,12 +39,12 @@ export default function Restore() {
           <div className="relative inline-block">
             <div className="absolute inset-0 bg-purple-500 blur-3xl opacity-20 rounded-full"></div>
             <h1 className="text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600 relative">
-              How to restore tabs on chrome ​?
+              How to switch tabs on chrome ​?
             </h1>
           </div>
           <p className="text-2xl text-gray-600 dark:text-gray-300 mb-8">
             <a href='https://aipex.quest'>
-            With AIPex, you can restore tabs in one keyword shorcut
+            With AIPex, you can forgee the hotkey to switch tabs, just using Command/Ctrl + M
             </a>
           </p>
           <Button
@@ -72,16 +61,16 @@ export default function Restore() {
         <main>
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-                Restore tabs with AIPex
+                Switch between open tabs
             </h2>
             <div className="grid grid-cols-1 gap-12">
               {[
                 {
-                  title: 'restore tabs on chrome',
-                  src: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*oXexreLF9ROK85iv58ZRNQ.gif',
-                  alt: 'restore tab',
+                  title: 'how to switch tabs on chrome',
+                  src: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*asTnKKa6GIBOsB2s8_rF0w.gif',
+                  alt: 'switch tabs and tab search',
                   description:
-                    'How to restore tabs on chrome ​? Command/Ctrl + M and then you get there !',
+                    'How to switch tabs on chrome ​? Command/Ctrl + M and then you get there !',
                 }
               ].map((item, index) => (
                 <div key={index} className="relative group">
@@ -112,7 +101,7 @@ export default function Restore() {
 
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-                How to Restore Tabs with AIPex?
+                How to Switch Tabs with AIPex?
             </h2>
             
             <div className="max-w-3xl mx-auto">
@@ -141,9 +130,9 @@ export default function Restore() {
                         <span className="text-white font-bold">2</span>
                     </div>
                     <div>
-                        <h3 className="text-xl font-semibold mb-2 dark:text-white">Type "restore"</h3>
+                        <h3 className="text-xl font-semibold mb-2 dark:text-white">Type the url, title of the target tab</h3>
                         <p className="text-gray-600 dark:text-gray-300">
-                        Search for your closed tabs by typing "restore" in the search box
+                        All optional tabs are listed, switch tabs as you click
                         </p>
                     </div>
                     </div>
@@ -157,7 +146,7 @@ export default function Restore() {
                         </svg>
                     </div>
                     <p className="ml-3 text-sm text-gray-600 dark:text-gray-300">
-                        <span className="font-medium">Pro tip:</span> You can also use this shortcut anytime to quickly find and restore your recently closed tabs
+                        <span className="font-medium">Pro tip:</span> You can also use this shortcut anytime to quickly find and switch tabs, bookmarks and history
                     </p>
                     </div>
                 </div>
@@ -170,7 +159,7 @@ export default function Restore() {
 
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              Frequently Asked Questions about restore tabs
+              Frequently Asked Questions about switch tabs
             </h2>
             <Accordion
               type="single"
@@ -179,28 +168,24 @@ export default function Restore() {
             >
               {[
                 {
-                    "question": "How can I quickly restore tabs in AIpex?",
-                    "answer": "With AIpex, you can instantly restore tabs using the simple Command+M shortcut. This quick keyboard combination makes tab restoration effortless and easy to remember."
+                    "question": "How can I quickly switch tabs on chrome in AIpex?",
+                    "answer": "With AIpex, you can instantly restore tabs using the simple Command+M shortcut. Select the tab and AIPex will travel there."
                 },
                 {
-                    "question": "What makes AIpex's restore tabs feature better than other extensions?",
-                    "answer": "AIpex's restore tabs feature stands out with its minimalist approach - just press Command+M. Unlike other tab managers that require multiple steps, AIpex reduces the learning curve to a single, memorable shortcut."
+                    "question": "How to switch tabs with keyboard​?",
+                    "answer": "WIth AIPex, command/ctrl + M"
                 },
                 {
-                    "question": "How to restore chrome tabs",
-                    "answer": "With AIPex, you can quickly restore chrome tabs with one second, just command/ctrl + M."
+                    "question": "What's the hotkey to switch tabs?",
+                    "answer": "WIth AIPex, command/ctrl + M"
                 },
                 {
-                    "question": "Does AIpex save my restored tabs history?",
-                    "answer": "Yes, AIpex automatically saves your tab history locally on your device. You can easily restore tabs from previous browsing sessions using Command+M, without worrying about data privacy."
+                    "question": "Is AIpex's switch tabs feature free to use?",
+                    "answer": "Yes, AIpex's switch tabs feature is completely free. You can restore unlimited tabs using the Command+M shortcut without any subscription or hidden costs."
                 },
                 {
-                    "question": "Is AIpex's restore tabs feature free to use?",
-                    "answer": "Yes, AIpex's restore tabs feature is completely free. You can restore unlimited tabs using the Command+M shortcut without any subscription or hidden costs."
-                },
-                {
-                    "question": "Why should I use AIpex for restoring tabs?",
-                    "answer": "AIpex offers the simplest way to restore tabs with just Command+M. This low memory burden combined with reliable tab restoration makes it the ideal choice for users who want an efficient, straightforward tab management solution."
+                    "question": "What's the keyboard shortcut to switch tabs​",
+                    "answer": "WIth AIPex, command/ctrl + M, all optional tabs are listed."
                 }
                 ].map((item, index) => (
                 <AccordionItem key={index} value={`item-${index + 1}`}>
