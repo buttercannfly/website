@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { title } from 'process';
 
 const AipexFeatures = () => {
   const features = [
@@ -75,6 +76,14 @@ const AipexFeatures = () => {
         "With AIPex, type command/ctrl + M and then search for fullsreen",
       alt: '',
       link: 'https://aipex.quest/tab/maximize'
+    },
+    {
+      value: "switch-tabs",
+      title: "Switch Tabs",
+      description: "Switch between tabs and tab search",
+      content: "WIth AIPex, type Command/Ctrl + M and search for tabs",
+      alt: '',
+      link: "https://aipex.quest/tab/switch"
     }
   ];
 
