@@ -1,7 +1,8 @@
-import React from 'react';
+'use client'
+
+import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { title } from 'process';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const AipexFeatures = () => {
   const features = [
@@ -87,47 +88,93 @@ const AipexFeatures = () => {
     }
   ];
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Auto-play functionality
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => 
+        prevIndex === features.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000); // Change slide every 5 seconds
+    return () => clearInterval(interval);
+  }, [features.length]);
+
+  const goToNext = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex === features.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const goToPrevious = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex === 0 ? features.length - 1 : prevIndex - 1
+    );
+  };
+
   return (
-    <section className="w-full max-w-24xl mx-auto px-4 mb-24">
+    <section className="w-full max-w-4xl mx-auto px-4 mb-24">
       <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
         AIpex: The AI Chrome Extension in Action
       </h2>
-      <Tabs defaultValue="tabs" className="w-full">
-        <TabsList className="grid w-full grid-cols-8 mb-8">
-          {features.map((item) => (
-            <TabsTrigger key={item.value} value={item.value} className="text-lg">
-              {item.title || 'Overview'}
-            </TabsTrigger>
+      
+      <div className="relative">
+        {/* Navigation Buttons */}
+        <button
+          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 p-2 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+          onClick={goToPrevious}
+        >
+          <ChevronLeft className="w-6 h-6" />
+        </button>
+        
+        <button
+          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 p-2 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+          onClick={goToNext}
+        >
+          <ChevronRight className="w-6 h-6" />
+        </button>
+
+        {/* Current Feature Card */}
+        <div className="relative group">
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+          <a
+            href={features[currentIndex].link}
+            className="block relative no-underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Card className="relative bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300">
+              <CardHeader>
+                <CardTitle className="text-2xl font-bold text-gray-800 dark:text-white">
+                  {features[currentIndex].title}
+                </CardTitle>
+                <CardDescription className="text-gray-600 dark:text-gray-300">
+                  {features[currentIndex].description}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <p className="text-gray-700 dark:text-gray-200">
+                  {features[currentIndex].content}
+                </p>
+              </CardContent>
+            </Card>
+          </a>
+        </div>
+
+        {/* Dots Navigation */}
+        <div className="flex justify-center gap-2 mt-6">
+          {features.map((_, index) => (
+            <div
+              key={index}
+              className={`w-2 h-2 rounded-full transition-colors ${
+                index === currentIndex
+                  ? 'bg-purple-600'
+                  : 'bg-gray-300'
+              }`}
+            />
           ))}
-        </TabsList>
-        {features.map((item) => (
-          <TabsContent key={item.value} value={item.value}>
-            <a
-              href={item.link}
-              className="block relative group no-underline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
-              <Card className="relative bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300">
-                <CardHeader>
-                  <CardTitle className="text-2xl font-bold text-gray-800 dark:text-white">
-                    {item.title || 'Overview'}
-                  </CardTitle>
-                  <CardDescription className="text-gray-600 dark:text-gray-300">
-                    {item.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <p className="text-gray-700 dark:text-gray-200">
-                    {item.content}
-                  </p>
-                </CardContent>
-              </Card>
-            </a>
-          </TabsContent>
-        ))}
-      </Tabs>
+        </div>
+      </div>
     </section>
   );
 };
