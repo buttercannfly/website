@@ -191,8 +191,8 @@ export default function Restore() {
                     "answer": "With AIPex, you can quickly restore chrome tabs with one second, just command/ctrl + M."
                 },
                 {
-                    "question": "Does AIpex save my restored tabs history?",
-                    "answer": "Yes, AIpex automatically saves your tab history locally on your device. You can easily restore tabs from previous browsing sessions using Command+M, without worrying about data privacy."
+                    "question": "How to undo closing a tab ?",
+                    "answer": "With AIPex, you can quickly restore chrome tabs with one second, just command/ctrl + M."
                 },
                 {
                     "question": "Is AIpex's restore tabs feature free to use?",

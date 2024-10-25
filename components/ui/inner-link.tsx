@@ -85,6 +85,26 @@ const AipexFeatures = () => {
       content: "WIth AIPex, type Command/Ctrl + M and search for tabs",
       alt: '',
       link: "https://aipex.quest/tab/switch"
+    },{
+      title: "Chatgpt Sidebar",
+      description: "Embed Chatgpt Sidebar",
+      content: "WIth AIPex, you can use AI to get to know every page",
+      alt: '',
+      link: "https://aipex.quest/sidebar/best"
+    },
+    {
+      title: "Clear Cache",
+      description: "Clear cache in one step",
+      content: "Just Command/Ctrl + M, you can find how easy to clear cache",
+      alt: '',
+      link: "https://aipex.quest/settings/cache"
+    },
+    {
+      title: "Clear Cookies",
+      description: "Clear Cookies in one second",
+      content: "Command/Ctrl + M, then you can find how easy to clear cache",
+      alt: '',
+      link: "https://aipex.quest/settings/cookies"
     }
   ];
 

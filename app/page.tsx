@@ -67,10 +67,10 @@ export default function Home() {
                   description: 'Context-aware browsing history suggestions',
                 },
                 {
-                  title: 'Dynamic Bookmarks',
+                  title: 'One Shortcut',
                   icon: Bookmark,
                   description:
-                    'Auto-categorized and easily accessible bookmarks',
+                    'Unified shortcut enable quick reflections',
                 },
                 {
                   title: 'ChatGPT Sidebar',
