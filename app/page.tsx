@@ -322,7 +322,9 @@ export default function Home() {
               </a>
               <a href="https://bai.tools/" title="Best AI Tools Directory" target="_blank"  className="hover:text-gray-800 dark:hover:text-gray-200 transition-colors">Bai.tools</a>
               <a href="https://perchance-ai.net" target="_blank" rel="noopener noreferrer">Perchance AI</a>
-
+              <a href="https://toolsapp.cc/" title="ToolsApp AI Tools Directory">ToolsApp AI Tools Diresctory</a>
+              <a href="https://ahy.ai/" title="Ahy AI Tools Directory">Ahy Ai</a>
+              <a href="https://tap4.ai/ai/flux-ai-io" title="Flux Image AI">Flux Image AI</a>
             </div>
           </div>
         </footer>
