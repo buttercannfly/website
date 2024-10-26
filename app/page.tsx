@@ -100,6 +100,21 @@ export default function Home() {
 
           <section className="w-full max-w-7xl mx-auto px-4 mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
+              Watch AIpex in Action
+            </h2>
+            <div className="aspect-w-16 aspect-h-9" style={{ paddingBottom: '56.25%', position: 'relative', height: 0, overflow: 'hidden' }}>
+              <iframe
+                src="https://www.youtube.com/embed/C7m4p8uPmag"
+                title="AIpex Demo Video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
+              ></iframe>
+            </div>
+          </section>
+
+          <section className="w-full max-w-7xl mx-auto px-4 mb-24">
+            <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
               AIpex: The AI Chrome Extension in Action
             </h2>
             <div className="grid grid-cols-1 gap-12">
