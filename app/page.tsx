@@ -331,8 +331,11 @@ export default function Home() {
               <a href="https://newaiforyou.com/" title="NewAIForYou Tools Directory">NewAIForYou</a>
               <a href="https://zzo.ai" target="_blank">Zzo AI Tools Directory</a>
               <a href="https://SeekAIs.com/" title="SeekAIs">SeekAIs - AI Tools Directory</a>
-
-
+              <a href='https://aitooltrek.com' title='AI Tool Trek'> AI Tool Trek </a>
+              <a href="https://freeaitool.ai/" title="Free AI Tool">Free AI Tool</a>
+              <a href="https://okeiai.com/" title="Okei AI Tools Directory" target="_blank"> Okei AI Tools </a>
+              <a href="https://iuu.ai/">iuu AI</a>
+              <a href="https://t0ai.com" title="T0 AI Tools Directory">T0 AI Tools Directory</a>
             </div>
           </div>
         </footer>
