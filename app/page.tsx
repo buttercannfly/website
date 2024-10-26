@@ -329,6 +329,10 @@ export default function Home() {
               <a href="https://AIToolly.com/" title="Best AI Tools Directory">AIToolly</a>
               <a href="https://tap5ai.com/" title="Tap5 AI Tools Directory">Tap5 AI Tools Diresctory</a>
               <a href="https://newaiforyou.com/" title="NewAIForYou Tools Directory">NewAIForYou</a>
+              <a href="https://zzo.ai" target="_blank">Zzo AI Tools Directory</a>
+              <a href="https://SeekAIs.com/" title="SeekAIs">SeekAIs - AI Tools Directory</a>
+
+
             </div>
           </div>
         </footer>
