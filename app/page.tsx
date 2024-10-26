@@ -325,6 +325,10 @@ export default function Home() {
               <a href="https://toolsapp.cc/" title="ToolsApp AI Tools Directory">ToolsApp AI Tools Diresctory</a>
               <a href="https://ahy.ai/" title="Ahy AI Tools Directory">Ahy Ai</a>
               <a href="https://tap4.ai/ai/flux-ai-io" title="Flux Image AI">Flux Image AI</a>
+              <a href="https://genaiprism.site/" title="Gen AI Prism Tools Directory">Gen AI Prism</a> 
+              <a href="https://AIToolly.com/" title="Best AI Tools Directory">AIToolly</a>
+              <a href="https://tap5ai.com/" title="Tap5 AI Tools Directory">Tap5 AI Tools Diresctory</a>
+              <a href="https://newaiforyou.com/" title="NewAIForYou Tools Directory">NewAIForYou</a>
             </div>
           </div>
         </footer>
