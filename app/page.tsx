@@ -32,11 +32,11 @@ export default function Home() {
           <div className="relative inline-block">
             <div className="absolute inset-0 bg-purple-500 blur-3xl opacity-20 rounded-full"></div>
             <h1 className="text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600 relative">
-              AIpex
+              AIpex - The Best Tab Manager Extension for Google Chrome
             </h1>
           </div>
           <p className="text-2xl text-gray-600 dark:text-gray-300 mb-8">
-            The Best Tab Manager Extension for Google Chrome
+            Tab Manager & History Manager & BookMark Manager & ChatGPT Sidebar
           </p>
           <Button
             size="lg"
@@ -52,7 +52,7 @@ export default function Home() {
         <main>
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              Supercharge Your Browsing with AI
+              Best Browsing Experience
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
@@ -85,13 +85,17 @@ export default function Home() {
                   <CardHeader className="bg-gradient-to-br from-purple-500 to-pink-500 p-6 group-hover:from-purple-600 group-hover:to-pink-600 transition-all duration-300">
                     <feature.icon className="w-12 h-12 mb-4 text-white" />
                     <CardTitle className="text-white">
+                      <h3>
                       {feature.title}
+                      </h3>
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-6">
+                    <h4>
                     <p className="text-gray-600 dark:text-gray-300">
                       {feature.description}
                     </p>
+                    </h4>
                   </CardContent>
                 </Card>
               ))}
@@ -127,7 +131,7 @@ export default function Home() {
                     'Effortlessly organize your tabs using AI-driven suggestions and groupings.',
                 },
                 {
-                  title: 'Unified Management',
+                  title: 'Best Tab Manager, restore tab, duplicate tab, maximize window in one click',
                   src: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*vHkVQfDKE5GOxHp-J6fE_w.gif',
                   alt: 'History, Tab, and Bookmark Manager',
                   description:
@@ -146,7 +150,9 @@ export default function Home() {
                   <Card className="relative bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300">
                     <CardHeader>
                       <CardTitle className="text-2xl font-semibold text-gray-800 dark:text-white">
+                        <h2>
                         {item.title}
+                        </h2>
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-6">
@@ -169,7 +175,7 @@ export default function Home() {
 
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              How AIpex Works
+              Features
             </h2>
             <Tabs defaultValue="tabs" className="w-full">
               <TabsList className="grid w-full grid-cols-4 mb-8">
