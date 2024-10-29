@@ -26,18 +26,18 @@ import { Metadata } from 'next';
 import AipexFeatures from '@/components/ui/inner-link';
 
 export const metadata: Metadata = {
-    title: 'AIpex - Restore tabs',
-    description: ' With AIPex, you can restore tabs in one keyword shorcut',
-    keywords: 'restore tabs,How to restore tabs on chrome',
+    title: 'AIpex - How to Restore Tabs in Chrome | Best Tab Restore Extension',
+    description: 'Learn how to restore closed tabs in Chrome with AIpex. Quick tab restoration with keyboard shortcuts. The best Chrome extension for restoring tabs and managing browser history.',
+    keywords: 'restore tabs, restore closed tabs, restore chrome tabs, how to restore tabs on chrome, chrome tab restore, restore last closed tab, restore tab shortcut, tab recovery chrome, reopen closed tabs chrome, restore tab history',
     openGraph: {
-      title: 'AIpex - Restore tabs',
-      description: 'Manage your tabs, history, and bookmarks with AI-powered assistance.',
-      images: [{ url: 'With AIPex, you can restore tabs in one keyword shorcut' }],
+      title: 'AIpex - Ultimate Chrome Tab Restore & Tab Recovery Solution',
+      description: 'Easily restore closed tabs in Chrome with one-click shortcuts. Never lose your tabs again with AIpex tab restore and tab recovery features.',
+      images: [{ url: 'https://source.unsplash.com/random/1200x630?chrome+tab+restore' }],
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'AIpex - Intelligent Chrome Extension',
-      description: 'Manage your tabs, history, and bookmarks with AI-powered assistance.',
+      title: 'AIpex - Professional Tab Restore & Tab Recovery Extension',
+      description: 'The most efficient way to restore tabs in Chrome. Restore closed tabs instantly with our powerful tab restore features.',
       images: ['https://source.unsplash.com/random/1200x630?chrome+extension'],
     },
   };
@@ -50,12 +50,12 @@ export default function Restore() {
           <div className="relative inline-block">
             <div className="absolute inset-0 bg-purple-500 blur-3xl opacity-20 rounded-full"></div>
             <h1 className="text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600 relative">
-              How to restore tabs on chrome ​?
+              How to Restore Tabs in Chrome - Complete Guide to Tab Recovery
             </h1>
           </div>
           <p className="text-2xl text-gray-600 dark:text-gray-300 mb-8">
             <a href='https://aipex.quest'>
-            With AIPex, you can restore tabs in one keyword shorcut
+            Instantly restore closed tabs and recover lost browsing sessions with AIpex&apos;s powerful tab restore features
             </a>
           </p>
           <Button
@@ -64,7 +64,7 @@ export default function Restore() {
           >
             <Chrome className="mr-2 h-5 w-5" />{' '}
             <a href="https://chromewebstore.google.com/detail/aipex-%E2%80%94%E2%80%94-tab-history-mana/iglkpadagfelcpmiidndgjgafpdifnke?utm_source=ext_app_menu">
-              Add AIpex to Chrome
+              Get Ultimate Tab Restore Extension
             </a>
           </Button>
         </header>
@@ -72,16 +72,16 @@ export default function Restore() {
         <main>
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-                Restore tabs with AIPex
+                Quick Tab Restore & Recovery with AIpex
             </h2>
             <div className="grid grid-cols-1 gap-12">
               {[
                 {
-                  title: 'restore tabs on chrome',
+                  title: 'Restore Closed Tabs & Recover Lost Sessions Instantly',
                   src: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*oXexreLF9ROK85iv58ZRNQ.gif',
-                  alt: 'restore tab',
+                  alt: 'Chrome tab restore and recovery demonstration',
                   description:
-                    'How to restore tabs on chrome ​? Command/Ctrl + M and then you get there !',
+                    'Never lose your tabs again! Simply use Command/Ctrl + M to restore any closed tab in Chrome instantly. Our advanced tab restore features help you recover your entire browsing history.',
                 }
               ].map((item, index) => (
                 <div key={index} className="relative group">
@@ -112,14 +112,14 @@ export default function Restore() {
 
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-                How to Restore Tabs with AIPex?
+                Complete Guide to Tab Restore and Recovery in Chrome
             </h2>
             
             <div className="max-w-3xl mx-auto">
                 <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
                 <div className="mb-8 text-center">
                     <span className="inline-flex items-center justify-center bg-blue-100 dark:bg-blue-900 rounded-lg px-4 py-2 text-lg font-medium text-blue-800 dark:text-blue-200">
-                    Just Two Simple Steps
+                    Restore Tabs and Recover Sessions in Two Easy Steps
                     </span>
                 </div>
 
@@ -131,7 +131,7 @@ export default function Restore() {
                     <div>
                         <h3 className="text-xl font-semibold mb-2 dark:text-white">Press Command + M</h3>
                         <p className="text-gray-600 dark:text-gray-300">
-                        Use this simple keyboard shortcut to open the restore panel
+                        Access the tab restore and recovery panel with this universal shortcut
                         </p>
                     </div>
                     </div>
@@ -141,9 +141,9 @@ export default function Restore() {
                         <span className="text-white font-bold">2</span>
                     </div>
                     <div>
-                        <h3 className="text-xl font-semibold mb-2 dark:text-white">Type "restore"</h3>
+                        <h3 className="text-xl font-semibold mb-2 dark:text-white">Type &quot;restore&quot;</h3>
                         <p className="text-gray-600 dark:text-gray-300">
-                        Search for your closed tabs by typing "restore" in the search box
+                        Find and restore recently closed tabs from your complete browsing history
                         </p>
                     </div>
                     </div>
@@ -157,7 +157,7 @@ export default function Restore() {
                         </svg>
                     </div>
                     <p className="ml-3 text-sm text-gray-600 dark:text-gray-300">
-                        <span className="font-medium">Pro tip:</span> You can also use this shortcut anytime to quickly find and restore your recently closed tabs
+                        <span className="font-medium">Pro tip:</span> Use AIpex&apos;s advanced tab restore features anytime to recover your browsing sessions and restore important tabs
                     </p>
                     </div>
                 </div>
@@ -170,7 +170,7 @@ export default function Restore() {
 
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              Frequently Asked Questions about restore tabs
+              Common Questions About Tab Restore and Recovery
             </h2>
             <Accordion
               type="single"
@@ -179,36 +179,36 @@ export default function Restore() {
             >
               {[
                 {
-                    "question": "How can I quickly restore tabs in AIpex?",
-                    "answer": "With AIpex, you can instantly restore tabs using the simple Command+M shortcut. This quick keyboard combination makes tab restoration effortless and easy to remember."
+                    "question": "What's the fastest way to restore tabs with AIpex?",
+                    "answer": "AIpex provides the quickest tab restore solution with Command+M shortcut. This simple keyboard combination lets you restore tabs instantly without any additional clicks."
                 },
                 {
-                    "question": "What makes AIpex's restore tabs feature better than other extensions?",
-                    "answer": "AIpex's restore tabs feature stands out with its minimalist approach - just press Command+M. Unlike other tab managers that require multiple steps, AIpex reduces the learning curve to a single, memorable shortcut."
+                    "question": "How does AIpex's tab restore feature compare to Chrome's built-in options?",
+                    "answer": "AIpex offers a more comprehensive tab restore experience with a single keyboard shortcut (Command+M). Unlike Chrome's built-in Ctrl+Shift+T, AIpex provides a searchable history of closed tabs and smarter tab restore features."
                 },
                 {
-                    "question": "How to restore chrome tabs",
-                    "answer": "With AIPex, you can quickly restore chrome tabs with one second, just command/ctrl + M."
+                    "question": "Can I restore multiple closed tabs at once?",
+                    "answer": "Yes! AIpex's advanced tab restore capabilities allow you to restore multiple tabs simultaneously. Simply use Command+M to open the restore panel and select multiple tabs from your browsing history."
                 },
                 {
-                    "question": "How to undo closing a tab ?",
-                    "answer": "With AIPex, you can quickly restore chrome tabs with one second, just command/ctrl + M."
+                    "question": "How long does AIpex keep my closed tab history for restoration?",
+                    "answer": "AIpex maintains an extensive history of your closed tabs, making it easy to restore tabs from previous browsing sessions. You can access and restore tabs from weeks ago using our powerful tab restore features."
                 },
                 {
-                    "question": "Is AIpex's restore tabs feature free to use?",
-                    "answer": "Yes, AIpex's restore tabs feature is completely free. You can restore unlimited tabs using the Command+M shortcut without any subscription or hidden costs."
+                    "question": "Is the tab restore feature available offline?",
+                    "answer": "Yes, AIpex's tab restore feature works offline. Your recent tab history is stored locally, allowing you to restore tabs even without an internet connection."
                 },
                 {
-                    "question": "Why should I use AIpex for restoring tabs?",
-                    "answer": "AIpex offers the simplest way to restore tabs with just Command+M. This low memory burden combined with reliable tab restoration makes it the ideal choice for users who want an efficient, straightforward tab management solution."
+                    "question": "Why choose AIpex for tab restoration?",
+                    "answer": "AIpex combines speed, simplicity, and powerful tab restore features for the best tab recovery experience. With intelligent tab management and a user-friendly interface, it's the most efficient way to restore and organize your browsing sessions."
                 }
                 ].map((item, index) => (
-                <AccordionItem key={index} value={`item-${index + 1}`}>
+                  <AccordionItem key={index} value={`item-${index + 1}`}>
                   <AccordionTrigger className="px-6 py-4 text-lg font-semibold text-gray-800 dark:text-white hover:bg-purple-50 dark:hover:bg-purple-900">
-                    {item.question}
+                    <h3>{item.question}</h3>
                   </AccordionTrigger>
                   <AccordionContent className="px-6 py-4 text-gray-600 dark:text-gray-300">
-                    {item.answer}
+                    <h4>{item.answer}</h4>
                   </AccordionContent>
                 </AccordionItem>
               ))}
@@ -217,11 +217,11 @@ export default function Restore() {
 
           <section className="text-center mb-24">
             <h2 className="text-4xl font-bold mb-6 text-gray-800 dark:text-white">
-              Open Source AI Chrome Extension
+              Open Source Tab Restore Solution
             </h2>
             <p className="text-xl mb-8 text-gray-600 dark:text-gray-300">
-              AIpex is an open source and free-to-use AI Chrome extension.
-              Contribute to our project on GitHub!
+              AIpex is a free, open-source Chrome extension for intelligent tab restore and management.
+              Join our community and contribute to better tab restoration!
             </p>
             <Button
               variant="outline"
@@ -240,7 +240,7 @@ export default function Restore() {
         <footer className="text-center text-gray-600 dark:text-gray-400 py-6">
           <div className="mb-4">
             <p className="mb-3">
-              &copy; 2024 AIpex - The Best Tab Manager Extension for Google Chrome. All rights reserved.
+              &copy; 2024 AIpex - The Ultimate Chrome Tab Restore & Recovery Extension. All rights reserved.
             </p>
           </div>
         </footer>

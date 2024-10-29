@@ -32,11 +32,11 @@ export default function Home() {
           <div className="relative inline-block">
             <div className="absolute inset-0 bg-purple-500 blur-3xl opacity-20 rounded-full"></div>
             <h1 className="text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600 relative">
-              AIpex - The Best Tab Manager Extension for Google Chrome
+              AIpex - Ultimate Chrome Tab Manager & Browser Tab Organizer
             </h1>
           </div>
           <p className="text-2xl text-gray-600 dark:text-gray-300 mb-8">
-            Tab Manager & History Manager & BookMark Manager & ChatGPT Sidebar
+            Professional Tab Manager with Smart Tab Organization, Tab Groups & Advanced Tab Controls
           </p>
           <Button
             size="lg"
@@ -44,7 +44,7 @@ export default function Home() {
           >
             <Chrome className="mr-2 h-5 w-5" />{' '}
             <a href="https://chromewebstore.google.com/detail/aipex-%E2%80%94%E2%80%94-tab-history-mana/iglkpadagfelcpmiidndgjgafpdifnke?utm_source=ext_app_menu">
-              Add AIpex to Chrome{' '}
+              Install Tab Manager Extension{' '}
             </a>
           </Button>
         </header>
@@ -52,30 +52,30 @@ export default function Home() {
         <main>
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              Best Browsing Experience
+              Advanced Tab Management Features
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
                 {
-                  title: 'Smart Tab Management',
+                  title: 'Intelligent Tab Organization',
                   icon: Layout,
-                  description: 'AI-powered tab organization and grouping',
+                  description: 'AI-powered tab grouping and automatic tab sorting',
                 },
                 {
-                  title: 'Intelligent History',
+                  title: 'Smart Tab History',
                   icon: History,
-                  description: 'Context-aware browsing history suggestions',
+                  description: 'Advanced tab history tracking with search capabilities',
                 },
                 {
-                  title: 'One Shortcut',
+                  title: 'Tab Control Shortcuts',
                   icon: Bookmark,
                   description:
-                    'Unified shortcut enable quick reflections',
+                    'Quick tab management with customizable keyboard shortcuts',
                 },
                 {
-                  title: 'ChatGPT Sidebar',
+                  title: 'AI Tab Assistant',
                   icon: MessageSquare,
-                  description: 'Integrated AI assistant for instant help',
+                  description: 'ChatGPT-powered tab suggestions and organization',
                 },
               ].map((feature, index) => (
                 <Card
@@ -104,12 +104,12 @@ export default function Home() {
 
           <section className="w-full max-w-7xl mx-auto px-4 mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              Watch AIpex in Action
+              See Our Tab Manager in Action
             </h2>
             <div className="aspect-w-16 aspect-h-9" style={{ paddingBottom: '56.25%', position: 'relative', height: 0, overflow: 'hidden' }}>
               <iframe
                 src="https://www.youtube.com/embed/C7m4p8uPmag"
-                title="AIpex Demo Video"
+                title="AIpex Tab Manager Demo Video"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
@@ -119,30 +119,30 @@ export default function Home() {
 
           <section className="w-full max-w-7xl mx-auto px-4 mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              AIpex: The AI Chrome Extension in Action
+              Professional Tab Management Solutions
             </h2>
             <div className="grid grid-cols-1 gap-12">
               {[
                 {
-                  title: 'AI-Powered Tab Organization',
+                  title: 'Smart Tab Groups & Organization',
                   src: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*9C-GLUsdt2kk2lgSnbSyxw.gif',
-                  alt: 'AI-Powered Tab Organization',
+                  alt: 'Tab Groups and Organization',
                   description:
-                    'Effortlessly organize your tabs using AI-driven suggestions and groupings.',
+                    'Automatically organize and group related tabs for better productivity and workflow management.',
                 },
                 {
-                  title: 'Best Tab Manager, restore tab, duplicate tab, maximize window in one click',
+                  title: 'Complete Tab Control Suite',
                   src: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*vHkVQfDKE5GOxHp-J6fE_w.gif',
-                  alt: 'History, Tab, and Bookmark Manager',
+                  alt: 'Tab Control Features',
                   description:
-                    'Seamlessly manage your history, tabs, and bookmarks in one place.',
+                    'Restore tabs, duplicate tabs, and manage windows with powerful tab management tools.',
                 },
                 {
-                  title: 'ChatGPT Sidebar',
+                  title: 'AI-Powered Tab Assistant',
                   src: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*SgLf-C8bbcfdZUzm0ICZ8A.gif',
-                  alt: 'ChatGPT Sidebar',
+                  alt: 'AI Tab Assistant',
                   description:
-                    'Get instant AI assistance with our integrated ChatGPT sidebar.',
+                    'Get intelligent tab suggestions and management recommendations from our AI assistant.',
                 },
               ].map((item, index) => (
                 <div key={index} className="relative group">
@@ -175,51 +175,51 @@ export default function Home() {
 
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              Features
+              Comprehensive Tab Management Features
             </h2>
             <Tabs defaultValue="tabs" className="w-full">
               <TabsList className="grid w-full grid-cols-4 mb-8">
                 <TabsTrigger value="tabs" className="text-lg">
-                  Tabs
+                  Tab Manager
                 </TabsTrigger>
                 <TabsTrigger value="history" className="text-lg">
-                  History
+                  Tab History
                 </TabsTrigger>
                 <TabsTrigger value="bookmarks" className="text-lg">
-                  Bookmarks
+                  Tab Bookmarks
                 </TabsTrigger>
                 <TabsTrigger value="chatgpt" className="text-lg">
-                  ChatGPT
+                  Tab Assistant
                 </TabsTrigger>
               </TabsList>
               {[
                 {
                   value: 'tabs',
-                  title: 'Tab Management',
-                  description: 'Organize your tabs efficiently',
+                  title: 'Advanced Tab Management',
+                  description: 'Professional tab organization tools',
                   content:
-                    "AIpex uses advanced AI algorithms to group related tabs, identify and merge duplicate tabs, and provide quick access to your most frequently used tabs. It's the best tab manager extension for Google Chrome, learning from your browsing habits to optimize your workflow.",
+                    "Our tab manager uses cutting-edge AI algorithms to intelligently group related tabs, eliminate tab clutter, and streamline your browsing experience. Perfect for users who work with multiple tabs and need efficient tab organization.",
                 },
                 {
                   value: 'history',
-                  title: 'History Management',
-                  description: 'Navigate your browsing history with ease',
+                  title: 'Smart Tab History',
+                  description: 'Enhanced tab history tracking',
                   content:
-                    'Our intelligent history management system uses context-aware AI to suggest relevant past visits based on your current browsing session. It makes finding that elusive webpage you visited last week a breeze.',
+                    'The intelligent tab history system provides context-aware suggestions based on your browsing patterns, making it easy to find and restore previously closed tabs and manage your browsing sessions effectively.',
                 },
                 {
                   value: 'bookmarks',
-                  title: 'Bookmark Management',
-                  description: 'Keep your bookmarks organized',
+                  title: 'Tab Bookmark Organization',
+                  description: 'Efficient tab bookmark management',
                   content:
-                    'AIpex automatically categorizes and tags your bookmarks using natural language processing. It creates a dynamic, self-organizing bookmark system that evolves with your interests and makes finding saved pages intuitive.',
+                    'Our tab manager automatically categorizes and organizes your bookmarked tabs using advanced AI technology, creating an intuitive and self-organizing system that adapts to your browsing habits.',
                 },
                 {
                   value: 'chatgpt',
-                  title: 'ChatGPT Sidebar',
-                  description: 'AI-powered assistance at your fingertips',
+                  title: 'AI Tab Assistant',
+                  description: 'Intelligent tab management help',
                   content:
-                    "The integrated ChatGPT sidebar provides instant, context-aware assistance. Whether you need a quick summary of a long article, help with research, or coding tips, AIpex's AI assistant is always ready to help, making it a truly intelligent Chrome extension.",
+                    "The integrated AI assistant provides smart suggestions for tab organization, helps you find specific tabs quickly, and offers personalized recommendations for improving your tab management workflow.",
                 },
               ].map((tab) => (
                 <TabsContent key={tab.value} value={tab.value}>
@@ -247,7 +247,7 @@ export default function Home() {
 
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              Frequently Asked Questions about AIpex
+              Tab Manager FAQs
             </h2>
             <Accordion
               type="single"
@@ -256,38 +256,38 @@ export default function Home() {
             >
               {[
                 {
-                  question: 'Is AIpex free to use?',
+                  question: 'Is this tab manager free to use?',
                   answer:
-                    'Yes, AIpex is completely free and open-source. You can use all its features, including the tab manager and ChatGPT sidebar, without any cost.',
+                    'Yes, our tab manager is completely free and open-source. All features, including advanced tab organization and AI assistance, are available at no cost.',
                 },
                 {
-                  question: 'How does AIpex handle my data?',
+                  question: 'How does the tab manager handle my browsing data?',
                   answer:
-                    "AIpex respects your privacy. All data processing happens locally on your device. We don't store or transmit your browsing data to any external servers.",
+                    "Our tab manager processes all data locally on your device. We prioritize your privacy and don't store or transmit your browsing information to external servers.",
                 },
                 {
-                  question: 'Can I use AIpex on browsers other than Chrome?',
+                  question: 'Can I use this tab manager on other browsers?',
                   answer:
-                    "Currently, AIpex is only available as a Chrome extension. We're considering support for other browsers in the future.",
+                    "Currently, our tab manager is exclusively available as a Chrome extension. We're exploring options to support additional browsers in future updates.",
                 },
                 {
-                  question: 'How can I contribute to the AIpex project?',
+                  question: 'How can I contribute to improving the tab manager?',
                   answer:
-                    'As an open-source project, we welcome contributions! You can contribute by submitting bug reports, feature requests, or pull requests on our GitHub repository.',
+                    'As an open-source project, we welcome contributions to enhance our tab manager! You can submit bug reports, feature suggestions, or code contributions through our GitHub repository.',
                 },
                 {
                   question:
-                    'What makes AIpex the best tab manager extension for Google Chrome?',
+                    'What makes this the most effective tab manager for Chrome?',
                   answer:
-                    'AIpex combines AI-powered tab management, intelligent history suggestions, dynamic bookmarks, and a ChatGPT sidebar. This comprehensive approach to browser organization and assistance sets it apart from other tab managers.',
+                    'Our tab manager combines AI-powered tab organization, smart history tracking, intelligent bookmarking, and an AI assistant. This comprehensive approach to tab management sets it apart from traditional tab organizers.',
                 },
               ].map((item, index) => (
                 <AccordionItem key={index} value={`item-${index + 1}`}>
                   <AccordionTrigger className="px-6 py-4 text-lg font-semibold text-gray-800 dark:text-white hover:bg-purple-50 dark:hover:bg-purple-900">
-                    {item.question}
+                    <h3>{item.question}</h3>
                   </AccordionTrigger>
                   <AccordionContent className="px-6 py-4 text-gray-600 dark:text-gray-300">
-                    {item.answer}
+                    <h4>{item.answer}</h4>
                   </AccordionContent>
                 </AccordionItem>
               ))}
@@ -296,11 +296,10 @@ export default function Home() {
 
           <section className="text-center mb-24">
             <h2 className="text-4xl font-bold mb-6 text-gray-800 dark:text-white">
-              Open Source AI Chrome Extension
+              Open Source Tab Manager
             </h2>
             <p className="text-xl mb-8 text-gray-600 dark:text-gray-300">
-              AIpex is an open source and free-to-use AI Chrome extension.
-              Contribute to our project on GitHub!
+              Our tab manager is open source and free to use. Join our community and help improve tab management for everyone!
             </p>
             <Button
               variant="outline"
@@ -310,7 +309,7 @@ export default function Home() {
               <Github className="mr-2 h-5 w-5" />{' '}
               <a href="https://github.com/buttercannfly/AIpex" target="_blank" >
                 {' '}
-                View AIpex on GitHub
+                View Tab Manager on GitHub
               </a>
             </Button>
           </section>
@@ -319,7 +318,7 @@ export default function Home() {
         <footer className="text-center text-gray-600 dark:text-gray-400 py-6">
           <div className="mb-4">
             <p className="mb-3">
-              &copy; 2024 AIpex - The Best Tab Manager Extension for Google Chrome. All rights reserved.
+              &copy; 2024 AIpex - Professional Chrome Tab Manager & Browser Extension. All rights reserved.
             </p>
             <div className="flex justify-center gap-4 text-sm">
               <a 

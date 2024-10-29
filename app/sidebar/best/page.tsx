@@ -17,18 +17,18 @@ import { Metadata } from 'next';
 import AipexFeatures from '@/components/ui/inner-link';
 
 export const metadata: Metadata = {
-    title: 'AIpex - Best ChatGPT Sidebar',
-    description: 'With AIPex, you can embed a ChatGPT sidebar in any webpage for instant AI-powered answers',
-    keywords: 'ChatGPT sidebar, AI chat, ChatGPT in Chrome, AIPex ChatGPT',
+    title: 'AIpex - Best Chrome Sidebar Extension | ChatGPT Sidebar Extension',
+    description: 'AIpex is the ultimate Chrome sidebar extension that lets you embed ChatGPT in any webpage. The most powerful and user-friendly sidebar extension for Chrome.',
+    keywords: 'sidebar extension, chrome sidebar extension, best sidebar extension, chatgpt sidebar extension, browser sidebar extension, web sidebar extension, chrome extension sidebar, sidebar extension for chrome, sidebar extension chrome, sidebar extension chatgpt',
     openGraph: {
-      title: 'AIpex - Best ChatGPT Sidebar',
-      description: 'With AIPex, you can embed a ChatGPT sidebar in any webpage for instant AI-powered answers',
-      images: [{ url: 'With AIPex, you can embed a ChatGPT sidebar in any webpage for instant AI-powered answers' }],
+      title: 'AIpex - Best Chrome Sidebar Extension | ChatGPT Sidebar Extension',
+      description: 'AIpex is the ultimate Chrome sidebar extension that lets you embed ChatGPT in any webpage. The most powerful and user-friendly sidebar extension for Chrome.',
+      images: [{ url: 'https://source.unsplash.com/random/1200x630?chrome+sidebar+extension' }],
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'AIpex - Intelligent Chrome Extension',
-      description: 'With AIPex, you can embed a ChatGPT sidebar in any webpage for instant AI-powered answers',
+      title: 'AIpex - Best Chrome Sidebar Extension',
+      description: 'The most powerful and user-friendly sidebar extension for Chrome. Embed ChatGPT in any webpage instantly.',
       images: ['https://source.unsplash.com/random/1200x630?chrome+extension'],
     },
   };
@@ -41,12 +41,12 @@ export default function BestChatGPTSidebar() {
           <div className="relative inline-block">
             <div className="absolute inset-0 bg-purple-500 blur-3xl opacity-20 rounded-full"></div>
             <h1 className="text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600 relative">
-              Best ChatGPT Sidebar for Chrome
+              Best Chrome Sidebar Extension with ChatGPT Integration
             </h1>
           </div>
           <p className="text-2xl text-gray-600 dark:text-gray-300 mb-8">
             <a href='https://aipex.quest'>
-              With AIPex, embed a ChatGPT sidebar in any webpage for instant AI-powered answers
+              Transform your browsing experience with AIpex - the most powerful Chrome sidebar extension for instant AI assistance
             </a>
           </p>
           <Button
@@ -55,7 +55,7 @@ export default function BestChatGPTSidebar() {
           >
             <Chrome className="mr-2 h-5 w-5" />{' '}
             <a href="https://chromewebstore.google.com/detail/aipex-%E2%80%94%E2%80%94-tab-history-mana/iglkpadagfelcpmiidndgjgafpdifnke?utm_source=ext_app_menu">
-              Add AIPex to Chrome
+              Install AIpex Sidebar Extension
             </a>
           </Button>
         </header>
@@ -63,7 +63,7 @@ export default function BestChatGPTSidebar() {
         <main>
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              Embed ChatGPT Sidebar with AIPex
+              The Ultimate Chrome Sidebar Extension
             </h2>
             <div className="grid grid-cols-1 gap-12">
               <div className="relative group">
@@ -71,19 +71,19 @@ export default function BestChatGPTSidebar() {
                 <Card className="relative bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300">
                   <CardHeader>
                     <CardTitle className="text-2xl font-semibold text-gray-800 dark:text-white">
-                      ChatGPT Sidebar in Chrome
+                      Most Advanced Sidebar Extension for Chrome
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div className="relative w-full h-120 overflow-hidden rounded-lg">
                       <img
                         src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*IqAGAVkCJ8MYH0MqdLANkQ.gif"
-                        alt="ChatGPT Sidebar"
+                        alt="Chrome Sidebar Extension Demo"
                         className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
                       />
                     </div>
                     <p className="text-lg text-gray-600 dark:text-gray-300">
-                      How to embed a ChatGPT sidebar in Chrome? Press Command/Ctrl + M and type "ai" - it's that simple!
+                      Experience the best Chrome sidebar extension: Press Command/Ctrl + M and type &quot;ai&quot; - it&apos;s that simple!
                     </p>
                   </CardContent>
                 </Card>
@@ -93,14 +93,14 @@ export default function BestChatGPTSidebar() {
 
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              How to Embed ChatGPT Sidebar with AIPex?
+              How to Use Our Chrome Sidebar Extension?
             </h2>
             
             <div className="max-w-3xl mx-auto">
               <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
                 <div className="mb-8 text-center">
                   <span className="inline-flex items-center justify-center bg-blue-100 dark:bg-blue-900 rounded-lg px-4 py-2 text-lg font-medium text-blue-800 dark:text-blue-200">
-                    Just Two Simple Steps
+                    Quick Setup Guide
                   </span>
                 </div>
 
@@ -112,7 +112,7 @@ export default function BestChatGPTSidebar() {
                     <div>
                       <h3 className="text-xl font-semibold mb-2 dark:text-white">Press Command + M</h3>
                       <p className="text-gray-600 dark:text-gray-300">
-                        Use this simple keyboard shortcut to open the AIPex command panel
+                        Activate your sidebar extension with this simple keyboard shortcut
                       </p>
                     </div>
                   </div>
@@ -122,9 +122,9 @@ export default function BestChatGPTSidebar() {
                       <span className="text-white font-bold">2</span>
                     </div>
                     <div>
-                      <h3 className="text-xl font-semibold mb-2 dark:text-white">Type "ai"</h3>
+                      <h3 className="text-xl font-semibold mb-2 dark:text-white">Type &quot;ai&quot;</h3>
                       <p className="text-gray-600 dark:text-gray-300">
-                        Simply type "ai" to instantly embed a ChatGPT sidebar in your current webpage
+                        Launch the AI-powered sidebar extension instantly in your current webpage
                       </p>
                     </div>
                   </div>
@@ -138,7 +138,7 @@ export default function BestChatGPTSidebar() {
                       </svg>
                     </div>
                     <p className="ml-3 text-sm text-gray-600 dark:text-gray-300">
-                      <span className="font-medium">Pro tip:</span> You can use this shortcut to quickly embed a ChatGPT sidebar whenever you need AI-powered answers
+                      <span className="font-medium">Pro tip:</span> Our sidebar extension works seamlessly across all websites for maximum productivity
                     </p>
                   </div>
                 </div>
@@ -150,7 +150,7 @@ export default function BestChatGPTSidebar() {
 
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              Frequently Asked Questions about ChatGPT Sidebar
+              Chrome Sidebar Extension FAQs
             </h2>
             <Accordion
               type="single"
@@ -159,32 +159,32 @@ export default function BestChatGPTSidebar() {
             >
               {[
                 {
-                  "question": "What's the shortcut key to embed a ChatGPT sidebar in Chrome using AIPex?",
-                  "answer": "With AIPex, embedding a ChatGPT sidebar is as simple as pressing Command+M and typing 'ai'. This quick keyboard shortcut makes AI-powered answers accessible and instantaneous."
+                  "question": "What makes AIpex the best Chrome sidebar extension?",
+                  "answer": "AIpex stands out as the best Chrome sidebar extension due to its seamless integration, powerful AI capabilities, and intuitive keyboard shortcuts. Our sidebar extension combines functionality with ease of use."
                 },
                 {
-                  "question": "How to embed a ChatGPT sidebar in Chrome with AIPex?",
-                  "answer": "AIPex's ChatGPT sidebar feature offers a more streamlined experience with a single keyboard shortcut (Command+M). Unlike traditional methods, AIPex makes the process faster and more intuitive."
+                  "question": "How does AIpex sidebar extension compare to other Chrome extensions?",
+                  "answer": "AIpex offers a more comprehensive sidebar experience with instant AI integration, customizable features, and faster performance compared to traditional Chrome sidebar extensions."
                 },
                 {
-                  "question": "Can I customize the ChatGPT sidebar with AIPex?",
-                  "answer": "Yes, AIPex allows you to customize the ChatGPT sidebar to suit your needs. Simply use Command+M and type 'ai' to access and modify the sidebar settings."
+                  "question": "Can I customize the sidebar extension settings?",
+                  "answer": "Yes, AIpex provides full customization options for your sidebar extension. Adjust the size, position, and behavior to match your browsing preferences."
                 },
                 {
-                  "question": "Is AIPex's ChatGPT sidebar feature free to use?",
-                  "answer": "Yes, AIPex's ChatGPT sidebar feature is completely free. You can embed and use the ChatGPT sidebar using the Command+M shortcut without any subscription or hidden costs."
+                  "question": "Is this Chrome sidebar extension free to use?",
+                  "answer": "Yes, AIpex sidebar extension is completely free. You get full access to all features without any subscription fees or hidden costs."
                 },
                 {
-                  "question": "Why should I use AIPex for embedding a ChatGPT sidebar?",
-                  "answer": "AIPex offers the fastest and most convenient way to embed a ChatGPT sidebar with just Command+M and typing 'ai'. This simple approach, combined with its reliability and efficiency, makes it the ideal choice for users who frequently need AI-powered answers."
+                  "question": "Why choose AIpex as your Chrome sidebar extension?",
+                  "answer": "AIpex is the most advanced and user-friendly sidebar extension available for Chrome. With AI integration, quick access shortcuts, and robust features, it enhances your browsing experience significantly."
                 }
               ].map((item, index) => (
                 <AccordionItem key={index} value={`item-${index + 1}`}>
                   <AccordionTrigger className="px-6 py-4 text-lg font-semibold text-gray-800 dark:text-white hover:bg-purple-50 dark:hover:bg-purple-900">
-                    {item.question}
+                    <h3>{item.question}</h3>
                   </AccordionTrigger>
                   <AccordionContent className="px-6 py-4 text-gray-600 dark:text-gray-300">
-                    {item.answer}
+                    <h4>{item.answer}</h4>
                   </AccordionContent>
                 </AccordionItem>
               ))}
@@ -193,11 +193,11 @@ export default function BestChatGPTSidebar() {
 
           <section className="text-center mb-24">
             <h2 className="text-4xl font-bold mb-6 text-gray-800 dark:text-white">
-              Open Source AI Chrome Extension
+              Open Source Sidebar Extension
             </h2>
             <p className="text-xl mb-8 text-gray-600 dark:text-gray-300">
-              AIPex is an open source and free-to-use AI Chrome extension.
-              Contribute to our project on GitHub!
+              AIpex is an open source and free Chrome sidebar extension.
+              Join our community and help improve the future of browser extensions!
             </p>
             <Button
               variant="outline"
@@ -206,7 +206,7 @@ export default function BestChatGPTSidebar() {
             >
               <Github className="mr-2 h-5 w-5" />{' '}
               <a href="https://github.com/buttercannfly/AIPex" target="_blank">
-                View AIPex on GitHub
+                View AIpex on GitHub
               </a>
             </Button>
           </section>
@@ -215,7 +215,7 @@ export default function BestChatGPTSidebar() {
         <footer className="text-center text-gray-600 dark:text-gray-400 py-6">
           <div className="mb-4">
             <p className="mb-3">
-              &copy; 2024 AIPex - The Best ChatGPT Sidebar Extension for Google Chrome. All rights reserved.
+              &copy; 2024 AIpex - The Best Chrome Sidebar Extension with AI Integration. All rights reserved.
             </p>
           </div>
         </footer>
