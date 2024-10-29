@@ -18,7 +18,7 @@ import AipexFeatures from '@/components/ui/inner-link';
 
 export const metadata: Metadata = {
     title: 'AIpex - Best Chrome Sidebar Extension | ChatGPT Sidebar Extension',
-    description: 'AIpex is the ultimate Chrome sidebar extension that lets you embed ChatGPT in any webpage. The most powerful and user-friendly sidebar extension for Chrome.',
+    description: 'AIpex is the ultimate Chrome sidebar extension that lets you embed ChatGPT in any webpage.',
     keywords: 'sidebar extension, chrome sidebar extension, best sidebar extension, chatgpt sidebar extension, browser sidebar extension, web sidebar extension, chrome extension sidebar, sidebar extension for chrome, sidebar extension chrome, sidebar extension chatgpt',
     openGraph: {
       title: 'AIpex - Best Chrome Sidebar Extension | ChatGPT Sidebar Extension',
@@ -31,6 +31,12 @@ export const metadata: Metadata = {
       description: 'The most powerful and user-friendly sidebar extension for Chrome. Embed ChatGPT in any webpage instantly.',
       images: ['https://source.unsplash.com/random/1200x630?chrome+extension'],
     },
+    alternates: {
+      canonical: 'https://aipex.quest/sidebar/best',
+      languages: {
+        'en-US': 'https://aipex.quest/sidebar/best',
+      }
+    }
   };
 
 export default function BestChatGPTSidebar() {

@@ -31,6 +31,12 @@ export const metadata: Metadata = {
       description: 'With AIPex, you can clear cache in one keyword shortcut',
       images: ['https://source.unsplash.com/random/1200x630?chrome+extension'],
     },
+    alternates: {
+      canonical: 'https://aipex.quest/settings/cache',
+      languages: {
+        'en-US': 'https://aipex.quest/settings/cache',
+      }
+    }
   };
 
 export default function ClearCache() {

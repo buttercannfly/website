@@ -31,6 +31,12 @@ export const metadata: Metadata = {
       description: 'With AIPex, you can clear cookies in one keyword shortcut',
       images: ['https://source.unsplash.com/random/1200x630?chrome+extension'],
     },
+    alternates: {
+      canonical: 'https://aipex.quest/settings/cookies',
+      languages: {
+        'en-US': 'https://aipex.quest/settings/cookies',
+      }
+    }
   };
 
 export default function ClearCookies() {

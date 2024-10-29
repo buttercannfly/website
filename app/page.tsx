@@ -23,6 +23,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import AipexFeatures from '@/components/ui/inner-link';
+import { Metadata } from 'next';
 
 export default function Home() {
   return (
@@ -363,3 +364,14 @@ export default function Home() {
     </div>
   );
 }
+
+export const metadata: Metadata = {
+  title: 'AIpex - Ultimate Chrome Tab Manager & Browser Tab Organizer',
+  description: 'Professional Tab Manager with Smart Tab Organization, Tab Groups & Advanced Tab Controls',
+  alternates: {
+    canonical: 'https://aipex.quest',
+    languages: {
+      'en-US': 'https://aipex.quest',
+    }
+  }
+};
