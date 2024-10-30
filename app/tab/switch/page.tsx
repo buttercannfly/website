@@ -26,9 +26,9 @@ import { Metadata } from 'next';
 import AipexFeatures from '@/components/ui/inner-link';
 
 export const metadata: Metadata = {
-    title: 'AIpex - Switch tabs',
-    description: ' With AIPex, you can switch between open tabs in chrome​ in one keyword shorcut',
-    keywords: 'switch tab, How to switch tabs with keyboard, hotkey to switch tabs, tab search'
+    title: 'AIPex - The Best Way to Switch Tabs in Chrome',
+    description: 'Learn how to switch tabs efficiently in Chrome with AIPex. Quick tab switching with keyboard shortcuts and smart search.',
+    keywords: 'switch tabs, switch between tabs, tab switching chrome, how to switch tabs, chrome tab switcher, quick tab switch, keyboard tab switch'
   };
 
 export default function Restore() {
@@ -39,12 +39,12 @@ export default function Restore() {
           <div className="relative inline-block">
             <div className="absolute inset-0 bg-purple-500 blur-3xl opacity-20 rounded-full"></div>
             <h1 className="text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600 relative">
-              How to switch tabs on chrome ​?
+              Switch Tabs in Chrome Like a Pro
             </h1>
           </div>
           <p className="text-2xl text-gray-600 dark:text-gray-300 mb-8">
             <a href='https://aipex.quest'>
-            With AIPex, you can forgee the hotkey to switch tabs, just using Command/Ctrl + M
+              Master tab switching in Chrome with AIPex - The smartest way to switch between tabs using Command/Ctrl + M
             </a>
           </p>
           <Button
@@ -53,7 +53,7 @@ export default function Restore() {
           >
             <Chrome className="mr-2 h-5 w-5" />{' '}
             <a href="https://chromewebstore.google.com/detail/aipex-%E2%80%94%E2%80%94-tab-history-mana/iglkpadagfelcpmiidndgjgafpdifnke?utm_source=ext_app_menu">
-              Add AIpex to Chrome
+              Get Quick Tab Switching with AIPex
             </a>
           </Button>
         </header>
@@ -61,16 +61,16 @@ export default function Restore() {
         <main>
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-                Switch between open tabs
+                Effortless Tab Switching in Chrome
             </h2>
             <div className="grid grid-cols-1 gap-12">
               {[
                 {
-                  title: 'how to switch tabs on chrome',
+                  title: 'Switch Between Chrome Tabs Instantly',
                   src: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*asTnKKa6GIBOsB2s8_rF0w.gif',
-                  alt: 'switch tabs and tab search',
+                  alt: 'Quick tab switching demonstration',
                   description:
-                    'How to switch tabs on chrome ​? Command/Ctrl + M and then you get there !',
+                    'Switch tabs effortlessly in Chrome with AIPex. Just press Command/Ctrl + M to instantly switch between any open tabs!',
                 }
               ].map((item, index) => (
                 <div key={index} className="relative group">
@@ -101,14 +101,14 @@ export default function Restore() {
 
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-                How to Switch Tabs with AIPex?
+                Master Tab Switching with AIPex
             </h2>
             
             <div className="max-w-3xl mx-auto">
                 <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
                 <div className="mb-8 text-center">
                     <span className="inline-flex items-center justify-center bg-blue-100 dark:bg-blue-900 rounded-lg px-4 py-2 text-lg font-medium text-blue-800 dark:text-blue-200">
-                    Just Two Simple Steps
+                    Switch Tabs in Two Easy Steps
                     </span>
                 </div>
 
@@ -120,7 +120,7 @@ export default function Restore() {
                     <div>
                         <h3 className="text-xl font-semibold mb-2 dark:text-white">Press Command + M</h3>
                         <p className="text-gray-600 dark:text-gray-300">
-                        Use this simple keyboard shortcut to open the restore panel
+                        Activate AIPex's quick tab switcher with this simple shortcut
                         </p>
                     </div>
                     </div>
@@ -130,9 +130,9 @@ export default function Restore() {
                         <span className="text-white font-bold">2</span>
                     </div>
                     <div>
-                        <h3 className="text-xl font-semibold mb-2 dark:text-white">Type the url, title of the target tab</h3>
+                        <h3 className="text-xl font-semibold mb-2 dark:text-white">Search and Switch</h3>
                         <p className="text-gray-600 dark:text-gray-300">
-                        All optional tabs are listed, switch tabs as you click
+                        Type the URL or title to instantly switch to your desired tab
                         </p>
                     </div>
                     </div>
@@ -146,7 +146,7 @@ export default function Restore() {
                         </svg>
                     </div>
                     <p className="ml-3 text-sm text-gray-600 dark:text-gray-300">
-                        <span className="font-medium">Pro tip:</span> You can also use this shortcut anytime to quickly find and switch tabs, bookmarks and history
+                        <span className="font-medium">Pro tip:</span> Use AIPex's smart tab switching to quickly navigate between tabs, bookmarks, and history
                     </p>
                     </div>
                 </div>
@@ -159,7 +159,7 @@ export default function Restore() {
 
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              Frequently Asked Questions about switch tabs
+              Tab Switching FAQs - Everything You Need to Know
             </h2>
             <Accordion
               type="single"
@@ -168,32 +168,32 @@ export default function Restore() {
             >
               {[
                 {
-                    "question": "How can I quickly switch tabs on chrome in AIpex?",
-                    "answer": "With AIpex, you can instantly restore tabs using the simple Command+M shortcut. Select the tab and AIPex will travel there."
+                    "question": "What's the fastest way to switch tabs in Chrome?",
+                    "answer": "AIPex provides the fastest tab switching solution - just press Command+M and type your tab's name or URL. Our smart search instantly switches to your desired tab."
                 },
                 {
-                    "question": "How to switch tabs with keyboard​?",
-                    "answer": "WIth AIPex, command/ctrl + M"
+                    "question": "How does AIPex make tab switching easier?",
+                    "answer": "AIPex streamlines tab switching with intelligent search and keyboard shortcuts. Just use Command/Ctrl + M to switch between tabs instantly."
                 },
                 {
-                    "question": "What's the hotkey to switch tabs?",
-                    "answer": "WIth AIPex, command/ctrl + M"
+                    "question": "What makes AIPex the best tab switcher?",
+                    "answer": "AIPex combines smart search with quick keyboard shortcuts for the most efficient tab switching experience in Chrome."
                 },
                 {
-                    "question": "Is AIpex's switch tabs feature free to use?",
-                    "answer": "Yes, AIpex's switch tabs feature is completely free. You can restore unlimited tabs using the Command+M shortcut without any subscription or hidden costs."
+                    "question": "Is AIPex's tab switching feature free?",
+                    "answer": "Yes, AIPex's powerful tab switching feature is completely free. Switch between unlimited tabs without any subscription."
                 },
                 {
-                    "question": "What's the keyboard shortcut to switch tabs​",
-                    "answer": "WIth AIPex, command/ctrl + M, all optional tabs are listed."
+                    "question": "How to switch between multiple Chrome tabs quickly?",
+                    "answer": "Use AIPex's Command/Ctrl + M shortcut to instantly switch between any open tabs in Chrome."
                 }
                 ].map((item, index) => (
-                <AccordionItem key={index} value={`item-${index + 1}`}>
+                  <AccordionItem key={index} value={`item-${index + 1}`}>
                   <AccordionTrigger className="px-6 py-4 text-lg font-semibold text-gray-800 dark:text-white hover:bg-purple-50 dark:hover:bg-purple-900">
-                    {item.question}
+                    <h3>{item.question}</h3>
                   </AccordionTrigger>
                   <AccordionContent className="px-6 py-4 text-gray-600 dark:text-gray-300">
-                    {item.answer}
+                    <h4>{item.answer}</h4>
                   </AccordionContent>
                 </AccordionItem>
               ))}
@@ -202,11 +202,11 @@ export default function Restore() {
 
           <section className="text-center mb-24">
             <h2 className="text-4xl font-bold mb-6 text-gray-800 dark:text-white">
-              Open Source AI Chrome Extension
+              Open Source Tab Switching Extension
             </h2>
             <p className="text-xl mb-8 text-gray-600 dark:text-gray-300">
-              AIpex is an open source and free-to-use AI Chrome extension.
-              Contribute to our project on GitHub!
+              AIPex is an open source and free tab switching solution.
+              Join our community and contribute to better tab management!
             </p>
             <Button
               variant="outline"
@@ -214,9 +214,9 @@ export default function Restore() {
               className="bg-white dark:bg-gray-800 text-purple-600 dark:text-purple-400 border-purple-600 dark:border-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900"
             >
               <Github className="mr-2 h-5 w-5" />{' '}
-              <a href="https://github.com/buttercannfly/AIpex" target="_blank" >
+              <a href="https://github.com/buttercannfly/AIPex" target="_blank" >
                 {' '}
-                View AIpex on GitHub
+                Explore AIPex on GitHub
               </a>
             </Button>
           </section>
@@ -225,7 +225,7 @@ export default function Restore() {
         <footer className="text-center text-gray-600 dark:text-gray-400 py-6">
           <div className="mb-4">
             <p className="mb-3">
-              &copy; 2024 AIpex - The Best Tab Manager Extension for Google Chrome. All rights reserved.
+              &copy; 2024 AIPex - The Ultimate Tab Switching Extension for Chrome. All rights reserved.
             </p>
           </div>
         </footer>
