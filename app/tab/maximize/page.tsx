@@ -17,18 +17,18 @@ import { Metadata } from 'next';
 import AipexFeatures from '@/components/ui/inner-link';
 
 export const metadata: Metadata = {
-    title: 'AIpex - maximize window',
-    description: 'With AIPex, you can maximize windows in one keyword shortcut',
-    keywords: 'maximize window, How to maximize window on chrome, fullscreen hover tab chrome​',
+    title: 'AIpex - How to Maximize Window in Chrome | Best Window Maximizer',
+    description: 'Learn how to maximize windows in Chrome quickly and easily with AIPex. One-click window maximization, keyboard shortcuts, and smart window management tools.',
+    keywords: 'maximize window, maximize chrome window, how to maximize window, window maximizer chrome, maximize browser window, chrome window maximize shortcut, maximize window size chrome, maximize chrome tab, maximize chrome browser window, window maximizer extension',
     openGraph: {
-      title: 'AIpex - maximize window',
-      description: 'With AIPex, you can maximize windows in one keyword shortcut',
-      images: [{ url: 'With AIPex, you can maximize windows in one keyword shortcut' }],
+      title: 'AIpex - The Ultimate Chrome Window Maximizer Tool',
+      description: 'Maximize Chrome windows instantly with keyboard shortcuts and smart controls. The most efficient way to manage window size.',
+      images: [{ url: 'Maximize Chrome windows instantly with AIPex smart window controls' }],
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'AIpex - Intelligent Chrome Extension',
-      description: 'With AIPex, you can maximize windows in one keyword shortcut',
+      title: 'AIpex - Smart Window Maximization for Chrome',
+      description: 'The fastest way to maximize Chrome windows with keyboard shortcuts',
       images: ['https://source.unsplash.com/random/1200x630?chrome+extension'],
     },
   };
@@ -41,12 +41,12 @@ export default function MaximizeWindow() {
           <div className="relative inline-block">
             <div className="absolute inset-0 bg-purple-500 blur-3xl opacity-20 rounded-full"></div>
             <h1 className="text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600 relative">
-              How to maximize windows in Chrome?
+              How to Maximize Windows in Chrome Efficiently
             </h1>
           </div>
           <p className="text-2xl text-gray-600 dark:text-gray-300 mb-8">
             <a href='https://aipex.quest'>
-              With AIPex, maximize any window with a simple keyboard shortcut
+              The smartest Chrome window maximizer - Maximize any window instantly with AIPex's powerful shortcuts
             </a>
           </p>
           <Button
@@ -55,7 +55,7 @@ export default function MaximizeWindow() {
           >
             <Chrome className="mr-2 h-5 w-5" />{' '}
             <a href="https://chromewebstore.google.com/detail/aipex-%E2%80%94%E2%80%94-tab-history-mana/iglkpadagfelcpmiidndgjgafpdifnke?utm_source=ext_app_menu">
-              Add AIPex to Chrome
+              Get the Best Window Maximizer for Chrome
             </a>
           </Button>
         </header>
@@ -63,7 +63,7 @@ export default function MaximizeWindow() {
         <main>
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              Maximize windows with AIPex
+              The Ultimate Chrome Window Maximizer
             </h2>
             <div className="grid grid-cols-1 gap-12">
               <div className="relative group">
@@ -71,19 +71,19 @@ export default function MaximizeWindow() {
                 <Card className="relative bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300">
                   <CardHeader>
                     <CardTitle className="text-2xl font-semibold text-gray-800 dark:text-white">
-                      maximize windows on chrome
+                      Smart Window Maximization for Chrome
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div className="relative w-full h-120 overflow-hidden rounded-lg">
                       <img
                         src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*aEC0T87pAbTwYsAACEfYxw.gif"
-                        alt="maximize window"
+                        alt="Chrome window maximizer in action"
                         className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
                       />
                     </div>
                     <p className="text-lg text-gray-600 dark:text-gray-300">
-                      How to maximize windows on Chrome? Press Command/Ctrl + M and type "maximize" - it's that simple!
+                      Looking for the fastest way to maximize windows in Chrome? Simply press Command/Ctrl + M and type "maximize" - Experience the most efficient window management tool!
                     </p>
                   </CardContent>
                 </Card>
@@ -93,14 +93,14 @@ export default function MaximizeWindow() {
 
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              How to Maximize Windows with AIPex?
+              Master Chrome Window Maximization with AIPex
             </h2>
             
             <div className="max-w-3xl mx-auto">
               <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
                 <div className="mb-8 text-center">
                   <span className="inline-flex items-center justify-center bg-blue-100 dark:bg-blue-900 rounded-lg px-4 py-2 text-lg font-medium text-blue-800 dark:text-blue-200">
-                    Just Two Simple Steps
+                    Maximize Windows in Two Easy Steps
                   </span>
                 </div>
 
@@ -112,7 +112,7 @@ export default function MaximizeWindow() {
                     <div>
                       <h3 className="text-xl font-semibold mb-2 dark:text-white">Press Command + M</h3>
                       <p className="text-gray-600 dark:text-gray-300">
-                        Use this simple keyboard shortcut to open the AIPex command panel
+                        Access AIPex's powerful window maximization features with this quick shortcut
                       </p>
                     </div>
                   </div>
@@ -124,7 +124,7 @@ export default function MaximizeWindow() {
                     <div>
                       <h3 className="text-xl font-semibold mb-2 dark:text-white">Type "maximize"</h3>
                       <p className="text-gray-600 dark:text-gray-300">
-                        Simply type "maximize" to instantly maximize your current window
+                        Instantly maximize your Chrome window to full screen with one command
                       </p>
                     </div>
                   </div>
@@ -138,7 +138,7 @@ export default function MaximizeWindow() {
                       </svg>
                     </div>
                     <p className="ml-3 text-sm text-gray-600 dark:text-gray-300">
-                      <span className="font-medium">Pro tip:</span> You can use this shortcut on any window to quickly maximize it for better viewing
+                      <span className="font-medium">Pro tip:</span> Use AIPex's window maximizer on any Chrome window or tab for optimal viewing experience
                     </p>
                   </div>
                 </div>
@@ -150,7 +150,7 @@ export default function MaximizeWindow() {
 
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              Frequently Asked Questions about maximizing windows
+              Chrome Window Maximizer FAQs
             </h2>
             <Accordion
               type="single"
@@ -159,32 +159,32 @@ export default function MaximizeWindow() {
             >
               {[
                 {
-                  "question": "What's the shortcut key to maximize windows in Chrome using AIPex?",
-                  "answer": "With AIPex, maximizing windows is as simple as pressing Command+M and typing 'maximize'. This quick keyboard shortcut makes window management effortless and instantaneous."
+                  "question": "What's the fastest way to maximize windows in Chrome?",
+                  "answer": "AIPex provides the quickest window maximization method - simply press Command+M and type 'maximize'. This shortcut works instantly on any Chrome window or tab."
                 },
                 {
-                  "question": "How to maximize windows on Chrome with AIPex?",
-                  "answer": "AIPex's window maximizing feature offers a more streamlined experience with a single keyboard shortcut (Command+M). Unlike Chrome's traditional methods, AIPex makes the process faster and more intuitive."
+                  "question": "How does AIPex's window maximizer compare to Chrome's built-in controls?",
+                  "answer": "AIPex's window maximizer offers a more streamlined experience with keyboard shortcuts and smart controls. Unlike Chrome's traditional methods, AIPex makes window maximization faster and more intuitive."
                 },
                 {
-                  "question": "Can I maximize multiple windows at once with AIPex?",
-                  "answer": "Yes, AIPex allows you to efficiently maximize multiple windows. Simply use Command+M and type 'maximize' for each window you want to maximize. The process is quick and seamless."
+                  "question": "Can I maximize multiple Chrome windows simultaneously?",
+                  "answer": "Yes, AIPex's window maximizer lets you efficiently maximize multiple windows. Use Command+M and type 'maximize' for each window you want to maximize - it's quick and seamless."
                 },
                 {
-                  "question": "How to fullscreen hover tab chrome​",
-                  "answer": "With AIpex, always remember to Command/Ctrl + M, everything is there."
+                  "question": "What are the best shortcuts for maximizing Chrome windows?",
+                  "answer": "AIPex offers the most efficient shortcut: Command/Ctrl + M followed by typing 'maximize'. This combination provides instant window maximization with minimal effort."
                 },
                 {
-                  "question": "Why should I use AIPex for maximizing windows?",
-                  "answer": "AIPex offers the fastest and most convenient way to maximize windows with just Command+M and typing 'maximize'. This simple approach, combined with its reliability and efficiency, makes it the ideal choice for users who frequently need to maximize windows."
+                  "question": "Why choose AIPex as your Chrome window maximizer?",
+                  "answer": "AIPex is the most advanced window maximizer for Chrome, offering instant maximization through keyboard shortcuts, smart controls, and seamless integration. It's designed for users who value efficiency and productivity."
                 }
               ].map((item, index) => (
                 <AccordionItem key={index} value={`item-${index + 1}`}>
                   <AccordionTrigger className="px-6 py-4 text-lg font-semibold text-gray-800 dark:text-white hover:bg-purple-50 dark:hover:bg-purple-900">
-                    {item.question}
+                    <h3>{item.question}</h3>
                   </AccordionTrigger>
                   <AccordionContent className="px-6 py-4 text-gray-600 dark:text-gray-300">
-                    {item.answer}
+                    <h4>{item.answer}</h4>
                   </AccordionContent>
                 </AccordionItem>
               ))}
@@ -193,11 +193,11 @@ export default function MaximizeWindow() {
 
           <section className="text-center mb-24">
             <h2 className="text-4xl font-bold mb-6 text-gray-800 dark:text-white">
-              Open Source AI Chrome Extension
+              Open Source Window Management Extension
             </h2>
             <p className="text-xl mb-8 text-gray-600 dark:text-gray-300">
-              AIPex is an open source and free-to-use AI Chrome extension.
-              Contribute to our project on GitHub!
+              AIPex is an open source and free window maximizer for Chrome.
+              Join our community and help improve window management!
             </p>
             <Button
               variant="outline"
@@ -206,7 +206,7 @@ export default function MaximizeWindow() {
             >
               <Github className="mr-2 h-5 w-5" />{' '}
               <a href="https://github.com/buttercannfly/AIPex" target="_blank">
-                View AIPex on GitHub
+                Explore AIPex on GitHub
               </a>
             </Button>
           </section>
@@ -215,7 +215,7 @@ export default function MaximizeWindow() {
         <footer className="text-center text-gray-600 dark:text-gray-400 py-6">
           <div className="mb-4">
             <p className="mb-3">
-              &copy; 2024 AIPex - The Best Tab Manager Extension for Google Chrome. All rights reserved.
+              &copy; 2024 AIPex - The Ultimate Window Maximizer for Chrome. All rights reserved.
             </p>
           </div>
         </footer>

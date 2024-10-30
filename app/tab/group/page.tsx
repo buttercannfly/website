@@ -17,18 +17,18 @@ import { Metadata } from 'next';
 import AipexFeatures from '@/components/ui/inner-link';
 
 export const metadata: Metadata = {
-    title: 'AIpex - group tabs',
-    description: ' With AIPex, you can group tabs in one keyword shorcut',
-    keywords: 'group tabs, How to group tabs on chrome, organize tabs',
+    title: 'AIpex - Group Tabs in Chrome Made Easy',
+    description: 'Learn how to group tabs efficiently with AIPex. The best Chrome extension for tab grouping and organization.',
+    keywords: 'group tabs, group tabs chrome, chrome tab groups, how to group tabs, tab grouping extension',
     openGraph: {
-      title: 'AIpex - group tabs',
-      description: 'With AIPex, you can group tabs in one keyword shorcut',
-      images: [{ url: 'With AIPex, you can group tabs in one keyword shorcut' }],
+      title: 'AIpex - Smart Tab Grouping for Chrome',
+      description: 'Effortlessly group and organize your Chrome tabs with AIPex',
+      images: [{ url: 'Group and organize your Chrome tabs instantly with AIPex' }],
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'AIpex - Intelligent Chrome Extension',
-      description: 'With AIPex, you can group tabs in one keyword shorcut',
+      title: 'AIpex - Smart Tab Grouping Extension',
+      description: 'The easiest way to group tabs in Chrome',
       images: ['https://source.unsplash.com/random/1200x630?chrome+extension'],
     },
   };
@@ -41,12 +41,12 @@ export default function GroupTabs() {
           <div className="relative inline-block">
             <div className="absolute inset-0 bg-purple-500 blur-3xl opacity-20 rounded-full"></div>
             <h1 className="text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600 relative">
-              How to group tabs in Chrome?
+              Group Tabs in Chrome Effortlessly
             </h1>
           </div>
           <p className="text-2xl text-gray-600 dark:text-gray-300 mb-8">
             <a href='https://aipex.quest'>
-              With AIPex, organize and group your tabs with a simple keyboard shortcut
+              Master tab grouping in Chrome with AIPex - The smartest way to organize your tabs
             </a>
           </p>
           <Button
@@ -55,7 +55,7 @@ export default function GroupTabs() {
           >
             <Chrome className="mr-2 h-5 w-5" />{' '}
             <a href="https://chromewebstore.google.com/detail/aipex-%E2%80%94%E2%80%94-tab-history-mana/iglkpadagfelcpmiidndgjgafpdifnke?utm_source=ext_app_menu">
-              Add AIPex to Chrome
+              Get Tab Grouping with AIPex
             </a>
           </Button>
         </header>
@@ -63,7 +63,7 @@ export default function GroupTabs() {
         <main>
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              Group tabs with AIPex
+              Smart Tab Grouping with AIPex
             </h2>
             <div className="grid grid-cols-1 gap-12">
               <div className="relative group">
@@ -71,19 +71,19 @@ export default function GroupTabs() {
                 <Card className="relative bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300">
                   <CardHeader>
                     <CardTitle className="text-2xl font-semibold text-gray-800 dark:text-white">
-                      group open tabs chrome
+                      Advanced Tab Grouping for Chrome Users
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div className="relative w-full h-120 overflow-hidden rounded-lg">
                       <img
                         src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*9C-GLUsdt2kk2lgSnbSyxw.gif"
-                        alt="group tabs"
+                        alt="Chrome tab grouping demonstration"
                         className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
                       />
                     </div>
                     <p className="text-lg text-gray-600 dark:text-gray-300">
-                      How to group tabs in Chrome? Press Command/Ctrl + M and type "organize" to instantly group your open tabs!
+                      Experience the most efficient way to group tabs in Chrome. Simply press Command/Ctrl + M and type "organize" to instantly group your tabs based on content similarity.
                     </p>
                   </CardContent>
                 </Card>
@@ -93,14 +93,14 @@ export default function GroupTabs() {
 
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              How to Group Tabs with AIPex?
+              Master Tab Grouping in Chrome with AIPex
             </h2>
             
             <div className="max-w-3xl mx-auto">
               <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
                 <div className="mb-8 text-center">
                   <span className="inline-flex items-center justify-center bg-blue-100 dark:bg-blue-900 rounded-lg px-4 py-2 text-lg font-medium text-blue-800 dark:text-blue-200">
-                    Just Two Simple Steps
+                    Group Tabs in Two Easy Steps
                   </span>
                 </div>
 
@@ -112,7 +112,7 @@ export default function GroupTabs() {
                     <div>
                       <h3 className="text-xl font-semibold mb-2 dark:text-white">Press Command + M</h3>
                       <p className="text-gray-600 dark:text-gray-300">
-                        Use this simple keyboard shortcut to open the AIPex command panel
+                        Access AIPex's tab grouping features with this simple shortcut
                       </p>
                     </div>
                   </div>
@@ -124,7 +124,7 @@ export default function GroupTabs() {
                     <div>
                       <h3 className="text-xl font-semibold mb-2 dark:text-white">Type "organize"</h3>
                       <p className="text-gray-600 dark:text-gray-300">
-                        Simply type "organize" to automatically group your open tabs
+                        Let AIPex automatically group your tabs by content and context
                       </p>
                     </div>
                   </div>
@@ -138,7 +138,7 @@ export default function GroupTabs() {
                       </svg>
                     </div>
                     <p className="ml-3 text-sm text-gray-600 dark:text-gray-300">
-                      <span className="font-medium">Pro tip:</span> AIPex intelligently groups your tabs based on content and domain similarities
+                      <span className="font-medium">Pro tip:</span> AIPex's smart tab grouping algorithm understands page content for better organization
                     </p>
                   </div>
                 </div>
@@ -148,10 +148,9 @@ export default function GroupTabs() {
 
           <AipexFeatures />
 
-
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              Frequently Asked Questions about grouping tabs
+              Tab Grouping FAQs - Everything You Need to Know
             </h2>
             <Accordion
               type="single"
@@ -160,40 +159,40 @@ export default function GroupTabs() {
             >
               {[
                 {
-                  "question": "How can I quickly group tabs in Chrome using AIPex?",
-                  "answer": "With AIPex, grouping tabs is as simple as pressing Command+M and typing 'organize'. This quick keyboard shortcut automatically organizes your tabs into logical groups based on content and domain similarities."
+                  "question": "What's the fastest way to group tabs in Chrome?",
+                  "answer": "AIPex provides the fastest tab grouping solution - just press Command+M and type 'organize'. Our AI-powered system will instantly group your tabs based on content and context."
                 },
                 {
-                  "question": "How organize chrome extensions into sub folders ?",
-                  "answer": "With AIPex, pressing Command+M and typing 'organize'. This quick keyboard shortcut automatically organizes your tabs into logical groups based on content and domain similarities."
+                  "question": "How does AIPex's tab grouping compare to manual grouping?",
+                  "answer": "AIPex's intelligent tab grouping is significantly faster and more accurate than manual grouping. It automatically analyzes tab content and creates logical groups in seconds."
                 },
                 {
-                  "question": "What makes AIPex's tab grouping feature better than Chrome's built-in options?",
-                  "answer": "AIPex's tab grouping feature uses AI to intelligently organize your tabs based on content relationships, not just domains. It's faster than manual grouping and more accurate than traditional automated solutions."
+                  "question": "What makes AIPex the best tab grouping extension?",
+                  "answer": "AIPex uses advanced AI to understand tab content and relationships, creating more meaningful groups than traditional methods. It's faster, smarter, and more intuitive than standard tab grouping."
                 },
                 {
-                  "question": "How does AIPex decide how to group my tabs?",
-                  "answer": "AIPex analyzes tab content, URLs, and page context to create meaningful groups. It intelligently identifies related content and creates logical groupings that make sense for your workflow."
+                  "question": "How does AIPex's smart tab grouping work?",
+                  "answer": "AIPex analyzes the content, URLs, and context of your tabs to create intelligent groups. It uses AI to understand relationships between tabs and organizes them accordingly."
                 },
                 {
-                  "question": "Is AIPex's tab grouping feature free to use?",
-                  "answer": "Yes, AIPex's tab grouping feature is completely free. You can organize unlimited tabs using the Command+M shortcut without any subscription or hidden costs."
+                  "question": "Is AIPex's tab grouping feature free?",
+                  "answer": "Yes, AIPex's powerful tab grouping feature is completely free. Group unlimited tabs without any subscription or hidden costs."
                 },
                 {
-                  "question": "Why should I use AIPex for grouping tabs?",
-                  "answer": "AIPex offers the most intelligent and efficient way to organize tabs with just Command+M and typing 'organize'. Its AI-powered grouping, combined with the simple shortcut, makes it the ideal choice for users who want to keep their tabs organized automatically."
+                  "question": "Why choose AIPex for tab grouping?",
+                  "answer": "AIPex offers the most intelligent and efficient tab grouping solution available. With AI-powered organization and simple keyboard shortcuts, it's the perfect tool for managing multiple tabs."
                 },
                 {
-                  "question": "How organize chrome extensions into sub folders",
-                  "answer": "With AIPex, grouping tabs is as simple as pressing Command+M and typing 'organize'"
+                  "question": "How to organize Chrome tabs effectively?",
+                  "answer": "Use AIPex's smart tab grouping feature - just press Command+M and type 'organize' to automatically sort and group your tabs based on content similarity."
                 }
               ].map((item, index) => (
                 <AccordionItem key={index} value={`item-${index + 1}`}>
                   <AccordionTrigger className="px-6 py-4 text-lg font-semibold text-gray-800 dark:text-white hover:bg-purple-50 dark:hover:bg-purple-900">
-                    {item.question}
+                    <h3>{item.question}</h3>
                   </AccordionTrigger>
                   <AccordionContent className="px-6 py-4 text-gray-600 dark:text-gray-300">
-                    {item.answer}
+                    <h4>{item.answer}</h4>
                   </AccordionContent>
                 </AccordionItem>
               ))}
@@ -202,11 +201,11 @@ export default function GroupTabs() {
 
           <section className="text-center mb-24">
             <h2 className="text-4xl font-bold mb-6 text-gray-800 dark:text-white">
-              Open Source AI Chrome Extension
+              Open Source Tab Grouping Extension
             </h2>
             <p className="text-xl mb-8 text-gray-600 dark:text-gray-300">
-              AIPex is an open source and free-to-use AI Chrome extension.
-              Contribute to our project on GitHub!
+              AIPex is an open source and free tab grouping solution.
+              Join our community and contribute to better tab management!
             </p>
             <Button
               variant="outline"
@@ -215,7 +214,7 @@ export default function GroupTabs() {
             >
               <Github className="mr-2 h-5 w-5" />{' '}
               <a href="https://github.com/buttercannfly/AIPex" target="_blank">
-                View AIPex on GitHub
+                Explore AIPex on GitHub
               </a>
             </Button>
           </section>
@@ -224,7 +223,7 @@ export default function GroupTabs() {
         <footer className="text-center text-gray-600 dark:text-gray-400 py-6">
           <div className="mb-4">
             <p className="mb-3">
-              &copy; 2024 AIPex - The Best Tab Manager Extension for Google Chrome. All rights reserved.
+              &copy; 2024 AIPex - The Ultimate Tab Grouping Extension for Chrome. All rights reserved.
             </p>
           </div>
         </footer>
