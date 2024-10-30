@@ -357,6 +357,7 @@ export default function Home() {
               <a href="https://okeiai.com/" title="Okei AI Tools Directory" target="_blank"> Okei AI Tools </a>
               <a href="https://iuu.ai/">iuu AI</a>
               <a href="https://t0ai.com" title="T0 AI Tools Directory">T0 AI Tools Directory</a>
+              <a href='https://www.toolpilot.ai/' title='toolPilot'>Tool Pilot</a>
             </div>
           </div>
         </footer>
