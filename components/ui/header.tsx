@@ -30,6 +30,11 @@ const Header = () => {
     { title: 'Clear Cookies', href: '/settings/cookies', description: 'Manage browser cookies' },
   ];
 
+  const alternativeFeatures = [
+    { title: 'Alternative  to Chatgpt Search', href: '/alternatives/searchgpt', description: 'Better Than ChatGPT Search Extensions' },
+    { title: 'Alternative to Google Search', href: '/alternatives/google', description: 'Much Inteligent than Google Search' },
+  ]
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center">
@@ -78,6 +83,34 @@ const Header = () => {
               <NavigationMenuContent>
                 <ul className="grid w-[400px] gap-3 p-4">
                   {settingsFeatures.map((feature) => (
+                    <li key={feature.href}>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          href={feature.href}
+                          className={cn(
+                            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                          )}
+                        >
+                          <div className="text-sm font-medium leading-none">{feature.title}</div>
+                          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                            <h4>{feature.description}</h4>
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                    </li>
+                  ))}
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>
+                <Settings className="mr-2 h-4 w-4" />
+                <h3>Alternatives</h3>
+              </NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid w-[400px] gap-3 p-4">
+                  {alternativeFeatures.map((feature) => (
                     <li key={feature.href}>
                       <NavigationMenuLink asChild>
                         <Link

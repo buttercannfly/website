@@ -105,7 +105,17 @@ const AipexFeatures = () => {
       content: "Command/Ctrl + M, then you can find how easy to clear cache",
       alt: '',
       link: "https://aipex.quest/settings/cookies"
+    },
+    { title: 'Alternative to Chatgpt Search', href: '/alternatives/searchgpt', description: 'Better Than ChatGPT Search Extensions', content: "Command/Ctrl + M, then you can find how easy to search", alt: ''
+     },
+     {
+      title: "Alternative to Google Search",
+      description: "Better Than Google Search Extensions",
+      content: "Command/Ctrl + M",
+      alt: '',
+      link: "https://aipex.quest/alternatives/google"
     }
+
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
