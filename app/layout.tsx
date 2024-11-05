@@ -15,6 +15,22 @@ export const metadata: Metadata = {
     description: 'Manage your tabs, history, and bookmarks with AI-powered assistance.',
     images: [{ url: 'https://source.unsplash.com/random/1200x630?chrome+extension' }],
   },
+  icons: [
+    {
+      rel: 'icon',
+      url: '/favicon/favicon.ico',
+      type: 'image/x-icon',
+    },
+    {
+      rel: 'shortcut icon',
+      url: '/favicon/favicon.ico',
+      type: 'image/x-icon',
+    },
+    {
+      rel: 'apple-touch-icon',
+      url: '/favicon/favicon.ico',
+    }
+  ],
   twitter: {
     card: 'summary_large_image',
     title: 'AIpex - Intelligent Chrome Extension',
