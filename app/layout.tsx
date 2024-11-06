@@ -59,7 +59,8 @@ export default function RootLayout({
           gtag('config', 'G-336LLWQVC2');
         `}
       </Script>
-      <Script defer src="https://cloud.umami.is/script.js" data-website-id="c46f35d2-b06b-4b94-944b-f86334242bba"></Script>
+      <script defer src="https://cloud.umami.is/script.js" data-website-id="b52f3149-18d4-4b9f-be83-58e9fb4352b1"></script>
+
       <body className={inter.className}>
       <Header />
       {children}</body>
