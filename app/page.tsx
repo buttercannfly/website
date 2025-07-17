@@ -1,3 +1,6 @@
+"use client";
+
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import {
@@ -15,6 +18,7 @@ import {
   MessageSquare,
   Chrome,
   Github,
+  CheckCircle,
 } from 'lucide-react';
 import {
   Accordion,
@@ -26,28 +30,111 @@ import AipexFeatures from '@/components/ui/inner-link';
 import { Metadata } from 'next';
 
 export default function Home() {
+  const [platform, setPlatform] = useState<'mac' | 'windows' | 'other'>('other');
+  const features = [
+    { group: 'Tab Manager', items: ['Switch between tabs', 'AI-powered tab organization'] },
+    { group: 'History Manager', items: [] },
+    { group: 'Bookmark Manager', items: [] },
+    { group: 'AI Chatbot Sidebar', items: ['Continuous chat conversations', 'Basic AI interactions'] },
+  ];
+  const flatFeatures = [
+    { label: 'Tab Manager', isGroup: true },
+    { label: 'Switch between tabs', isGroup: false },
+    { label: 'AI-powered tab organization', isGroup: false },
+    { label: 'History Manager', isGroup: true },
+    { label: 'Bookmark Manager', isGroup: true },
+    { label: 'AI Chatbot Sidebar', isGroup: true },
+    { label: 'Continuous chat conversations', isGroup: false },
+    { label: 'Basic AI interactions', isGroup: false },
+  ];
+  const [visibleCount, setVisibleCount] = useState(0);
+  useEffect(() => {
+    setVisibleCount(0);
+    const timer = setInterval(() => {
+      setVisibleCount((prev) => {
+        if (prev < flatFeatures.length) return prev + 1;
+        clearInterval(timer);
+        return prev;
+      });
+    }, 600);
+    return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const p = window.navigator.platform.toLowerCase();
+      const ua = window.navigator.userAgent.toLowerCase();
+      if (p.includes('mac') || ua.includes('mac')) {
+        setPlatform('mac');
+      } else if (p.includes('win') || ua.includes('windows')) {
+        setPlatform('windows');
+      } else {
+        setPlatform('other');
+      }
+    }
+  }, []);
+
+  const featureList = [
+    'Switch between tabs',
+    'AI-powered tab organization',
+    'Manage your history',
+    'Bookmark your tabs',
+    'Chat with AI in sidebar',
+    'Continuous chat conversations',
+    'Basic AI interactions',
+  ];
+
+  function useTypewriterLoop(words: string[], speed = 60, pause = 1200) {
+    const [display, setDisplay] = useState('');
+    const [wordIdx, setWordIdx] = useState(0);
+    const [charIdx, setCharIdx] = useState(0);
+    const [isDeleting, setIsDeleting] = useState(false);
+
+    useEffect(() => {
+      let timeout: NodeJS.Timeout;
+      if (!isDeleting && charIdx < words[wordIdx].length) {
+        timeout = setTimeout(() => {
+          setDisplay(words[wordIdx].slice(0, charIdx + 1));
+          setCharIdx(charIdx + 1);
+        }, speed);
+      } else if (!isDeleting && charIdx === words[wordIdx].length) {
+        timeout = setTimeout(() => setIsDeleting(true), pause);
+      } else if (isDeleting && charIdx > 0) {
+        timeout = setTimeout(() => {
+          setDisplay(words[wordIdx].slice(0, charIdx - 1));
+          setCharIdx(charIdx - 1);
+        }, speed / 2);
+      } else if (isDeleting && charIdx === 0) {
+        setIsDeleting(false);
+        setWordIdx((wordIdx + 1) % words.length);
+      }
+      return () => clearTimeout(timeout);
+    }, [charIdx, isDeleting, wordIdx, words, speed, pause]);
+
+    return display;
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-100 to-white dark:from-purple-900 dark:to-gray-900">
       <div className="container mx-auto px-4 py-8">
-        <header className="text-center mb-16 pt-10">
-          <div className="relative inline-block">
-            <div className="absolute inset-0 bg-purple-500 blur-3xl opacity-20 rounded-full"></div>
-            <h1 className="text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600 relative">
-              AIpex - Ultimate Chrome Tab Manager & Browser Tab Organizer
-            </h1>
+        <header className="flex flex-col items-center justify-center min-h-[60vh] mb-16 pt-10">
+          <div className="w-full max-w-3xl rounded-3xl px-8 py-6 text-3xl font-extrabold text-center shadow-2xl bg-gradient-to-r from-purple-500 to-pink-500 text-white dark:from-purple-700 dark:to-pink-700 dark:text-white border-4 border-white/30 dark:border-white/10 mb-4">
+            {platform === 'mac' && (
+              <span className="inline-block"><span role='img' aria-label='keyboard' className="mr-2 text-3xl">⌨️</span>Mac: <kbd className="px-4 py-3 bg-white/20 rounded border border-white/30 mx-1 text-2xl">Command + M</kbd></span>
+            )}
+            {platform === 'windows' && (
+              <span className="inline-block"><span role='img' aria-label='keyboard' className="mr-2 text-3xl">⌨️</span>Windows: <kbd className="px-4 py-3 bg-white/20 rounded border border-white/30 mx-1 text-2xl">Ctrl + M</kbd></span>
+            )}
+            {platform === 'other' && (
+              <span className="inline-block"><span role='img' aria-label='keyboard' className="mr-2 text-3xl">⌨️</span>Mac: <kbd className="px-4 py-3 bg-white/20 rounded border border-white/30 mx-1 text-2xl">Command + M</kbd> | Windows: <kbd className="px-4 py-3 bg-white/20 rounded border border-white/30 mx-1 text-2xl">Ctrl + M</kbd></span>
+            )}
           </div>
-          <p className="text-2xl text-gray-600 dark:text-gray-300 mb-8">
-            Professional Tab Manager with Smart Tab Organization, Tab Groups & Advanced Tab Controls
-          </p>
-          <Button
-            size="lg"
-            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transform transition hover:scale-105"
-          >
-            <Chrome className="mr-2 h-5 w-5" />{' '}
-            <a href="https://chromewebstore.google.com/detail/aipex-%E2%80%94%E2%80%94-tab-history-mana/iglkpadagfelcpmiidndgjgafpdifnke?utm_source=ext_app_menu">
-              Install Tab Manager Extension{' '}
-            </a>
-          </Button>
+          <div className="w-full max-w-2xl flex flex-col items-center">
+
+            <h2 className="text-3xl md:text-4xl font-semibold text-center text-purple-700 dark:text-purple-300 min-h-[2.5em] h-[2.5em] flex items-center justify-center">
+              <span className="inline-block">{useTypewriterLoop(featureList, 60, 1200)}<span className="blinking-cursor">|</span></span>
+            </h2>
+          </div>
         </header>
 
         <main>
@@ -294,85 +381,8 @@ export default function Home() {
               ))}
             </Accordion>
           </section>
-
-          <section className="text-center mb-24">
-            <h2 className="text-4xl font-bold mb-6 text-gray-800 dark:text-white">
-              Open Source Tab Manager
-            </h2>
-            <p className="text-xl mb-8 text-gray-600 dark:text-gray-300">
-              Our tab manager is open source and free to use. Join our community and help improve tab management for everyone!
-            </p>
-            <Button
-              variant="outline"
-              size="lg"
-              className="bg-white dark:bg-gray-800 text-purple-600 dark:text-purple-400 border-purple-600 dark:border-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900"
-            >
-              <Github className="mr-2 h-5 w-5" />{' '}
-              <a href="https://github.com/buttercannfly/AIpex" target="_blank" >
-                {' '}
-                View Tab Manager on GitHub
-              </a>
-            </Button>
-          </section>
         </main>
-
-        <footer className="text-center text-gray-600 dark:text-gray-400 py-6">
-          <div className="mb-4">
-            <p className="mb-3">
-              &copy; 2024 AIpex - Professional Chrome Tab Manager & Browser Extension. All rights reserved.
-            </p>
-            <div className="flex justify-center gap-4 text-sm">
-              <a 
-                href="https://fluxai.pro/" 
-                title="Flux AI Pro"
-                className="hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
-                target="_blank" 
-                rel="noopener noreferrer"
-              >
-                Flux AI Pro
-              </a>
-              <span className="text-gray-400">•</span>
-              <a 
-                href="https://aiwith.me/" 
-                title="AI With Me: Discover thousands of AI Tools"
-                className="hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
-                target="_blank" 
-                rel="noopener noreferrer"
-              >
-                AI With Me
-              </a>
-              <a href="https://bai.tools/" title="Best AI Tools Directory" target="_blank"  className="hover:text-gray-800 dark:hover:text-gray-200 transition-colors">Bai.tools</a>
-              <a href="https://perchance-ai.net" target="_blank" rel="noopener noreferrer">Perchance AI</a>
-              <a href="https://toolsapp.cc/" title="ToolsApp AI Tools Directory">ToolsApp AI Tools Diresctory</a>
-              <a href="https://ahy.ai/" title="Ahy AI Tools Directory">Ahy Ai</a>
-              <a href="https://tap4.ai/ai/flux-ai-io" title="Flux Image AI">Flux Image AI</a>
-              <a href="https://genaiprism.site/" title="Gen AI Prism Tools Directory">Gen AI Prism</a> 
-              <a href="https://AIToolly.com/" title="Best AI Tools Directory">AIToolly</a>
-              <a href="https://tap5ai.com/" title="Tap5 AI Tools Directory">Tap5 AI Tools Diresctory</a>
-              <a href="https://newaiforyou.com/" title="NewAIForYou Tools Directory">NewAIForYou</a>
-              <a href="https://zzo.ai" target="_blank">Zzo AI Tools Directory</a>
-              <a href="https://SeekAIs.com/" title="SeekAIs">SeekAIs - AI Tools Directory</a>
-              <a href='https://aitooltrek.com' title='AI Tool Trek'> AI Tool Trek </a>
-              <a href="https://freeaitool.ai/" title="Free AI Tool">Free AI Tool</a>
-              <a href="https://okeiai.com/" title="Okei AI Tools Directory" target="_blank"> Okei AI Tools </a>
-              <a href="https://iuu.ai/">iuu AI</a>
-              <a href="https://t0ai.com" title="T0 AI Tools Directory">T0 AI Tools Directory</a>
-              <a href='https://www.toolpilot.ai/' title='toolPilot'>Tool Pilot</a>
-            </div>
-          </div>
-        </footer>
       </div>
     </div>
   );
 }
-
-export const metadata: Metadata = {
-  title: 'AIpex - Ultimate Chrome Tab Manager & Browser Tab Organizer',
-  description: 'Professional Tab Manager with Smart Tab Organization, Tab Groups & Advanced Tab Controls',
-  alternates: {
-    canonical: 'https://aipex.quest',
-    languages: {
-      'en-US': 'https://aipex.quest',
-    }
-  }
-};
