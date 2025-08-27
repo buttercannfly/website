@@ -233,6 +233,27 @@ export default function Home() {
             </div>
           </section>
 
+          {/* Research Topic Tutorial Video Section */}
+          <section className="w-full max-w-7xl mx-auto px-4 mb-24">
+            <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
+              Using Open Claude Chrome for Research Topics
+            </h2>
+            <div className="aspect-w-16 aspect-h-9" style={{ paddingBottom: '56.25%', position: 'relative', height: 0, overflow: 'hidden' }}>
+              <iframe
+                src="https://www.youtube.com/embed/vrp7OCxGy_Y"
+                title="Open Claude Chrome Research Topic Tutorial - How to Use Claude for Research"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
+              ></iframe>
+            </div>
+            <div className="mt-8 text-center">
+              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                Learn how to leverage Open Claude for Chrome to enhance your research workflow. Discover powerful features for topic exploration, content analysis, and intelligent research assistance directly in your browser.
+              </p>
+            </div>
+          </section>
+
           {/* Feature Showcase */}
           <section className="w-full max-w-7xl mx-auto px-4 mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
