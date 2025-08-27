@@ -3,17 +3,20 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Script from 'next/script';
+import { structuredData, faqStructuredData } from './structured-data';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'AIpex - Intelligent Chrome Extension for Tab Management',
-  description: 'AIpex is an open-source Chrome extension that helps you manage tabs, history, and bookmarks with an integrated ChatGPT sidebar.',
-  keywords: 'Chrome extension, tab management, history management, bookmark management, ChatGPT, AI assistant',
+  title: 'Open Claude for Chrome - Free Alternative to Claude for Chrome Extension',
+  description: 'Open Claude for Chrome is a powerful, open-source Chrome extension that provides Claude AI assistance directly in your browser. Get the same functionality as Claude for Chrome for free with advanced tab management and AI chat features.',
+  keywords: 'claude chrome, claude for chrome, open claude for chrome, claude chrome extension, claude ai chrome, free claude chrome, claude browser extension, claude ai assistant, chrome extension claude, claude for chrome alternative',
   openGraph: {
-    title: 'AIpex - Intelligent Chrome Extension for Tab Management',
-    description: 'Manage your tabs, history, and bookmarks with AI-powered assistance.',
-    images: [{ url: 'https://source.unsplash.com/random/1200x630?chrome+extension' }],
+    title: 'Open Claude for Chrome - Free Alternative to Claude for Chrome Extension',
+    description: 'Get Claude AI assistance directly in Chrome with our free, open-source extension. Advanced tab management, AI chat, and browser automation features.',
+    images: [{ url: 'https://source.unsplash.com/random/1200x630?chrome+extension+ai' }],
+    url: 'https://aipex.quest',
+    type: 'website',
   },
   icons: [
     {
@@ -33,9 +36,23 @@ export const metadata: Metadata = {
   ],
   twitter: {
     card: 'summary_large_image',
-    title: 'AIpex - Intelligent Chrome Extension',
-    description: 'Manage your tabs, history, and bookmarks with AI-powered assistance.',
-    images: ['https://source.unsplash.com/random/1200x630?chrome+extension'],
+    title: 'Open Claude for Chrome - Free Claude Chrome Extension',
+    description: 'Get Claude AI assistance directly in Chrome with our free, open-source extension. Advanced tab management and AI chat features.',
+    images: ['https://source.unsplash.com/random/1200x630?chrome+extension+ai'],
+  },
+  alternates: {
+    canonical: 'https://aipex.quest',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
@@ -62,8 +79,21 @@ export default function RootLayout({
       <script defer src="https://cloud.umami.is/script.js" data-website-id="b52f3149-18d4-4b9f-be83-58e9fb4352b1"></script>
 
       <body className={inter.className}>
-      <Header />
-      {children}</body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(faqStructuredData),
+          }}
+        />
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }

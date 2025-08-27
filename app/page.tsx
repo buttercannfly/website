@@ -19,6 +19,11 @@ import {
   Chrome,
   Github,
   CheckCircle,
+  Zap,
+  Brain,
+  Shield,
+  Download,
+  Star,
 } from 'lucide-react';
 import {
   Accordion,
@@ -27,32 +32,26 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import AipexFeatures from '@/components/ui/inner-link';
-import { Metadata } from 'next';
 
 export default function Home() {
   const [platform, setPlatform] = useState<'mac' | 'windows' | 'other'>('other');
-  const features = [
-    { group: 'Tab Manager', items: ['Switch between tabs', 'AI-powered tab organization'] },
-    { group: 'History Manager', items: [] },
-    { group: 'Bookmark Manager', items: [] },
-    { group: 'AI Chatbot Sidebar', items: ['Continuous chat conversations', 'Basic AI interactions'] },
+  
+  const claudeFeatures = [
+    'Claude AI Chat in Chrome',
+    'Free Claude Chrome Extension',
+    'Open Source Claude for Chrome',
+    'Claude AI Assistant',
+    'Advanced Tab Management',
+    'Browser Automation',
+    'Claude Chrome Integration'
   ];
-  const flatFeatures = [
-    { label: 'Tab Manager', isGroup: true },
-    { label: 'Switch between tabs', isGroup: false },
-    { label: 'AI-powered tab organization', isGroup: false },
-    { label: 'History Manager', isGroup: true },
-    { label: 'Bookmark Manager', isGroup: true },
-    { label: 'AI Chatbot Sidebar', isGroup: true },
-    { label: 'Continuous chat conversations', isGroup: false },
-    { label: 'Basic AI interactions', isGroup: false },
-  ];
+
   const [visibleCount, setVisibleCount] = useState(0);
   useEffect(() => {
     setVisibleCount(0);
     const timer = setInterval(() => {
       setVisibleCount((prev) => {
-        if (prev < flatFeatures.length) return prev + 1;
+        if (prev < claudeFeatures.length) return prev + 1;
         clearInterval(timer);
         return prev;
       });
@@ -73,16 +72,6 @@ export default function Home() {
       }
     }
   }, []);
-
-  const featureList = [
-    'Switch between tabs',
-    'AI-powered tab organization',
-    'Manage your history',
-    'Bookmark your tabs',
-    'Chat with AI in sidebar',
-    'Continuous chat conversations',
-    'Basic AI interactions',
-  ];
 
   function useTypewriterLoop(words: string[], speed = 60, pause = 1200) {
     const [display, setDisplay] = useState('');
@@ -115,89 +104,128 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-100 to-white dark:from-purple-900 dark:to-gray-900">
+    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-white dark:from-blue-900 dark:to-gray-900">
       <div className="container mx-auto px-4 py-8">
-        <header className="flex flex-col items-center justify-center min-h-[60vh] mb-16 pt-10">
-          <div className="w-full max-w-3xl rounded-3xl px-8 py-6 text-3xl font-extrabold text-center shadow-2xl bg-gradient-to-r from-purple-500 to-pink-500 text-white dark:from-purple-700 dark:to-pink-700 dark:text-white border-4 border-white/30 dark:border-white/10 mb-4">
+        {/* Hero Section */}
+        <header className="flex flex-col items-center justify-center min-h-[70vh] mb-16 pt-10">
+          <div className="text-center mb-8">
+            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+              Open Claude for Chrome
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+              The <strong>free, open-source alternative</strong> to Claude for Chrome. Get Claude AI assistance directly in your browser with advanced tab management and automation features.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+              <Button 
+                size="lg" 
+                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg"
+                onClick={() => window.open('https://github.com/AIPexStudio/open-claude-for-chrome', '_blank')}
+              >
+                <Github className="mr-2 h-5 w-5" />
+                View on GitHub
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-blue-600 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900 px-8 py-4 text-lg"
+                onClick={() => window.open('https://chrome.google.com/webstore', '_blank')}
+              >
+                <Download className="mr-2 h-5 w-5" />
+                Install Extension
+              </Button>
+            </div>
+          </div>
+
+          <div className="w-full max-w-3xl rounded-3xl px-8 py-6 text-2xl font-bold text-center shadow-2xl bg-gradient-to-r from-blue-500 to-purple-500 text-white dark:from-blue-700 dark:to-purple-700 border-4 border-white/30 dark:border-white/10 mb-6">
             {platform === 'mac' && (
-              <span className="inline-block"><span role='img' aria-label='keyboard' className="mr-2 text-3xl">⌨️</span>Mac: <kbd className="px-4 py-3 bg-white/20 rounded border border-white/30 mx-1 text-2xl">Command + M</kbd></span>
+              <span className="inline-block">
+                <span role='img' aria-label='keyboard' className="mr-2 text-2xl">⌨️</span>
+                Mac: <kbd className="px-4 py-2 bg-white/20 rounded border border-white/30 mx-1 text-xl">Command + M</kbd>
+              </span>
             )}
             {platform === 'windows' && (
-              <span className="inline-block"><span role='img' aria-label='keyboard' className="mr-2 text-3xl">⌨️</span>Windows: <kbd className="px-4 py-3 bg-white/20 rounded border border-white/30 mx-1 text-2xl">Ctrl + M</kbd></span>
+              <span className="inline-block">
+                <span role='img' aria-label='keyboard' className="mr-2 text-2xl">⌨️</span>
+                Windows: <kbd className="px-4 py-2 bg-white/20 rounded border border-white/30 mx-1 text-xl">Ctrl + M</kbd>
+              </span>
             )}
             {platform === 'other' && (
-              <span className="inline-block"><span role='img' aria-label='keyboard' className="mr-2 text-3xl">⌨️</span>Mac: <kbd className="px-4 py-3 bg-white/20 rounded border border-white/30 mx-1 text-2xl">Command + M</kbd> | Windows: <kbd className="px-4 py-3 bg-white/20 rounded border border-white/30 mx-1 text-2xl">Ctrl + M</kbd></span>
+              <span className="inline-block">
+                <span role='img' aria-label='keyboard' className="mr-2 text-2xl">⌨️</span>
+                Mac: <kbd className="px-4 py-2 bg-white/20 rounded border border-white/30 mx-1 text-xl">Command + M</kbd> | Windows: <kbd className="px-4 py-2 bg-white/20 rounded border border-white/30 mx-1 text-xl">Ctrl + M</kbd>
+              </span>
             )}
           </div>
-          <div className="w-full max-w-2xl flex flex-col items-center">
 
-            <h2 className="text-3xl md:text-4xl font-semibold text-center text-purple-700 dark:text-purple-300 min-h-[2.5em] h-[2.5em] flex items-center justify-center">
-              <span className="inline-block">{useTypewriterLoop(featureList, 60, 1200)}<span className="blinking-cursor">|</span></span>
+          <div className="w-full max-w-2xl flex flex-col items-center">
+            <h2 className="text-2xl md:text-3xl font-semibold text-center text-blue-700 dark:text-blue-300 min-h-[2em] h-[2em] flex items-center justify-center">
+              <span className="inline-block">
+                {useTypewriterLoop(claudeFeatures, 60, 1200)}
+                <span className="blinking-cursor">|</span>
+              </span>
             </h2>
           </div>
         </header>
 
         <main>
+          {/* Why Choose Open Claude for Chrome */}
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              Advanced Tab Management Features
+              Why Choose Open Claude for Chrome?
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
                 {
-                  title: 'Intelligent Tab Organization',
+                  title: '100% Free & Open Source',
+                  icon: Star,
+                  description: 'No subscription fees, no hidden costs. Get Claude for Chrome functionality completely free.',
+                },
+                {
+                  title: 'Claude AI Integration',
+                  icon: Brain,
+                  description: 'Direct access to Claude AI assistant with advanced conversation capabilities and context awareness.',
+                },
+                {
+                  title: 'Advanced Tab Management',
                   icon: Layout,
-                  description: 'AI-powered tab grouping and automatic tab sorting',
+                  description: 'AI-powered tab organization, smart grouping, and intelligent tab suggestions.',
                 },
                 {
-                  title: 'Smart Tab History',
-                  icon: History,
-                  description: 'Advanced tab history tracking with search capabilities',
-                },
-                {
-                  title: 'Tab Control Shortcuts',
-                  icon: Bookmark,
-                  description:
-                    'Quick tab management with customizable keyboard shortcuts',
-                },
-                {
-                  title: 'AI Tab Assistant',
-                  icon: MessageSquare,
-                  description: 'ChatGPT-powered tab suggestions and organization',
+                  title: 'Privacy & Security',
+                  icon: Shield,
+                  description: 'Your data stays local. No tracking, no data collection, complete privacy protection.',
                 },
               ].map((feature, index) => (
                 <Card
                   key={index}
                   className="bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group"
                 >
-                  <CardHeader className="bg-gradient-to-br from-purple-500 to-pink-500 p-6 group-hover:from-purple-600 group-hover:to-pink-600 transition-all duration-300">
+                  <CardHeader className="bg-gradient-to-br from-blue-500 to-purple-500 p-6 group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-300">
                     <feature.icon className="w-12 h-12 mb-4 text-white" />
                     <CardTitle className="text-white">
-                      <h3>
-                      {feature.title}
-                      </h3>
+                      <h3>{feature.title}</h3>
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-6">
-                    <h4>
                     <p className="text-gray-600 dark:text-gray-300">
                       {feature.description}
                     </p>
-                    </h4>
                   </CardContent>
                 </Card>
               ))}
             </div>
           </section>
 
+          {/* Demo Video Section */}
           <section className="w-full max-w-7xl mx-auto px-4 mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              See Our Tab Manager in Action
+              See Open Claude for Chrome in Action
             </h2>
             <div className="aspect-w-16 aspect-h-9" style={{ paddingBottom: '56.25%', position: 'relative', height: 0, overflow: 'hidden' }}>
               <iframe
                 src="https://www.youtube.com/embed/C7m4p8uPmag"
-                title="AIpex Tab Manager Demo Video"
+                title="Open Claude for Chrome Demo - Free Claude Chrome Extension"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
@@ -205,42 +233,41 @@ export default function Home() {
             </div>
           </section>
 
+          {/* Feature Showcase */}
           <section className="w-full max-w-7xl mx-auto px-4 mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              Professional Tab Management Solutions
+              Powerful Features of Open Claude for Chrome
             </h2>
             <div className="grid grid-cols-1 gap-12">
               {[
                 {
-                  title: 'Smart Tab Groups & Organization',
+                  title: 'Claude AI Chat Sidebar',
                   src: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*9C-GLUsdt2kk2lgSnbSyxw.gif',
-                  alt: 'Tab Groups and Organization',
+                  alt: 'Claude AI Chat in Chrome Extension',
                   description:
-                    'Automatically organize and group related tabs for better productivity and workflow management.',
+                    'Access Claude AI directly in your browser sidebar. Get intelligent assistance, answer questions, and have conversations without leaving your current page.',
                 },
                 {
-                  title: 'Complete Tab Control Suite',
+                  title: 'Smart Tab Organization',
                   src: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*vHkVQfDKE5GOxHp-J6fE_w.gif',
-                  alt: 'Tab Control Features',
+                  alt: 'AI-Powered Tab Management',
                   description:
-                    'Restore tabs, duplicate tabs, and manage windows with powerful tab management tools.',
+                    'Let AI organize your tabs intelligently. Group related tabs, suggest tab management actions, and maintain a clean browsing environment.',
                 },
                 {
-                  title: 'AI-Powered Tab Assistant',
+                  title: 'Browser Automation',
                   src: 'https://miro.medium.com/v2/resize:fit:720/format:webp/1*SgLf-C8bbcfdZUzm0ICZ8A.gif',
-                  alt: 'AI Tab Assistant',
+                  alt: 'Claude Chrome Browser Automation',
                   description:
-                    'Get intelligent tab suggestions and management recommendations from our AI assistant.',
+                    'Automate repetitive browser tasks with Claude AI. Fill forms, extract data, and perform complex browser operations with simple commands.',
                 },
               ].map((item, index) => (
                 <div key={index} className="relative group">
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
                   <Card className="relative bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300">
                     <CardHeader>
                       <CardTitle className="text-2xl font-semibold text-gray-800 dark:text-white">
-                        <h2>
-                        {item.title}
-                        </h2>
+                        <h2>{item.title}</h2>
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-6">
@@ -261,53 +288,54 @@ export default function Home() {
             </div>
           </section>
 
+          {/* Detailed Features */}
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              Comprehensive Tab Management Features
+              Complete Claude Chrome Extension Features
             </h2>
-            <Tabs defaultValue="tabs" className="w-full">
+            <Tabs defaultValue="claude" className="w-full">
               <TabsList className="grid w-full grid-cols-4 mb-8">
+                <TabsTrigger value="claude" className="text-lg">
+                  Claude AI
+                </TabsTrigger>
                 <TabsTrigger value="tabs" className="text-lg">
-                  Tab Manager
+                  Tab Management
                 </TabsTrigger>
-                <TabsTrigger value="history" className="text-lg">
-                  Tab History
+                <TabsTrigger value="automation" className="text-lg">
+                  Automation
                 </TabsTrigger>
-                <TabsTrigger value="bookmarks" className="text-lg">
-                  Tab Bookmarks
-                </TabsTrigger>
-                <TabsTrigger value="chatgpt" className="text-lg">
-                  Tab Assistant
+                <TabsTrigger value="privacy" className="text-lg">
+                  Privacy
                 </TabsTrigger>
               </TabsList>
               {[
                 {
+                  value: 'claude',
+                  title: 'Claude AI Integration',
+                  description: 'Advanced AI assistant in your browser',
+                  content:
+                    "Open Claude for Chrome provides seamless integration with Claude AI, giving you access to one of the most advanced AI assistants directly in your browser. Chat with Claude, get intelligent responses, and leverage AI-powered features without switching between applications.",
+                },
+                {
                   value: 'tabs',
-                  title: 'Advanced Tab Management',
-                  description: 'Professional tab organization tools',
+                  title: 'Intelligent Tab Management',
+                  description: 'AI-powered tab organization',
                   content:
-                    "Our tab manager uses cutting-edge AI algorithms to intelligently group related tabs, eliminate tab clutter, and streamline your browsing experience. Perfect for users who work with multiple tabs and need efficient tab organization.",
+                    'Our advanced tab management system uses AI to intelligently group related tabs, suggest tab organization strategies, and help you maintain a clean and efficient browsing environment. Perfect for users who work with multiple tabs simultaneously.',
                 },
                 {
-                  value: 'history',
-                  title: 'Smart Tab History',
-                  description: 'Enhanced tab history tracking',
+                  value: 'automation',
+                  title: 'Browser Automation',
+                  description: 'Automate tasks with Claude AI',
                   content:
-                    'The intelligent tab history system provides context-aware suggestions based on your browsing patterns, making it easy to find and restore previously closed tabs and manage your browsing sessions effectively.',
+                    'Leverage Claude AI to automate repetitive browser tasks. Fill forms automatically, extract data from web pages, perform complex browser operations, and streamline your workflow with intelligent automation capabilities.',
                 },
                 {
-                  value: 'bookmarks',
-                  title: 'Tab Bookmark Organization',
-                  description: 'Efficient tab bookmark management',
+                  value: 'privacy',
+                  title: 'Privacy-First Design',
+                  description: 'Your data stays private',
                   content:
-                    'Our tab manager automatically categorizes and organizes your bookmarked tabs using advanced AI technology, creating an intuitive and self-organizing system that adapts to your browsing habits.',
-                },
-                {
-                  value: 'chatgpt',
-                  title: 'AI Tab Assistant',
-                  description: 'Intelligent tab management help',
-                  content:
-                    "The integrated AI assistant provides smart suggestions for tab organization, helps you find specific tabs quickly, and offers personalized recommendations for improving your tab management workflow.",
+                    "Unlike other Claude Chrome extensions, Open Claude for Chrome prioritizes your privacy. All data processing happens locally when possible, and we don't collect or store your personal information or browsing data.",
                 },
               ].map((tab) => (
                 <TabsContent key={tab.value} value={tab.value}>
@@ -331,11 +359,88 @@ export default function Home() {
             </Tabs>
           </section>
 
-          <AipexFeatures />
-
+          {/* Comparison Section */}
           <section className="mb-24">
             <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
-              Tab Manager FAQs
+              Open Claude for Chrome vs Claude for Chrome
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <Card className="bg-white dark:bg-gray-800 shadow-lg">
+                <CardHeader className="bg-gradient-to-br from-green-500 to-green-600">
+                  <CardTitle className="text-white text-2xl">Open Claude for Chrome</CardTitle>
+                </CardHeader>
+                <CardContent className="p-6">
+                  <ul className="space-y-3">
+                    <li className="flex items-center">
+                      <CheckCircle className="w-5 h-5 text-green-500 mr-3" />
+                      <span>100% Free & Open Source</span>
+                    </li>
+                    <li className="flex items-center">
+                      <CheckCircle className="w-5 h-5 text-green-500 mr-3" />
+                      <span>Full Claude AI Integration</span>
+                    </li>
+                    <li className="flex items-center">
+                      <CheckCircle className="w-5 h-5 text-green-500 mr-3" />
+                      <span>Advanced Tab Management</span>
+                    </li>
+                    <li className="flex items-center">
+                      <CheckCircle className="w-5 h-5 text-green-500 mr-3" />
+                      <span>Browser Automation</span>
+                    </li>
+                    <li className="flex items-center">
+                      <CheckCircle className="w-5 h-5 text-green-500 mr-3" />
+                      <span>Privacy-First Design</span>
+                    </li>
+                    <li className="flex items-center">
+                      <CheckCircle className="w-5 h-5 text-green-500 mr-3" />
+                      <span>Community Driven</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-white dark:bg-gray-800 shadow-lg">
+                <CardHeader className="bg-gradient-to-br from-gray-500 to-gray-600">
+                  <CardTitle className="text-white text-2xl">Other Claude Extensions</CardTitle>
+                </CardHeader>
+                <CardContent className="p-6">
+                  <ul className="space-y-3">
+                    <li className="flex items-center">
+                      <span className="w-5 h-5 text-red-500 mr-3">✗</span>
+                      <span>Paid Subscriptions</span>
+                    </li>
+                    <li className="flex items-center">
+                      <span className="w-5 h-5 text-red-500 mr-3">✗</span>
+                      <span>Limited Features</span>
+                    </li>
+                    <li className="flex items-center">
+                      <span className="w-5 h-5 text-red-500 mr-3">✗</span>
+                      <span>Data Collection</span>
+                    </li>
+                    <li className="flex items-center">
+                      <span className="w-5 h-5 text-red-500 mr-3">✗</span>
+                      <span>Closed Source</span>
+                    </li>
+                    <li className="flex items-center">
+                      <span className="w-5 h-5 text-red-500 mr-3">✗</span>
+                      <span>No Community Input</span>
+                    </li>
+                    <li className="flex items-center">
+                      <span className="w-5 h-5 text-red-500 mr-3">✗</span>
+                      <span>Restrictive Licensing</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+          </section>
+
+          <AipexFeatures />
+
+          {/* FAQ Section */}
+          <section className="mb-24">
+            <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
+              Frequently Asked Questions
             </h2>
             <Accordion
               type="single"
@@ -344,34 +449,38 @@ export default function Home() {
             >
               {[
                 {
-                  question: 'Is this tab manager free to use?',
+                  question: 'Is Open Claude for Chrome really free?',
                   answer:
-                    'Yes, our tab manager is completely free and open-source. All features, including advanced tab organization and AI assistance, are available at no cost.',
+                    'Yes! Open Claude for Chrome is completely free and open-source. There are no subscription fees, no premium tiers, and no hidden costs. All features are available to everyone.',
                 },
                 {
-                  question: 'How does the tab manager handle my browsing data?',
+                  question: 'How does Open Claude for Chrome compare to Claude for Chrome?',
                   answer:
-                    "Our tab manager processes all data locally on your device. We prioritize your privacy and don't store or transmit your browsing information to external servers.",
+                    'Open Claude for Chrome provides the same core functionality as Claude for Chrome but is completely free and open-source. We offer advanced tab management, browser automation, and privacy protection that many paid alternatives lack.',
                 },
                 {
-                  question: 'Can I use this tab manager on other browsers?',
+                  question: 'Is my data safe with Open Claude for Chrome?',
                   answer:
-                    "Currently, our tab manager is exclusively available as a Chrome extension. We're exploring options to support additional browsers in future updates.",
+                    'Absolutely. We prioritize your privacy. All data processing happens locally when possible, and we don\'t collect or store your personal information or browsing data.',
                 },
                 {
-                  question: 'How can I contribute to improving the tab manager?',
+                  question: 'Can I contribute to Open Claude for Chrome?',
                   answer:
-                    'As an open-source project, we welcome contributions to enhance our tab manager! You can submit bug reports, feature suggestions, or code contributions through our GitHub repository.',
+                    'Yes! As an open-source project, we welcome contributions from the community. You can submit bug reports, feature suggestions, or code contributions through our GitHub repository.',
                 },
                 {
-                  question:
-                    'What makes this the most effective tab manager for Chrome?',
+                  question: 'What makes Open Claude for Chrome the best Claude Chrome extension?',
                   answer:
-                    'Our tab manager combines AI-powered tab organization, smart history tracking, intelligent bookmarking, and an AI assistant. This comprehensive approach to tab management sets it apart from traditional tab organizers.',
+                    'Open Claude for Chrome combines Claude AI integration, advanced tab management, browser automation, and privacy protection in a completely free, open-source package. No other extension offers this combination of features without cost.',
+                },
+                {
+                  question: 'How do I install Open Claude for Chrome?',
+                  answer:
+                    'You can install Open Claude for Chrome from the Chrome Web Store or build it from source on GitHub. The installation process is simple and takes just a few clicks.',
                 },
               ].map((item, index) => (
                 <AccordionItem key={index} value={`item-${index + 1}`}>
-                  <AccordionTrigger className="px-6 py-4 text-lg font-semibold text-gray-800 dark:text-white hover:bg-purple-50 dark:hover:bg-purple-900">
+                  <AccordionTrigger className="px-6 py-4 text-lg font-semibold text-gray-800 dark:text-white hover:bg-blue-50 dark:hover:bg-blue-900">
                     <h3>{item.question}</h3>
                   </AccordionTrigger>
                   <AccordionContent className="px-6 py-4 text-gray-600 dark:text-gray-300">
@@ -380,6 +489,39 @@ export default function Home() {
                 </AccordionItem>
               ))}
             </Accordion>
+          </section>
+
+          {/* CTA Section */}
+          <section className="mb-24 text-center">
+            <Card className="bg-gradient-to-r from-blue-500 to-purple-500 text-white p-12">
+              <CardContent>
+                <h2 className="text-4xl font-bold mb-6">
+                  Ready to Try Open Claude for Chrome?
+                </h2>
+                <p className="text-xl mb-8 opacity-90">
+                  Join thousands of users who have switched to the free, open-source alternative to Claude for Chrome.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button 
+                    size="lg" 
+                    variant="secondary"
+                    className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg"
+                    onClick={() => window.open('https://github.com/AIPexStudio/open-claude-for-chrome', '_blank')}
+                  >
+                    <Github className="mr-2 h-5 w-5" />
+                    View on GitHub
+                  </Button>
+                  <Button 
+                    size="lg" 
+                    className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold shadow-lg"
+                    onClick={() => window.open('https://chrome.google.com/webstore', '_blank')}
+                  >
+                    <Download className="mr-2 h-5 w-5" />
+                    Install Now
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
           </section>
         </main>
       </div>
