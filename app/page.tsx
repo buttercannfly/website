@@ -129,7 +129,7 @@ export default function Home() {
                 size="lg" 
                 variant="outline" 
                 className="border-blue-600 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900 px-8 py-4 text-lg"
-                onClick={() => window.open('https://chrome.google.com/webstore', '_blank')}
+                onClick={() => window.open('https://chromewebstore.google.com/detail/aipex/iglkpadagfelcpmiidndgjgafpdifnke', '_blank')}
               >
                 <Download className="mr-2 h-5 w-5" />
                 Install Extension
@@ -514,7 +514,7 @@ export default function Home() {
                   <Button 
                     size="lg" 
                     className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold shadow-lg"
-                    onClick={() => window.open('https://chrome.google.com/webstore', '_blank')}
+                    onClick={() => window.open('https://chromewebstore.google.com/detail/aipex/iglkpadagfelcpmiidndgjgafpdifnke', '_blank')}
                   >
                     <Download className="mr-2 h-5 w-5" />
                     Install Now

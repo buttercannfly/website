@@ -16,7 +16,7 @@ export const structuredData = {
     "name": "AIPexStudio",
     "url": "https://github.com/AIPexStudio"
   },
-  "downloadUrl": "https://github.com/AIPexStudio/open-claude-for-chrome",
+  "downloadUrl": "https://chromewebstore.google.com/detail/aipex/iglkpadagfelcpmiidndgjgafpdifnke",
   "softwareVersion": "1.0.0",
   "aggregateRating": {
     "@type": "AggregateRating",

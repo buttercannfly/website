@@ -64,7 +64,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-336LLWQVC2"
+        src="https://www.googletagmanager.com/gtag/js?id=G-753M5NZSBJ"
         strategy="afterInteractive"
       />
       <Script id="google-analytics" strategy="afterInteractive">
@@ -73,7 +73,7 @@ export default function RootLayout({
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
 
-          gtag('config', 'G-336LLWQVC2');
+          gtag('config', 'G-753M5NZSBJ');
         `}
       </Script>
       <script defer src="https://cloud.umami.is/script.js" data-website-id="b52f3149-18d4-4b9f-be83-58e9fb4352b1"></script>
