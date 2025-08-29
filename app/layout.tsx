@@ -21,8 +21,14 @@ export const metadata: Metadata = {
   icons: [
     {
       rel: 'icon',
+      url: '/favicon/favicon.svg',
+      type: 'image/svg+xml',
+    },
+    {
+      rel: 'icon',
       url: '/favicon/favicon.ico',
       type: 'image/x-icon',
+      sizes: '32x32',
     },
     {
       rel: 'shortcut icon',
@@ -32,6 +38,12 @@ export const metadata: Metadata = {
     {
       rel: 'apple-touch-icon',
       url: '/favicon/favicon.ico',
+      sizes: '180x180',
+    },
+    {
+      rel: 'mask-icon',
+      url: '/favicon/favicon.svg',
+      color: '#3B82F6',
     }
   ],
   twitter: {
