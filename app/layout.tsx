@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Script from 'next/script';
 import { structuredData, faqStructuredData } from './structured-data';
+import Providers from '@/components/providers/session-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -103,8 +104,10 @@ export default function RootLayout({
             __html: JSON.stringify(faqStructuredData),
           }}
         />
-        <Header />
-        {children}
+        <Providers>
+          <Header />
+          {children}
+        </Providers>
       </body>
     </html>
   );
