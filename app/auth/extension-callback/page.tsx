@@ -39,7 +39,7 @@ export default function ExtensionCallback() {
           }))
           
           // 重定向到插件可以监听的URL
-          const redirectUrl = `http://localhost:3000/auth/extension-success?token=${tokenData}`
+          const redirectUrl = `${window.location.origin}/auth/extension-success?token=${tokenData}`
           console.log('Redirecting to:', redirectUrl)
           
           window.location.href = redirectUrl

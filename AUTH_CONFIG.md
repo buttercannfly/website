@@ -6,7 +6,9 @@ Create a `.env.local` file in the aipex-website directory with the following var
 
 ```env
 # NextAuth Configuration
+# 开发环境
 NEXTAUTH_URL=http://localhost:3000
+# 生产环境请设置为: NEXTAUTH_URL=https://claudechrome.com
 NEXTAUTH_SECRET=your-secret-key-here
 
 # Google OAuth

@@ -1,7 +1,9 @@
 # 复制此内容到 .env.local 文件中
 
 # NextAuth Configuration
+# 开发环境
 NEXTAUTH_URL=http://localhost:3000
+# 生产环境请设置为: NEXTAUTH_URL=https://claudechrome.com
 NEXTAUTH_SECRET=your-secret-key-here-make-it-long-and-random
 
 # Google OAuth (Optional)
