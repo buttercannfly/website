@@ -7,6 +7,8 @@ import { useRouter, useSearchParams } from 'next/navigation'
 export default function SignIn() {
   const [isLoading, setIsLoading] = useState(false)
   const [providers, setProviders] = useState<any>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [loadingProviders, setLoadingProviders] = useState(true)
   const router = useRouter()
   const searchParams = useSearchParams()
   const source = searchParams.get('source')
@@ -14,8 +16,18 @@ export default function SignIn() {
 
   useEffect(() => {
     const fetchProviders = async () => {
-      const res = await getProviders()
-      setProviders(res)
+      try {
+        setLoadingProviders(true)
+        setError(null)
+        const res = await getProviders()
+        console.log('Providers loaded:', res)
+        setProviders(res)
+      } catch (err) {
+        console.error('Error loading providers:', err)
+        setError('Failed to load authentication providers. Please check your configuration.')
+      } finally {
+        setLoadingProviders(false)
+      }
     }
     fetchProviders()
   }, [])
@@ -42,10 +54,56 @@ export default function SignIn() {
     }
   }
 
-  if (!providers) {
+  if (loadingProviders) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-2 text-gray-600">Loading authentication providers...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="max-w-md w-full bg-white p-6 rounded-lg shadow-md">
+          <div className="text-center">
+            <div className="text-red-500 text-6xl mb-4">⚠️</div>
+            <h2 className="text-xl font-bold text-gray-900 mb-2">Configuration Error</h2>
+            <p className="text-gray-600 mb-4">{error}</p>
+            <div className="text-sm text-gray-500">
+              <p>Please check:</p>
+              <ul className="list-disc list-inside mt-2 text-left">
+                <li>Environment variables are set correctly</li>
+                <li>OAuth providers are configured</li>
+                <li>NEXTAUTH_SECRET is defined</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (!providers || Object.keys(providers).length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="max-w-md w-full bg-white p-6 rounded-lg shadow-md">
+          <div className="text-center">
+            <div className="text-yellow-500 text-6xl mb-4">🔧</div>
+            <h2 className="text-xl font-bold text-gray-900 mb-2">No Providers Available</h2>
+            <p className="text-gray-600 mb-4">No authentication providers are configured.</p>
+            <div className="text-sm text-gray-500">
+              <p>Please configure at least one OAuth provider:</p>
+              <ul className="list-disc list-inside mt-2 text-left">
+                <li>Google OAuth (GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET)</li>
+                <li>GitHub OAuth (GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }

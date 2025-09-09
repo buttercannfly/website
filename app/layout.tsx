@@ -89,16 +89,22 @@ export default function RootLayout({
           gtag('config', 'G-753M5NZSBJ');
         `}
       </Script>
-      <script defer src="https://cloud.umami.is/script.js" data-website-id="b52f3149-18d4-4b9f-be83-58e9fb4352b1"></script>
+      <Script
+        src="https://cloud.umami.is/script.js"
+        data-website-id="b52f3149-18d4-4b9f-be83-58e9fb4352b1"
+        strategy="afterInteractive"
+      />
 
       <body className={inter.className}>
-        <script
+        <Script
+          id="structured-data"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(structuredData),
           }}
         />
-        <script
+        <Script
+          id="faq-structured-data"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(faqStructuredData),
