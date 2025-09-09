@@ -75,7 +75,7 @@ export default function TestAuth() {
             <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-md">
               <h2 className="text-lg font-semibold text-yellow-800">Not Signed In</h2>
               <p className="text-sm text-yellow-700 mt-2">
-                Click the button below to sign in with Google or GitHub.
+                Click the button below to sign in.
               </p>
             </div>
 
