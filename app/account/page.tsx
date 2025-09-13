@@ -228,7 +228,7 @@ export default function AccountPage() {
                   disabled={isProcessing}
                 >
                   <CreditCard className="h-4 w-4 mr-2" />
-                  {isProcessing ? 'Processing...' : 'Buy credits'}
+                  {isProcessing ? 'Processing...' : 'Buy 10 credits'}
                 </Button>
                 
                 {/* How credits work link */}
