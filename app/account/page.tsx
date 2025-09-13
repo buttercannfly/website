@@ -10,6 +10,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 
 interface UserCredits {
   total: number
+  nextRefreshDate?: string
 }
 
 export default function AccountPage() {
@@ -31,8 +32,8 @@ export default function AccountPage() {
         console.error('Failed to fetch credits:', data.error)
       } else {
         setCredits(data)
-        // 假设购买的credits是总credits减去免费credits(10)
-        setPurchasedCredits(Math.max(0, data.total - 10))
+        // 假设购买的credits是总credits减去免费credits(5)
+        setPurchasedCredits(Math.max(0, data.total - 5))
       }
     } catch (err) {
       console.error('Failed to fetch credits:', err)
@@ -159,21 +160,25 @@ export default function AccountPage() {
                 {/* Free Credits */}
                 <div className="flex items-center gap-3">
                   <Gift className="h-5 w-5 text-gray-600" />
-                  <span className="text-gray-700">Free credits: {credits.total} / 5</span>
+                  <span className="text-gray-700">Total credits: {credits.total} </span>
                 </div>
                 
-                {/* Progress Bar */}
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div 
-                    className="bg-green-600 h-2 rounded-full transition-all duration-300"
-                    style={{ width: `${Math.min((credits.total / 5) * 100, 100)}%` }}
-                  ></div>
-                </div>
+                {/* Progress Bar for Free Credits */}
+
                 
                 {/* Next Refresh Date */}
-                <div className="text-sm text-gray-600">
-                  Next refresh date: {new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]}
-                </div>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div className="text-sm text-gray-600 cursor-help">
+                        Next refresh date: {credits.nextRefreshDate || new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]}
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>You get 5 free credits every day that refresh at midnight.</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
                 
                 {/* Purchased Credits */}
                 <div className="flex items-center gap-3">

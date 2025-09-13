@@ -23,11 +23,39 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
 
-    // 返回用户的总credits
-    const totalCredits = user.credits || 0
+    // 检查是否需要每日刷新免费credits
+    const today = new Date().toISOString().split('T')[0] // YYYY-MM-DD格式
+    const lastRefreshDate = user.last_refresh_date || user.created_at?.split('T')[0]
+    
+    let totalCredits = user.credits || 0
+    let nextRefreshDate = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+    
+    // 如果今天还没有刷新过，则刷新免费credits
+    if (lastRefreshDate !== today) {
+      // 计算免费credits（总credits减去购买的credits）
+      const purchasedCredits = Math.max(0, totalCredits - 5) // 假设免费credits是5个
+      const newTotalCredits = purchasedCredits + 5 // 重置为5个免费credits + 购买的credits
+      
+      // 更新数据库
+      const { error: updateError } = await supabaseAdmin
+        .from('users')
+        .update({ 
+          credits: newTotalCredits,
+          last_refresh_date: today
+        })
+        .eq('email', session.user.email)
+      
+      if (updateError) {
+        console.error('Error updating daily refresh:', updateError)
+      } else {
+        totalCredits = newTotalCredits
+        console.log(`Daily refresh completed for user ${session.user.email}. New credits: ${totalCredits}`)
+      }
+    }
 
     return NextResponse.json({
-      total: totalCredits
+      total: totalCredits,
+      nextRefreshDate: nextRefreshDate
     })
   } catch (error) {
     console.error('Error fetching credits:', error)
