@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth/next'
 import { authOptions } from '@/lib/auth'
-import { supabaseAdmin, CreditsData } from '@/lib/supabase'
+import { supabaseAdmin, User } from '@/lib/supabase'
 
 export async function GET(request: NextRequest) {
   try {
@@ -23,19 +23,23 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
 
-    // 返回用户的总credits
-    const totalCredits = user.credits || 0
+    // 返回用户信息（不包含敏感数据）
+    const userInfo = {
+      id: user.id,
+      email: user.email,
+      type: user.type,
+      credits: user.credits,
+      createdAt: user.created_at
+    }
 
-    return NextResponse.json({
-      total: totalCredits
-    })
+    return NextResponse.json(userInfo)
   } catch (error) {
-    console.error('Error fetching credits:', error)
+    console.error('Error fetching user info:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
 
-export async function POST(request: NextRequest) {
+export async function PUT(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     
@@ -44,47 +48,24 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
-    const { amount } = body
+    const { type } = body
 
-    if (!amount || amount <= 0) {
-      return NextResponse.json({ error: 'Invalid amount' }, { status: 400 })
-    }
-
-    // 获取当前用户信息
-    const { data: user, error: userError } = await supabaseAdmin
-      .from('users')
-      .select('*')
-      .eq('email', session.user.email)
-      .single()
-
-    if (userError || !user) {
-      console.error('Error fetching user:', userError)
-      return NextResponse.json({ error: 'User not found' }, { status: 404 })
-    }
-
-    // 更新用户的credits
-    const currentCredits = user.credits || 0
-    const newTotalCredits = currentCredits + amount
-
+    // 更新用户类型
     const { data: updatedUser, error: updateError } = await supabaseAdmin
       .from('users')
-      .update({ credits: newTotalCredits })
+      .update({ type })
       .eq('email', session.user.email)
       .select()
       .single()
 
     if (updateError) {
-      console.error('Error updating credits:', updateError)
-      return NextResponse.json({ error: 'Failed to update credits' }, { status: 500 })
+      console.error('Error updating user:', updateError)
+      return NextResponse.json({ error: 'Failed to update user' }, { status: 500 })
     }
 
-    // 返回更新后的总credits
-    return NextResponse.json({
-      total: newTotalCredits
-    })
+    return NextResponse.json(updatedUser)
   } catch (error) {
-    console.error('Error purchasing credits:', error)
+    console.error('Error updating user info:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
-

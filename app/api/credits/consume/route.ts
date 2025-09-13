@@ -1,39 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth/next'
 import { authOptions } from '@/lib/auth'
-import { supabaseAdmin, CreditsData } from '@/lib/supabase'
-
-export async function GET(request: NextRequest) {
-  try {
-    const session = await getServerSession(authOptions)
-    
-    if (!session || !session.user?.email) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
-
-    // 从Supabase获取用户信息
-    const { data: user, error: userError } = await supabaseAdmin
-      .from('users')
-      .select('*')
-      .eq('email', session.user.email)
-      .single()
-
-    if (userError || !user) {
-      console.error('Error fetching user:', userError)
-      return NextResponse.json({ error: 'User not found' }, { status: 404 })
-    }
-
-    // 返回用户的总credits
-    const totalCredits = user.credits || 0
-
-    return NextResponse.json({
-      total: totalCredits
-    })
-  } catch (error) {
-    console.error('Error fetching credits:', error)
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
-  }
-}
+import { supabaseAdmin } from '@/lib/supabase'
 
 export async function POST(request: NextRequest) {
   try {
@@ -62,13 +30,22 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
 
-    // 更新用户的credits
     const currentCredits = user.credits || 0
-    const newTotalCredits = currentCredits + amount
+
+    if (currentCredits < amount) {
+      return NextResponse.json({ 
+        error: 'Insufficient credits',
+        currentCredits,
+        requiredCredits: amount
+      }, { status: 400 })
+    }
+
+    // 扣除credits
+    const newCredits = currentCredits - amount
 
     const { data: updatedUser, error: updateError } = await supabaseAdmin
       .from('users')
-      .update({ credits: newTotalCredits })
+      .update({ credits: newCredits })
       .eq('email', session.user.email)
       .select()
       .single()
@@ -78,13 +55,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Failed to update credits' }, { status: 500 })
     }
 
-    // 返回更新后的总credits
     return NextResponse.json({
-      total: newTotalCredits
+      success: true,
+      total: newCredits,
+      message: `Successfully consumed ${amount} credits`
     })
   } catch (error) {
-    console.error('Error purchasing credits:', error)
+    console.error('Error consuming credits:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
-

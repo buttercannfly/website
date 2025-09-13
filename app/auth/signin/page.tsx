@@ -11,8 +11,8 @@ export default function SignIn() {
   const [loadingProviders, setLoadingProviders] = useState(true)
   const router = useRouter()
   const searchParams = useSearchParams()
-  const source = searchParams.get('source')
-  const callbackUrl = searchParams.get('callbackUrl')
+  const source = searchParams?.get('source')
+  const callbackUrl = searchParams?.get('callbackUrl')
 
   useEffect(() => {
     const fetchProviders = async () => {
