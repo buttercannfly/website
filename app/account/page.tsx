@@ -13,12 +13,23 @@ interface UserCredits {
   nextRefreshDate?: string
 }
 
+interface PaymentHistory {
+  id: number
+  date: string
+  credits: number
+  paymentId: string
+  verified: boolean
+  status: 'completed' | 'failed' | 'pending'
+}
+
 export default function AccountPage() {
   const { data: session, status } = useSession()
   const [credits, setCredits] = useState<UserCredits | null>(null)
   const [loading, setLoading] = useState(false)
   const [purchasedCredits, setPurchasedCredits] = useState(0)
   const [isProcessing, setIsProcessing] = useState(false)
+  const [paymentHistory, setPaymentHistory] = useState<PaymentHistory[]>([])
+  const [historyLoading, setHistoryLoading] = useState(false)
 
   const fetchCredits = async () => {
     if (!session) return
@@ -39,6 +50,28 @@ export default function AccountPage() {
       console.error('Failed to fetch credits:', err)
     } finally {
       setLoading(false)
+    }
+  }
+
+  const fetchPaymentHistory = async () => {
+    if (!session) return
+    
+    setHistoryLoading(true)
+    try {
+      const res = await fetch('/api/credits', {
+        method: 'PUT'
+      })
+      const data = await res.json()
+      
+      if (data.error) {
+        console.error('Failed to fetch payment history:', data.error)
+      } else {
+        setPaymentHistory(data.payments || [])
+      }
+    } catch (err) {
+      console.error('Failed to fetch payment history:', err)
+    } finally {
+      setHistoryLoading(false)
     }
   }
 
@@ -78,6 +111,7 @@ export default function AccountPage() {
   useEffect(() => {
     if (session) {
       fetchCredits()
+      fetchPaymentHistory()
     }
   }, [session])
 
@@ -87,8 +121,9 @@ export default function AccountPage() {
     const paymentStatus = urlParams.get('payment')
     
     if (paymentStatus === 'success') {
-      // 刷新credits数据
+      // 刷新credits和支付历史数据
       fetchCredits()
+      fetchPaymentHistory()
       // 清除URL参数
       window.history.replaceState({}, '', '/account')
     }
@@ -214,6 +249,58 @@ export default function AccountPage() {
             ) : (
               <div className="text-center py-8 text-gray-500">
                 Failed to load credits information
+              </div>
+            )}
+          </div>
+          
+          {/* Payment History Section */}
+          <div className="mb-8">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Payment History</h2>
+            
+            {historyLoading ? (
+              <div className="flex items-center justify-center py-8">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                <span className="ml-2 text-gray-600">Loading payment history...</span>
+              </div>
+            ) : paymentHistory.length > 0 ? (
+              <div className="space-y-3">
+                {paymentHistory.map((payment) => (
+                  <div key={payment.id} className="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <div className={`w-3 h-3 rounded-full ${
+                        payment.status === 'completed' ? 'bg-green-500' : 
+                        payment.status === 'failed' ? 'bg-red-500' : 'bg-yellow-500'
+                      }`}></div>
+                      <div>
+                        <div className="font-medium text-gray-900">
+                          {payment.credits > 0 ? `+${payment.credits} Credits` : 'Payment Failed'}
+                        </div>
+                        <div className="text-sm text-gray-500">
+                          {new Date(payment.date).toLocaleDateString()} {new Date(payment.date).toLocaleTimeString()}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className={`text-sm font-medium ${
+                        payment.status === 'completed' ? 'text-green-600' : 
+                        payment.status === 'failed' ? 'text-red-600' : 'text-yellow-600'
+                      }`}>
+                        {payment.status.charAt(0).toUpperCase() + payment.status.slice(1)}
+                      </div>
+                      {payment.paymentId && (
+                        <div className="text-xs text-gray-400">
+                          ID: {payment.paymentId.slice(-8)}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8 text-gray-500">
+                <CreditCard className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+                <p>No payment history yet</p>
+                <p className="text-sm">Your payment history will appear here after making purchases</p>
               </div>
             )}
           </div>

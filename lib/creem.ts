@@ -68,7 +68,7 @@ export const CREDITS_PRODUCTS: CreemProduct[] = [
     name: 'AIPex Credits',
     description: 'AIPex Credits - Perfect for getting started',
     price: 4.49,
-    credits: 100, // 根据您的需求调整积分数量
+    credits: 10, // 更新为10个积分
     currency: 'USD'
   }
 ]
@@ -116,9 +116,31 @@ export class CreemClient {
    * 验证Webhook签名
    */
   verifyWebhookSignature(payload: string, signature: string): boolean {
-    // 这里应该实现实际的签名验证逻辑
-    // 根据Creem的文档实现HMAC验证
-    return true // 临时返回true，实际实现需要根据Creem的签名算法
+    try {
+      if (!this.config.webhookSecret || !signature) {
+        console.error('Missing webhook secret or signature')
+        return false
+      }
+
+      // 移除 'sha256=' 前缀（如果存在）
+      const cleanSignature = signature.replace(/^sha256=/, '')
+      
+      // 计算HMAC SHA256签名
+      const crypto = require('crypto')
+      const expectedSignature = crypto
+        .createHmac('sha256', this.config.webhookSecret)
+        .update(payload, 'utf8')
+        .digest('hex')
+
+      // 使用时间安全比较避免时序攻击
+      return crypto.timingSafeEqual(
+        Buffer.from(cleanSignature, 'hex'),
+        Buffer.from(expectedSignature, 'hex')
+      )
+    } catch (error) {
+      console.error('Webhook signature verification error:', error)
+      return false
+    }
   }
 
   /**

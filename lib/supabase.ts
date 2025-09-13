@@ -24,6 +24,16 @@ export interface User {
   email: string | null
   type: string | null
   credits: number | null
+  last_refresh_date: string | null
+}
+
+export interface Payment {
+  id: number
+  created_at: string
+  user_id: number | null
+  credits: number | null
+  payment_id: string | null
+  verified: boolean | null
 }
 
 export interface CreditsData {

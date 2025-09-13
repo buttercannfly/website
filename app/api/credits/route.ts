@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth/next'
 import { authOptions } from '@/lib/auth'
-import { supabaseAdmin, CreditsData } from '@/lib/supabase'
+import { supabaseAdmin, CreditsData, Payment } from '@/lib/supabase'
 
 export async function GET(request: NextRequest) {
   try {
@@ -112,6 +112,61 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     console.error('Error purchasing credits:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+  }
+}
+
+// 获取用户支付历史
+export async function PUT(request: NextRequest) {
+  try {
+    const session = await getServerSession(authOptions)
+    
+    if (!session || !session.user?.email) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    // 获取用户信息
+    const { data: user, error: userError } = await supabaseAdmin
+      .from('users')
+      .select('id')
+      .eq('email', session.user.email)
+      .single()
+
+    if (userError || !user) {
+      console.error('Error fetching user:', userError)
+      return NextResponse.json({ error: 'User not found' }, { status: 404 })
+    }
+
+    // 获取用户的支付历史
+    const { data: payments, error: paymentsError } = await supabaseAdmin
+      .from('payments')
+      .select('*')
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false })
+      .limit(50) // 限制返回最近50条记录
+
+    if (paymentsError) {
+      console.error('Error fetching payments:', paymentsError)
+      return NextResponse.json({ error: 'Failed to fetch payment history' }, { status: 500 })
+    }
+
+    // 格式化支付历史数据
+    const paymentHistory = payments.map((payment: Payment) => ({
+      id: payment.id,
+      date: payment.created_at,
+      credits: payment.credits,
+      paymentId: payment.payment_id,
+      verified: payment.verified,
+      status: payment.verified ? 'completed' : (payment.credits === 0 ? 'failed' : 'pending')
+    }))
+
+    return NextResponse.json({
+      payments: paymentHistory,
+      total: paymentHistory.length
+    })
+
+  } catch (error) {
+    console.error('Error fetching payment history:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
