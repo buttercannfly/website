@@ -8,7 +8,7 @@ Create a `.env.local` file in the aipex-website directory with the following var
 # NextAuth Configuration
 # 开发环境
 NEXTAUTH_URL=http://localhost:3000
-# 生产环境请设置为: NEXTAUTH_URL=https://claudechrome.com
+# 生产环境请设置为: NEXTAUTH_URL=https://claudechrome
 NEXTAUTH_SECRET=your-secret-key-here
 
 # Google OAuth
@@ -32,7 +32,7 @@ DATABASE_URL="postgresql://username:password@localhost:5432/aipex"
 4. Go to Credentials → Create Credentials → OAuth 2.0 Client IDs
 5. Set authorized redirect URIs:
    - `http://localhost:3000/api/auth/callback/google` (development)
-   - `https://yourdomain.com/api/auth/callback/google` (production)
+   - `https://claudechrome/api/auth/callback/google` (production)
 6. Copy Client ID and Client Secret to environment variables
 
 ### GitHub OAuth Setup
@@ -40,7 +40,7 @@ DATABASE_URL="postgresql://username:password@localhost:5432/aipex"
 2. Click "New OAuth App"
 3. Set Authorization callback URL:
    - `http://localhost:3000/api/auth/callback/github` (development)
-   - `https://yourdomain.com/api/auth/callback/github` (production)
+   - `https://claudechrome/api/auth/callback/github` (production)
 4. Copy Client ID and Client Secret to environment variables
 
 ## Database Setup (Optional)

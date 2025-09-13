@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
@@ -9,10 +11,22 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
-import { Chrome, Settings, Layout, MessageSquare } from 'lucide-react';
+import { Chrome, Settings, Layout, MessageSquare, User, LogOut } from 'lucide-react';
 import { Description } from '@radix-ui/react-toast';
+import { useSession, signIn, signOut } from 'next-auth/react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Button } from '@/components/ui/button';
 
 const Header = () => {
+  const { data: session, status } = useSession();
   const tabFeatures = [
     { title: 'Group Tabs', href: '/tab/group', description: 'Organize and group your tabs efficiently' },
     { title: 'Duplicate Tab', href: '/tab/duplicate', description: 'Quickly duplicate any tab' },
@@ -143,6 +157,53 @@ const Header = () => {
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
+
+        {/* User Authentication Section */}
+        <div className="ml-auto flex items-center space-x-4">
+          {status === 'loading' ? (
+            <div className="w-8 h-8 rounded-full bg-gray-200 animate-pulse"></div>
+          ) : session ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                  <Avatar className="h-8 w-8">
+                    <AvatarImage src={session.user?.image || ''} alt={session.user?.name || ''} />
+                    <AvatarFallback>
+                      {session.user?.name?.charAt(0) || 'U'}
+                    </AvatarFallback>
+                  </Avatar>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56" align="end" forceMount>
+                <DropdownMenuLabel className="font-normal">
+                  <div className="flex flex-col space-y-1">
+                    <p className="text-sm font-medium leading-none">{session.user?.name}</p>
+                    <p className="text-xs leading-none text-muted-foreground">
+                      {session.user?.email}
+                    </p>
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link href="/account" className="flex items-center">
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Account & Credits</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => signOut()}>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Log out</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Button onClick={() => signIn()} variant="outline" size="sm">
+              <User className="mr-2 h-4 w-4" />
+              Sign In
+            </Button>
+          )}
+        </div>
       </div>
     </header>
   );

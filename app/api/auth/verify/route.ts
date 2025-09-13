@@ -43,11 +43,20 @@ export async function POST(req: NextRequest) {
 
     try {
       // Verify the JWT token
-      const decoded = jwt.verify(token, process.env.NEXTAUTH_SECRET)
+      const decoded = jwt.verify(token, process.env.NEXTAUTH_SECRET) as any
+      
+      // 返回完整的用户信息，确保包含provider信息
+      const userInfo = {
+        id: decoded.userId || decoded.email,
+        name: decoded.name,
+        email: decoded.email,
+        image: decoded.image,
+        provider: decoded.provider
+      }
       
       return NextResponse.json({ 
         valid: true, 
-        user: decoded 
+        user: userInfo 
       })
     } catch (jwtError) {
       console.error('JWT verification failed:', jwtError)
