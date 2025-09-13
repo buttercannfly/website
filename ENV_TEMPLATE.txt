@@ -16,3 +16,21 @@ GITHUB_CLIENT_SECRET=your-github-client-secret
 
 # Database (Optional - only if using Prisma)
 DATABASE_URL="postgresql://username:password@localhost:5432/aipex"
+
+# Supabase Configuration
+NEXT_PUBLIC_SUPABASE_URL=https://hurbnpkzpwzuptjbpwzd.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-supabase-service-role-key
+
+# Creem Payment Platform Configuration
+CREEM_ENV=test
+CREEM_API_KEY=your-creem-api-key
+CREEM_WEBHOOK_SECRET=your_creem_webhook_secret
+
+# Creem Product IDs
+CREEM_BASIC_PRODUCT_ID=prod_3Y5uBhxL8Gu76Ts2tODWbs
+CREEM_STANDARD_PRODUCT_ID=prod_standard_id
+
+# Creem Payment URLs
+NEXT_PUBLIC_CREEM_SUCCESS_URL=https://funny-meme.com/payment/success
+NEXT_PUBLIC_CREEM_CANCEL_URL=https://funny-meme.com/pricing?cancel=true

@@ -4,8 +4,9 @@ import { useSession, signIn, signOut } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Gift, DollarSign, HelpCircle, ArrowRight, LogOut, User } from 'lucide-react'
+import { Gift, DollarSign, HelpCircle, ArrowRight, LogOut, User, CreditCard } from 'lucide-react'
 import Link from 'next/link'
+import { CreditsPurchaseModal } from '@/components/payment/credits-purchase-modal'
 
 interface UserCredits {
   total: number
@@ -15,28 +16,48 @@ export default function AccountPage() {
   const { data: session, status } = useSession()
   const [credits, setCredits] = useState<UserCredits | null>(null)
   const [loading, setLoading] = useState(false)
+  const [purchasedCredits, setPurchasedCredits] = useState(0)
+
+  const fetchCredits = async () => {
+    if (!session) return
+    
+    setLoading(true)
+    try {
+      const res = await fetch('/api/credits')
+      const data = await res.json()
+      
+      if (data.error) {
+        console.error('Failed to fetch credits:', data.error)
+      } else {
+        setCredits(data)
+        // 假设购买的credits是总credits减去免费credits(10)
+        setPurchasedCredits(Math.max(0, data.total - 10))
+      }
+    } catch (err) {
+      console.error('Failed to fetch credits:', err)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   useEffect(() => {
     if (session) {
-      // 获取用户 credits 数据
-      setLoading(true)
-      fetch('/api/credits')
-        .then(res => res.json())
-        .then(data => {
-          if (data.error) {
-            console.error('Failed to fetch credits:', data.error)
-          } else {
-            setCredits(data)
-          }
-        })
-        .catch(err => {
-          console.error('Failed to fetch credits:', err)
-        })
-        .finally(() => {
-          setLoading(false)
-        })
+      fetchCredits()
     }
   }, [session])
+
+  // 处理支付成功后的回调
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search)
+    const paymentStatus = urlParams.get('payment')
+    
+    if (paymentStatus === 'success') {
+      // 刷新credits数据
+      fetchCredits()
+      // 清除URL参数
+      window.history.replaceState({}, '', '/account')
+    }
+  }, [])
 
   if (status === 'loading') {
     return (
@@ -123,36 +144,16 @@ export default function AccountPage() {
                 {/* Purchased Credits */}
                 <div className="flex items-center gap-3">
                   <DollarSign className="h-5 w-5 text-gray-600" />
-                  <span className="text-gray-700">Purchased credits: 0</span>
+                  <span className="text-gray-700">Purchased credits: {purchasedCredits}</span>
                 </div>
                 
                 {/* Buy Credits Button */}
-                <Button 
-                  className="bg-green-600 hover:bg-green-700 text-white"
-                  onClick={() => {
-                    // 购买 100 credits
-                    fetch('/api/credits', {
-                      method: 'POST',
-                      headers: {
-                        'Content-Type': 'application/json',
-                      },
-                      body: JSON.stringify({ amount: 100 }),
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                      if (data.error) {
-                        console.error('Failed to purchase credits:', data.error)
-                      } else {
-                        setCredits(data)
-                      }
-                    })
-                    .catch(err => {
-                      console.error('Failed to purchase credits:', err)
-                    })
-                  }}
-                >
-                  Buy credits
-                </Button>
+                <CreditsPurchaseModal onPurchaseSuccess={fetchCredits}>
+                  <Button className="bg-green-600 hover:bg-green-700 text-white">
+                    <CreditCard className="h-4 w-4 mr-2" />
+                    Buy credits
+                  </Button>
+                </CreditsPurchaseModal>
                 
                 {/* How credits work link */}
                 <div className="flex items-center gap-2 text-blue-600 hover:text-blue-800 cursor-pointer">
