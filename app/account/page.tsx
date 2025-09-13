@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Gift, DollarSign, HelpCircle, ArrowRight, LogOut, User, CreditCard } from 'lucide-react'
 import Link from 'next/link'
-import { CreditsPurchaseModal } from '@/components/payment/credits-purchase-modal'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 
 interface UserCredits {
   total: number
@@ -17,6 +17,7 @@ export default function AccountPage() {
   const [credits, setCredits] = useState<UserCredits | null>(null)
   const [loading, setLoading] = useState(false)
   const [purchasedCredits, setPurchasedCredits] = useState(0)
+  const [isProcessing, setIsProcessing] = useState(false)
 
   const fetchCredits = async () => {
     if (!session) return
@@ -37,6 +38,39 @@ export default function AccountPage() {
       console.error('Failed to fetch credits:', err)
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handlePurchaseCredits = async () => {
+    try {
+      setIsProcessing(true)
+
+      const response = await fetch('/api/creem/create-payment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ productId: 'aipex' }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to create payment')
+      }
+
+      if (data.success && data.paymentUrl) {
+        // 直接跳转到Creem支付页面
+        window.location.href = data.paymentUrl
+      } else {
+        throw new Error('Invalid payment response')
+      }
+
+    } catch (err) {
+      console.error('Purchase error:', err)
+      alert(err instanceof Error ? err.message : 'Purchase failed')
+    } finally {
+      setIsProcessing(false)
     }
   }
 
@@ -125,14 +159,14 @@ export default function AccountPage() {
                 {/* Free Credits */}
                 <div className="flex items-center gap-3">
                   <Gift className="h-5 w-5 text-gray-600" />
-                  <span className="text-gray-700">Free credits: {credits.total} / 10</span>
+                  <span className="text-gray-700">Free credits: {credits.total} / 5</span>
                 </div>
                 
                 {/* Progress Bar */}
                 <div className="w-full bg-gray-200 rounded-full h-2">
                   <div 
                     className="bg-green-600 h-2 rounded-full transition-all duration-300"
-                    style={{ width: `${Math.min((credits.total / 10) * 100, 100)}%` }}
+                    style={{ width: `${Math.min((credits.total / 5) * 100, 100)}%` }}
                   ></div>
                 </div>
                 
@@ -148,18 +182,29 @@ export default function AccountPage() {
                 </div>
                 
                 {/* Buy Credits Button */}
-                <CreditsPurchaseModal onPurchaseSuccess={fetchCredits}>
-                  <Button className="bg-green-600 hover:bg-green-700 text-white">
-                    <CreditCard className="h-4 w-4 mr-2" />
-                    Buy credits
-                  </Button>
-                </CreditsPurchaseModal>
+                <Button 
+                  className="bg-green-600 hover:bg-green-700 text-white"
+                  onClick={handlePurchaseCredits}
+                  disabled={isProcessing}
+                >
+                  <CreditCard className="h-4 w-4 mr-2" />
+                  {isProcessing ? 'Processing...' : 'Buy credits'}
+                </Button>
                 
                 {/* How credits work link */}
-                <div className="flex items-center gap-2 text-blue-600 hover:text-blue-800 cursor-pointer">
-                  <HelpCircle className="h-4 w-4" />
-                  <span className="text-sm">How credits work?</span>
-                </div>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div className="flex items-center gap-2 text-blue-600 hover:text-blue-800 cursor-pointer">
+                        <HelpCircle className="h-4 w-4" />
+                        <span className="text-sm">How credits work?</span>
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Each task you perform costs 1 credit.<br/>For example: opening a new page, clicking elements, or taking screenshots.</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
             ) : (
               <div className="text-center py-8 text-gray-500">
