@@ -115,20 +115,6 @@ export default function AccountPage() {
     }
   }, [session])
 
-  // 处理支付成功后的回调
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search)
-    const paymentStatus = urlParams.get('payment')
-    
-    if (paymentStatus === 'success') {
-      // 刷新credits和支付历史数据
-      fetchCredits()
-      fetchPaymentHistory()
-      // 清除URL参数
-      window.history.replaceState({}, '', '/account')
-    }
-  }, [])
-
   if (status === 'loading') {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">

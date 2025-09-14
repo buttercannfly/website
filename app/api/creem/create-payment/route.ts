@@ -28,9 +28,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Product not found' }, { status: 400 })
     }
 
-    // 构建返回URL - 使用您之前的配置模式
-    const returnUrl = process.env.NEXT_PUBLIC_CREEM_SUCCESS_URL || `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/account?payment=success`
-    const cancelUrl = process.env.NEXT_PUBLIC_CREEM_CANCEL_URL || `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/account?payment=cancelled`
+    // 构建返回URL - Creem会直接返回所有支付参数到callback页面
+    const returnUrl = process.env.NEXT_PUBLIC_CREEM_SUCCESS_URL || `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/payment/callback`
+    const cancelUrl = process.env.NEXT_PUBLIC_CREEM_CANCEL_URL || `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/payment/callback`
 
     // 创建支付请求
     const paymentRequest = {

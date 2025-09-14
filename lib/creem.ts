@@ -113,7 +113,52 @@ export class CreemClient {
   }
 
   /**
-   * 验证Webhook签名
+   * 生成签名 - 使用Creem官方标准方法
+   * 根据官方文档：https://docs.creem.io/learn/checkout-session/return-url
+   */
+  generateSignature(params: any, apiKey: string): string {
+    const crypto = require('crypto')
+    
+    // 按照官方文档要求，使用 | 分隔符连接参数，并添加 salt
+    const data = Object.entries(params)
+      .map(([key, value]) => `${key}=${value}`)
+      .concat(`salt=${apiKey}`)
+      .join('|')
+    
+    console.log('Signature data string:', data)
+    
+    // 使用 SHA256 hash，不是 HMAC
+    return crypto.createHash('sha256').update(data).digest('hex')
+  }
+
+  /**
+   * 验证Return URL签名 - 使用Creem官方标准方法
+   */
+  verifyReturnUrlSignature(params: any, signature: string): boolean {
+    try {
+      if (!this.config.apiKey || !signature) {
+        console.error('Missing API key or signature')
+        return false
+      }
+
+      console.log('Verifying signature for params:', params)
+      console.log('Received signature:', signature)
+      
+      // 使用官方方法生成期望的签名
+      const expectedSignature = this.generateSignature(params, this.config.apiKey)
+      
+      console.log('Expected signature:', expectedSignature)
+      console.log('Signatures match:', expectedSignature === signature)
+
+      return expectedSignature === signature
+    } catch (error) {
+      console.error('Return URL signature verification error:', error)
+      return false
+    }
+  }
+
+  /**
+   * 验证Webhook签名 - 保持原有的HMAC方法（用于webhook）
    */
   verifyWebhookSignature(payload: string, signature: string): boolean {
     try {
@@ -125,12 +170,15 @@ export class CreemClient {
       // 移除 'sha256=' 前缀（如果存在）
       const cleanSignature = signature.replace(/^sha256=/, '')
       
-      // 计算HMAC SHA256签名
+      // 计算HMAC SHA256签名（webhook使用HMAC）
       const crypto = require('crypto')
       const expectedSignature = crypto
         .createHmac('sha256', this.config.webhookSecret)
         .update(payload, 'utf8')
         .digest('hex')
+
+      console.log('Expected webhook signature:', expectedSignature)
+      console.log('Received webhook signature:', cleanSignature)
 
       // 使用时间安全比较避免时序攻击
       return crypto.timingSafeEqual(
