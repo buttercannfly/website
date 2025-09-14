@@ -34,3 +34,8 @@ CREEM_STANDARD_PRODUCT_ID=prod_standard_id
 # Creem Payment URLs
 NEXT_PUBLIC_CREEM_SUCCESS_URL=https://funny-meme.com/payment/success
 NEXT_PUBLIC_CREEM_CANCEL_URL=https://funny-meme.com/pricing?cancel=true
+
+# AI API Configuration
+AI_HOST=https://api.deepseek.com/chat/completions
+AI_TOKEN=your-ai-api-token-here
+AI_MODEL=deepseek-chat

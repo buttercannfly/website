@@ -36,12 +36,27 @@ async function verifyToken(authHeader: string | null) {
 }
 
 // 调用外部 AI API
-async function callExternalAI(messages: any[], model: string = 'deepseek-chat') {
-  const aiHost = process.env.AI_HOST || 'https://api.deepseek.com/chat/completions'
-  const aiToken = process.env.AI_TOKEN || 'sk-b675935eaa034e27bbd388b806f52a39'
+async function callExternalAI(messages: any[], model?: string) {
+  const aiHost = process.env.AI_HOST
+  const aiToken = process.env.AI_TOKEN
+  const defaultModel = process.env.AI_MODEL
+
+  // 检查必需的环境变量
+  if (!aiHost) {
+    throw new Error('AI_HOST environment variable is not set')
+  }
+  if (!aiToken) {
+    throw new Error('AI_TOKEN environment variable is not set')
+  }
+  if (!defaultModel) {
+    throw new Error('AI_MODEL environment variable is not set')
+  }
+
+  // 使用传入的模型或默认模型
+  const finalModel = model || defaultModel
 
   const requestBody = {
-    model,
+    model: finalModel,
     messages,
     stream: true
   }
