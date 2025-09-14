@@ -37,6 +37,9 @@ async function callExternalAI(messages: any[], model: string = 'deepseek-chat') 
     stream: true
   }
 
+  console.log('🌐 [AI-API] Calling external AI API:', aiHost)
+  console.log('🌐 [AI-API] Request body:', JSON.stringify(requestBody, null, 2))
+
   const response = await fetch(aiHost, {
     method: 'POST',
     headers: {
@@ -46,11 +49,16 @@ async function callExternalAI(messages: any[], model: string = 'deepseek-chat') 
     body: JSON.stringify(requestBody)
   })
 
+  console.log('🌐 [AI-API] Response status:', response.status)
+  console.log('🌐 [AI-API] Response headers:', Object.fromEntries(response.headers.entries()))
+
   if (!response.ok) {
     const errorText = await response.text()
+    console.error('❌ [AI-API] Error response:', errorText)
     throw new Error(`AI API error: ${errorText}`)
   }
 
+  console.log('✅ [AI-API] External AI API call successful')
   return response
 }
 
@@ -82,9 +90,50 @@ export async function POST(req: NextRequest) {
     // 调用外部 AI API
     const aiResponse = await callExternalAI(conversationMessages, model)
 
-    // 如果请求流式响应，直接转发响应
+    // 如果请求流式响应，手动转发流数据
     if (stream) {
-      return new NextResponse(aiResponse.body, {
+      console.log('🌊 [STREAM] Starting to forward streaming response')
+      
+      const stream = new ReadableStream({
+        start(controller) {
+          const reader = aiResponse.body?.getReader()
+          if (!reader) {
+            console.error('❌ [STREAM] No response body reader available')
+            controller.close()
+            return
+          }
+
+          let chunkCount = 0
+          function pump(): Promise<void> {
+            if (!reader) {
+              controller.close()
+              return Promise.resolve()
+            }
+            
+            return reader.read().then(({ done, value }) => {
+              if (done) {
+                console.log(`🌊 [STREAM] Stream completed after ${chunkCount} chunks`)
+                controller.close()
+                return
+              }
+              
+              chunkCount++
+              console.log(`🌊 [STREAM] Forwarding chunk ${chunkCount}, size: ${value.length}`)
+              
+              // 直接转发原始数据块
+              controller.enqueue(value)
+              return pump()
+            }).catch((error) => {
+              console.error('❌ [STREAM] Stream pump error:', error)
+              controller.error(error)
+            })
+          }
+
+          return pump()
+        }
+      })
+
+      return new NextResponse(stream, {
         status: aiResponse.status,
         statusText: aiResponse.statusText,
         headers: {
