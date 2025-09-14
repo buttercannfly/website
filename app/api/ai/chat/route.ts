@@ -53,7 +53,7 @@ async function callExternalAI(messages: any[], model?: string) {
   }
 
   // 使用传入的模型或默认模型
-  const finalModel = model || defaultModel
+  const finalModel =  defaultModel
 
   const requestBody = {
     model: finalModel,
