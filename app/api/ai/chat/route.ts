@@ -1,6 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
 import jwt from 'jsonwebtoken'
 
+// 生成调试用的curl命令
+function generateCurlCommand(url: string, token: string, body: any): string {
+  const escapedBody = JSON.stringify(body).replace(/"/g, '\\"')
+  return `curl -X POST "${url}" \\
+  -H "Content-Type: application/json" \\
+  -H "Authorization: Bearer ${token}" \\
+  -d "${escapedBody}"`
+}
+
 // 验证 JWT token
 async function verifyToken(authHeader: string | null) {
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -36,6 +45,19 @@ async function callExternalAI(messages: any[], model: string = 'deepseek-chat') 
     messages,
     stream: true
   }
+
+  // 生成调试用的curl命令
+  const curlCommand = generateCurlCommand(aiHost, aiToken, requestBody)
+  console.log('\n=== AI API Request Debug Info ===')
+  console.log('URL:', aiHost)
+  console.log('Method: POST')
+  console.log('Headers:')
+  console.log('  Content-Type: application/json')
+  console.log('  Authorization: Bearer ' + aiToken.substring(0, 10) + '...')
+  console.log('Body:', JSON.stringify(requestBody, null, 2))
+  console.log('\n=== Equivalent cURL Command ===')
+  console.log(curlCommand)
+  console.log('=== End Debug Info ===\n')
 
   // 创建 AbortController 用于超时控制
   const controller = new AbortController()
