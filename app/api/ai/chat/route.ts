@@ -36,7 +36,7 @@ async function verifyToken(authHeader: string | null) {
 }
 
 // 调用外部 AI API
-async function callExternalAI(messages: any[], model?: string) {
+async function callExternalAI(messages: any[], model?: string, originalBody?: any) {
   const aiHost = process.env.AI_HOST
   const aiToken = process.env.AI_TOKEN
   const defaultModel = process.env.AI_MODEL
@@ -55,7 +55,9 @@ async function callExternalAI(messages: any[], model?: string) {
   // 使用传入的模型或默认模型
   const finalModel =  defaultModel
 
+  // 合并原始请求体和新的字段，只更新 model 字段
   const requestBody = {
+    ...originalBody,
     model: finalModel,
     messages,
     stream: true
@@ -140,7 +142,7 @@ export async function POST(req: NextRequest) {
     console.log(`[AI API] Starting request for user ${user.userId}, model: ${model}, messages: ${messages.length}`)
 
     // 调用外部 AI API
-    const aiResponse = await callExternalAI(conversationMessages, model)
+    const aiResponse = await callExternalAI(conversationMessages, model, body)
 
     // 如果请求流式响应，直接转发响应
     if (stream) {
