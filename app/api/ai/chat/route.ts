@@ -55,6 +55,8 @@ async function callExternalAI(messages: any[], model: string = 'deepseek-chat') 
 }
 
 export async function POST(req: NextRequest) {
+  let stream = true // 默认值
+  
   try {
     // 验证用户身份
     const user = await verifyToken(req.headers.get('authorization'))
@@ -64,7 +66,8 @@ export async function POST(req: NextRequest) {
 
     // 解析请求体
     const body = await req.json()
-    const { messages, model, stream = true } = body
+    const { messages, model, stream: requestStream = true } = body
+    stream = requestStream
 
     if (!messages || !Array.isArray(messages)) {
       return NextResponse.json({ error: 'Invalid messages format' }, { status: 400 })
@@ -85,9 +88,12 @@ export async function POST(req: NextRequest) {
         status: aiResponse.status,
         statusText: aiResponse.statusText,
         headers: {
-          'Content-Type': 'text/plain; charset=utf-8',
+          'Content-Type': 'text/event-stream',
           'Cache-Control': 'no-cache',
           'Connection': 'keep-alive',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'POST, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
         }
       })
     } else {
@@ -98,6 +104,27 @@ export async function POST(req: NextRequest) {
 
   } catch (error) {
     console.error('AI chat API error:', error)
+    
+    // 如果是流式请求，返回流式错误响应
+    if (stream) {
+      const errorStream = new ReadableStream({
+        start(controller) {
+          const errorMessage = `data: {"error": "Internal server error: ${error instanceof Error ? error.message : String(error)}"}\n\n`
+          controller.enqueue(new TextEncoder().encode(errorMessage))
+          controller.close()
+        }
+      })
+      
+      return new NextResponse(errorStream, {
+        status: 500,
+        headers: {
+          'Content-Type': 'text/event-stream',
+          'Cache-Control': 'no-cache',
+          'Connection': 'keep-alive',
+        }
+      })
+    }
+    
     return NextResponse.json(
       { error: 'Internal server error' }, 
       { status: 500 }
