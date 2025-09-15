@@ -201,11 +201,6 @@ export default function AccountPage() {
                   </Tooltip>
                 </TooltipProvider>
                 
-                {/* Purchased Credits */}
-                <div className="flex items-center gap-3">
-                  <DollarSign className="h-5 w-5 text-gray-600" />
-                  <span className="text-gray-700">Purchased credits: {purchasedCredits}</span>
-                </div>
                 
                 {/* Buy Credits Button */}
                 <Button 
