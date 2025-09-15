@@ -45,12 +45,18 @@ export async function POST(req: NextRequest) {
       // Verify the JWT token
       const decoded = jwt.verify(token, process.env.NEXTAUTH_SECRET) as any
       
+      console.log('Token verification successful for user:', {
+        email: decoded.email,
+        name: decoded.name,
+        provider: decoded.provider
+      })
+      
       // 返回完整的用户信息，确保包含provider信息
       const userInfo = {
         id: decoded.userId || decoded.email,
-        name: decoded.name,
+        name: decoded.name || null,
         email: decoded.email,
-        image: decoded.image,
+        image: decoded.image || null,
         provider: decoded.provider
       }
       

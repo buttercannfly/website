@@ -11,11 +11,19 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
     }
 
+    console.log('Extension token generation for user:', {
+      email: session.user?.email,
+      name: session.user?.name,
+      provider: session.provider
+    })
+
     // Generate a JWT token for the extension
     const extensionToken = jwt.sign(
       { 
         userId: session.user?.email, // 使用email作为userId
         email: session.user?.email,
+        name: session.user?.name,
+        image: session.user?.image,
         provider: session.provider
       },
       process.env.NEXTAUTH_SECRET!,
