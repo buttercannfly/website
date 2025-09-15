@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import jwt from 'jsonwebtoken'
+import { supabaseAdmin } from '@/lib/supabase'
 
 // 生成调试用的curl命令
 function generateCurlCommand(url: string, token: string, body: any): string {
@@ -32,6 +33,55 @@ async function verifyToken(authHeader: string | null) {
   } catch (jwtError) {
     console.error('JWT verification failed:', jwtError)
     return null
+  }
+}
+
+// 扣除用户 credit
+async function consumeUserCredit(userEmail: string, amount: number = 1) {
+  try {
+    // 获取当前用户信息
+    const { data: user, error: userError } = await supabaseAdmin
+      .from('users')
+      .select('*')
+      .eq('email', userEmail)
+      .single()
+
+    if (userError || !user) {
+      console.error('Error fetching user for credit consumption:', userError)
+      throw new Error('User not found')
+    }
+
+    const currentCredits = user.credits || 0
+
+    if (currentCredits < amount) {
+      throw new Error(`Insufficient credits. Current: ${currentCredits}, Required: ${amount}`)
+    }
+
+    // 扣除credits
+    const newCredits = currentCredits - amount
+
+    const { data: updatedUser, error: updateError } = await supabaseAdmin
+      .from('users')
+      .update({ credits: newCredits })
+      .eq('email', userEmail)
+      .select()
+      .single()
+
+    if (updateError) {
+      console.error('Error updating credits:', updateError)
+      throw new Error('Failed to update credits')
+    }
+
+    console.log(`[Credit Consumption] User ${userEmail}: ${currentCredits} -> ${newCredits} (consumed ${amount})`)
+    return {
+      success: true,
+      previousCredits: currentCredits,
+      newCredits: newCredits,
+      consumed: amount
+    }
+  } catch (error) {
+    console.error('Error consuming user credit:', error)
+    throw error
   }
 }
 
@@ -141,6 +191,32 @@ export async function POST(req: NextRequest) {
 
     console.log(`[AI API] Starting request for user ${user.userId}, model: ${model}, messages: ${messages.length}`)
 
+    // 在调用 AI API 之前扣除用户 credit
+    let creditConsumptionResult = null
+    try {
+      creditConsumptionResult = await consumeUserCredit(user.email, 1)
+      console.log(`[AI API] Credit consumed successfully for user ${user.email}:`, creditConsumptionResult)
+    } catch (creditError) {
+      console.error(`[AI API] Failed to consume credit for user ${user.email}:`, creditError)
+      const errorMessage = creditError instanceof Error ? creditError.message : String(creditError)
+      
+      // 如果是因为积分不足，返回特定的错误信息
+      if (errorMessage.includes('Insufficient credits')) {
+        return NextResponse.json({ 
+          error: 'Insufficient credits',
+          message: 'You do not have enough credits to use this service. Please purchase more credits.',
+          code: 'INSUFFICIENT_CREDITS'
+        }, { status: 400 }) // 与现有系统保持一致
+      }
+      
+      // 其他错误返回通用错误信息
+      return NextResponse.json({ 
+        error: 'Credit consumption failed',
+        message: 'Unable to process your request due to a credit system error.',
+        code: 'CREDIT_ERROR'
+      }, { status: 500 })
+    }
+
     // 调用外部 AI API
     const aiResponse = await callExternalAI(conversationMessages, model, body)
 
@@ -159,7 +235,9 @@ export async function POST(req: NextRequest) {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'POST, OPTIONS',
           'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-          'X-Response-Time': `${responseTime}ms`
+          'X-Response-Time': `${responseTime}ms`,
+          'X-User-Credits': creditConsumptionResult?.newCredits?.toString() || '0',
+          'X-Credits-Consumed': creditConsumptionResult?.consumed?.toString() || '0'
         }
       })
     } else {
@@ -172,7 +250,11 @@ export async function POST(req: NextRequest) {
         ...data,
         _metadata: {
           responseTime: `${responseTime}ms`,
-          timestamp: new Date().toISOString()
+          timestamp: new Date().toISOString(),
+          credits: {
+            consumed: creditConsumptionResult?.consumed || 0,
+            remaining: creditConsumptionResult?.newCredits || 0
+          }
         }
       })
     }
