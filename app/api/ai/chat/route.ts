@@ -171,7 +171,7 @@ export async function POST(req: NextRequest) {
 
     // 解析请求体
     const body = await req.json()
-    const { messages, model, stream: requestStream = true } = body
+    const { messages, model, stream: requestStream = true, sessionId, isFirstCall = true } = body
     stream = requestStream
 
     if (!messages || !Array.isArray(messages)) {
@@ -189,32 +189,36 @@ export async function POST(req: NextRequest) {
       content: msg.content ? msg.content.trim() : msg.content
     }))
 
-    console.log(`[AI API] Starting request for user ${user.userId}, model: ${model}, messages: ${messages.length}`)
+    console.log(`[AI API] Starting request for user ${user.userId}, model: ${model}, messages: ${messages.length}, sessionId: ${sessionId}, isFirstCall: ${isFirstCall}`)
 
-    // 在调用 AI API 之前扣除用户 credit
+    // 只在第一次调用时扣除用户 credit
     let creditConsumptionResult = null
-    try {
-      creditConsumptionResult = await consumeUserCredit(user.email, 1)
-      console.log(`[AI API] Credit consumed successfully for user ${user.email}:`, creditConsumptionResult)
-    } catch (creditError) {
-      console.error(`[AI API] Failed to consume credit for user ${user.email}:`, creditError)
-      const errorMessage = creditError instanceof Error ? creditError.message : String(creditError)
-      
-      // 如果是因为积分不足，返回特定的错误信息
-      if (errorMessage.includes('Insufficient credits')) {
+    if (isFirstCall) {
+      try {
+        creditConsumptionResult = await consumeUserCredit(user.email, 1)
+        console.log(`[AI API] Credit consumed successfully for user ${user.email}:`, creditConsumptionResult)
+      } catch (creditError) {
+        console.error(`[AI API] Failed to consume credit for user ${user.email}:`, creditError)
+        const errorMessage = creditError instanceof Error ? creditError.message : String(creditError)
+        
+        // 如果是因为积分不足，返回特定的错误信息
+        if (errorMessage.includes('Insufficient credits')) {
+          return NextResponse.json({ 
+            error: 'Insufficient credits',
+            message: 'You do not have enough credits to use this service. Please purchase more credits.',
+            code: 'INSUFFICIENT_CREDITS'
+          }, { status: 400 }) // 与现有系统保持一致
+        }
+        
+        // 其他错误返回通用错误信息
         return NextResponse.json({ 
-          error: 'Insufficient credits',
-          message: 'You do not have enough credits to use this service. Please purchase more credits.',
-          code: 'INSUFFICIENT_CREDITS'
-        }, { status: 400 }) // 与现有系统保持一致
+          error: 'Credit consumption failed',
+          message: 'Unable to process your request due to a credit system error.',
+          code: 'CREDIT_ERROR'
+        }, { status: 500 })
       }
-      
-      // 其他错误返回通用错误信息
-      return NextResponse.json({ 
-        error: 'Credit consumption failed',
-        message: 'Unable to process your request due to a credit system error.',
-        code: 'CREDIT_ERROR'
-      }, { status: 500 })
+    } else {
+      console.log(`[AI API] Skipping credit consumption for subsequent call in session ${sessionId}`)
     }
 
     // 调用外部 AI API
