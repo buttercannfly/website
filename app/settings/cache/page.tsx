@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Chrome, Github } from 'lucide-react';
+import { Chrome, Github, Home, Layout, MessageSquare, History, Bookmark } from 'lucide-react';
 import {
   Accordion,
   AccordionContent,
@@ -15,6 +15,7 @@ import {
 
 import { Metadata } from 'next';
 import AipexFeatures from '@/components/ui/inner-link';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
     title: 'AIpex - clear cache',
@@ -43,6 +44,22 @@ export default function ClearCache() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-100 to-white dark:from-purple-900 dark:to-gray-900">
       <div className="container mx-auto px-4 py-8">
+        {/* Navigation Breadcrumb */}
+        <div className="mb-8">
+          <nav className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+            <Link href="/" className="flex items-center gap-1 hover:text-blue-600 transition-colors">
+              <Home className="h-4 w-4" />
+              Home
+            </Link>
+            <span>/</span>
+            <Link href="/settings" className="hover:text-blue-600 transition-colors">
+              Settings
+            </Link>
+            <span>/</span>
+            <span className="text-gray-900 dark:text-white">Clear Cache</span>
+          </nav>
+        </div>
+
         <header className="text-center mb-16 pt-10">
           <div className="relative inline-block">
             <div className="absolute inset-0 bg-purple-500 blur-3xl opacity-20 rounded-full"></div>
@@ -195,6 +212,80 @@ export default function ClearCache() {
                 </AccordionItem>
               ))}
             </Accordion>
+          </section>
+
+          {/* Related Pages Section */}
+          <section className="mb-24">
+            <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
+              Explore More AIpex Features
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[
+                {
+                  title: 'Smart Tab Management',
+                  description: 'Organize and group your tabs efficiently with AI',
+                  href: '/tab/group',
+                  icon: Layout,
+                },
+                {
+                  title: 'Chrome Sidebar Extension',
+                  description: 'Get AI assistance directly in your browser',
+                  href: '/sidebar/best',
+                  icon: MessageSquare,
+                },
+                {
+                  title: 'Google Search Alternative',
+                  description: 'Smarter than Google Search with AI-powered results',
+                  href: '/alternatives/google',
+                  icon: Chrome,
+                },
+                {
+                  title: 'ChatGPT Search Alternative',
+                  description: 'Better than ChatGPT search extensions',
+                  href: '/alternatives/searchgpt',
+                  icon: History,
+                },
+                {
+                  title: 'Account & Credits',
+                  description: 'Manage your account and view usage credits',
+                  href: '/account',
+                  icon: Bookmark,
+                },
+                {
+                  title: 'Back to Home',
+                  description: 'Return to the main AIpex homepage',
+                  href: '/',
+                  icon: Home,
+                },
+              ].map((feature, index) => (
+                <Card
+                  key={index}
+                  className="bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer"
+                  onClick={() => window.location.href = feature.href}
+                >
+                  <CardHeader className="p-6">
+                    <div className="flex items-center gap-4">
+                      <div className="p-3 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg group-hover:from-purple-600 group-hover:to-pink-600 transition-all duration-300">
+                        <feature.icon className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-lg font-semibold text-gray-800 dark:text-white">
+                          {feature.title}
+                        </CardTitle>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-6 pt-0">
+                    <p className="text-gray-600 dark:text-gray-300">
+                      {feature.description}
+                    </p>
+                    <div className="mt-4 flex items-center text-purple-600 dark:text-purple-400 text-sm font-medium">
+                      Explore →
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </section>
 
           <section className="text-center mb-24">

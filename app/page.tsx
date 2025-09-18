@@ -512,6 +512,80 @@ export default function Home() {
             </Accordion>
           </section>
 
+          {/* Explore Features Section */}
+          <section className="mb-24">
+            <h2 className="text-4xl font-bold mb-12 text-center text-gray-800 dark:text-white">
+              Explore More Features
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[
+                {
+                  title: 'Smart Tab Management',
+                  description: 'Organize and group your tabs efficiently with AI-powered features',
+                  href: '/tab/group',
+                  icon: Layout,
+                },
+                {
+                  title: 'Chrome Sidebar Extension',
+                  description: 'Get AI assistance directly in your browser with our sidebar',
+                  href: '/sidebar/best',
+                  icon: MessageSquare,
+                },
+                {
+                  title: 'Alternative to Google Search',
+                  description: 'Experience smarter search with AI-powered results',
+                  href: '/alternatives/google',
+                  icon: Chrome,
+                },
+                {
+                  title: 'Alternative to ChatGPT Search',
+                  description: 'Better than ChatGPT search extensions - free and embedded',
+                  href: '/alternatives/searchgpt',
+                  icon: Brain,
+                },
+                {
+                  title: 'Clear Browser Cache',
+                  description: 'Quickly clear cache with simple keyboard shortcuts',
+                  href: '/settings/cache',
+                  icon: Shield,
+                },
+                {
+                  title: 'Account & Credits',
+                  description: 'Manage your account and view your usage credits',
+                  href: '/account',
+                  icon: Star,
+                },
+              ].map((feature, index) => (
+                <Card
+                  key={index}
+                  className="bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer"
+                  onClick={() => window.location.href = feature.href}
+                >
+                  <CardHeader className="p-6">
+                    <div className="flex items-center gap-4">
+                      <div className="p-3 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-300">
+                        <feature.icon className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-lg font-semibold text-gray-800 dark:text-white">
+                          {feature.title}
+                        </CardTitle>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-6 pt-0">
+                    <p className="text-gray-600 dark:text-gray-300">
+                      {feature.description}
+                    </p>
+                    <div className="mt-4 flex items-center text-blue-600 dark:text-blue-400 text-sm font-medium">
+                      Learn more →
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </section>
+
           {/* CTA Section */}
           <section className="mb-24 text-center">
             <Card className="bg-gradient-to-r from-blue-500 to-purple-500 text-white p-12">

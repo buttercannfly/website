@@ -4,7 +4,7 @@ import { useSession, signIn, signOut } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Gift, DollarSign, HelpCircle, ArrowRight, LogOut, User, CreditCard } from 'lucide-react'
+import { Gift, DollarSign, HelpCircle, ArrowRight, LogOut, User, CreditCard, Home, Chrome } from 'lucide-react'
 import Link from 'next/link'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 
@@ -43,8 +43,8 @@ export default function AccountPage() {
         console.error('Failed to fetch credits:', data.error)
       } else {
         setCredits(data)
-        // 假设购买的credits是总credits减去免费credits(5)
-        setPurchasedCredits(Math.max(0, data.total - 5))
+        // 假设购买的credits是总credits减去免费credits(3)
+        setPurchasedCredits(Math.max(0, data.total - 3))
       }
     } catch (err) {
       console.error('Failed to fetch credits:', err)
@@ -151,14 +151,30 @@ export default function AccountPage() {
       {/* Left Sidebar */}
       <div className="w-64 bg-white border-r border-gray-200 p-6">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">Browserfly</h1>
+          <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
+            <Chrome className="h-6 w-6" />
+            AIpex
+          </Link>
         </div>
         
         <nav className="space-y-2">
+          <Link href="/" className="flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors">
+            <Home className="h-5 w-5" />
+            <span className="font-medium">Home</span>
+          </Link>
           <div className="flex items-center gap-3 px-3 py-2 bg-amber-50 rounded-lg">
             <User className="h-5 w-5 text-green-600" />
             <span className="font-medium text-gray-900">Account</span>
           </div>
+          <Link href="/tab/group" className="flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors">
+            <span className="font-medium">Tab Management</span>
+          </Link>
+          <Link href="/sidebar/best" className="flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors">
+            <span className="font-medium">Sidebar Extension</span>
+          </Link>
+          <Link href="/alternatives/google" className="flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors">
+            <span className="font-medium">Search Alternatives</span>
+          </Link>
         </nav>
       </div>
 
@@ -196,7 +212,7 @@ export default function AccountPage() {
                       </div>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>You get 5 free credits every day that refresh at midnight.</p>
+                      <p>You get 3 free credits every day that refresh at midnight.</p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>

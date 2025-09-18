@@ -55,7 +55,7 @@ export const authOptions: NextAuthOptions = {
               .insert({
                 email: user.email,
                 type: account.provider,
-                credits: 10 // 新用户默认10个credits
+                credits: 3 // 新用户默认3个credits
               })
 
             if (error) {

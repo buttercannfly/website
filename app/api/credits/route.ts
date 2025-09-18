@@ -33,8 +33,8 @@ export async function GET(request: NextRequest) {
     // 如果今天还没有刷新过，则刷新免费credits
     if (lastRefreshDate !== today) {
       // 计算免费credits（总credits减去购买的credits）
-      const purchasedCredits = Math.max(0, totalCredits - 5) // 假设免费credits是5个
-      const newTotalCredits = purchasedCredits + 5 // 重置为5个免费credits + 购买的credits
+      const purchasedCredits = Math.max(0, totalCredits - 3) // 假设免费credits是3个
+      const newTotalCredits = purchasedCredits + 3 // 重置为3个免费credits + 购买的credits
       
       // 更新数据库
       const { error: updateError } = await supabaseAdmin
