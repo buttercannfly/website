@@ -24,6 +24,7 @@ import {
   Shield,
   Download,
   Star,
+  Link,
 } from 'lucide-react';
 import {
   Accordion,
