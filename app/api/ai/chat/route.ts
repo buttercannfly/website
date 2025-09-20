@@ -135,13 +135,13 @@ async function consumeUserCredit(userEmail: string, amount: number = 1) {
 // OpenRouter模型定价配置 (每M token的费用)
 const OPENROUTER_PRICING: Record<string, { input: number; output: number }> = {
   // Anthropic Claude 模型
-  'anthropic/claude-3.5-haiku': { input: 0.80, output: 4.00 },
-  'anthropic/claude-3.5-sonnet': { input: 3.00, output: 15.00 },
-  'anthropic/claude-3.7-sonnet': { input: 3.00, output: 15.00 },
-  'anthropic/claude-sonnet-4': { input: 3.00, output: 15.00 },
-  'anthropic/claude-3-haiku': { input: 0.25, output: 1.25 },
+  'anthropic/claude-3.5-haiku': { input: 0.96, output: 4.80 },
+  'anthropic/claude-3.5-sonnet': { input: 3.60, output: 18.00 },
+  'anthropic/claude-3.7-sonnet': { input: 3.60, output: 18.00 },
+  'anthropic/claude-sonnet-4': { input: 3.60, output: 18.00 },
+  'anthropic/claude-3-haiku': { input: 0.30, output: 1.50 },
   // DeepSeek 模型
-  'deepseek/deepseek-chat-v3.1': { input: 0.25, output: 1 },
+  'deepseek/deepseek-chat-v3.1': { input: 0.30, output: 1.20 },
   }
 
 // 检查是否为OpenRouter模型名称
