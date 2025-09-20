@@ -556,32 +556,30 @@ export default function Home() {
                   icon: Star,
                 },
               ].map((feature, index) => (
-                <Card
-                  key={index}
-                  className="bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer"
-                  onClick={() => window.location.href = feature.href}
-                >
-                  <CardHeader className="p-6">
-                    <div className="flex items-center gap-4">
-                      <div className="p-3 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-300">
-                        <feature.icon className="w-6 h-6 text-white" />
+                <Link key={index} href={feature.href}>
+                  <Card className="bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer">
+                    <CardHeader className="p-6">
+                      <div className="flex items-center gap-4">
+                        <div className="p-3 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-300">
+                          <feature.icon className="w-6 h-6 text-white" />
+                        </div>
+                        <div>
+                          <CardTitle className="text-lg font-semibold text-gray-800 dark:text-white">
+                            {feature.title}
+                          </CardTitle>
+                        </div>
                       </div>
-                      <div>
-                        <CardTitle className="text-lg font-semibold text-gray-800 dark:text-white">
-                          {feature.title}
-                        </CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-6 pt-0">
+                      <p className="text-gray-600 dark:text-gray-300">
+                        {feature.description}
+                      </p>
+                      <div className="mt-4 flex items-center text-blue-600 dark:text-blue-400 text-sm font-medium">
+                        Learn more →
                       </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="p-6 pt-0">
-                    <p className="text-gray-600 dark:text-gray-300">
-                      {feature.description}
-                    </p>
-                    <div className="mt-4 flex items-center text-blue-600 dark:text-blue-400 text-sm font-medium">
-                      Learn more →
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                </Link>
               ))}
             </div>
           </section>
