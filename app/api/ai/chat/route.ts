@@ -36,6 +36,53 @@ async function verifyToken(authHeader: string | null) {
   }
 }
 
+// 记录usage信息到数据库
+async function recordUsage(userEmail: string, promptTokens: number, completionTokens: number, model: string, cost: number | null) {
+  try {
+    // 获取用户ID
+    const { data: user, error: userError } = await supabaseAdmin
+      .from('users')
+      .select('id')
+      .eq('email', userEmail)
+      .single()
+
+    if (userError || !user) {
+      console.error('Error fetching user for usage recording:', userError)
+      throw new Error('User not found')
+    }
+
+    // 插入usage记录
+    const { data: usageRecord, error: usageError } = await supabaseAdmin
+      .from('usage')
+      .insert({
+        user_id: user.id,
+        prompt_tokens: promptTokens,
+        completion_tokens: completionTokens,
+        model: model,
+        cost: cost
+      })
+      .select()
+
+    if (usageError) {
+      console.error('Error recording usage:', usageError)
+      throw new Error('Failed to record usage')
+    }
+
+    console.log(`[Usage Recording] Recorded usage for user ${userEmail}:`, {
+      user_id: user.id,
+      prompt_tokens: promptTokens,
+      completion_tokens: completionTokens,
+      model: model,
+      cost: cost
+    })
+
+    return usageRecord
+  } catch (error) {
+    console.error('Error recording usage:', error)
+    // 不抛出错误，避免影响主要的AI调用流程
+  }
+}
+
 // 扣除用户 credit
 async function consumeUserCredit(userEmail: string, amount: number = 1) {
   try {
@@ -85,10 +132,109 @@ async function consumeUserCredit(userEmail: string, amount: number = 1) {
   }
 }
 
+// OpenRouter模型定价配置 (每M token的费用)
+const OPENROUTER_PRICING: Record<string, { input: number; output: number }> = {
+  // Anthropic Claude 模型
+  'anthropic/claude-3.5-haiku': { input: 0.80, output: 4.00 },
+  'anthropic/claude-3.5-sonnet': { input: 3.00, output: 15.00 },
+  'anthropic/claude-3.7-sonnet': { input: 3.00, output: 15.00 },
+  'anthropic/claude-sonnet-4': { input: 3.00, output: 15.00 },
+  'anthropic/claude-3-haiku': { input: 0.25, output: 1.25 },
+  // DeepSeek 模型
+  'deepseek/deepseek-chat-v3.1': { input: 0.25, output: 1 },
+  }
+
 // 检查是否为OpenRouter模型名称
 function isOpenRouterModel(modelName: string): boolean {
   // OpenRouter模型名称经典格式是包含斜杠，如 "deepseek/deepseek-chat-v3.1"
   return modelName.includes('/')
+}
+
+// 计算OpenRouter模型费用
+function calculateOpenRouterCost(modelName: string, promptTokens: number, completionTokens: number): number | null {
+  const pricing = OPENROUTER_PRICING[modelName]
+  if (!pricing) {
+    return null // 模型不在定价列表中
+  }
+  
+  // 将token数转换为M token (除以1,000,000)
+  const promptTokensM = promptTokens / 1000000
+  const completionTokensM = completionTokens / 1000000
+  
+  // 计算费用
+  const inputCost = promptTokensM * pricing.input
+  const outputCost = completionTokensM * pricing.output
+  const totalCost = inputCost + outputCost
+  
+  return Math.round(totalCost * 10000) / 10000 // 保留4位小数
+}
+
+// 处理流式响应并提取费用信息（仅用于控制台打印和数据库记录）
+async function processStreamWithCostTracking(aiResponse: Response, modelName?: string, userEmail?: string) {
+  if (!aiResponse.body) {
+    throw new Error('No response body available')
+  }
+  
+  const reader = aiResponse.body.getReader()
+
+  const decoder = new TextDecoder()
+  let promptTokens = 0
+  let completionTokens = 0
+  let totalTokens = 0
+  let cost: number | null = null
+
+  const stream = new ReadableStream({
+    start(controller) {
+      async function pump(): Promise<void> {
+        return reader.read().then(async ({ done, value }) => {
+          if (done) {
+            // 流结束时，如果检测到OpenRouter模型，计算费用并记录到数据库
+            if (modelName && isOpenRouterModel(modelName) && promptTokens > 0 && completionTokens > 0) {
+              cost = calculateOpenRouterCost(modelName, promptTokens, completionTokens)
+              console.log(`[Cost Tracking] Model: ${modelName}, Prompt: ${promptTokens}, Completion: ${completionTokens}, Cost: $${cost}`)
+              
+              // 记录usage信息到数据库
+              if (userEmail) {
+                await recordUsage(userEmail, promptTokens, completionTokens, modelName, cost)
+              }
+            }
+            
+            controller.close()
+            return
+          }
+
+          const chunk = decoder.decode(value, { stream: true })
+          const lines = chunk.split('\n')
+          
+          for (const line of lines) {
+            if (line.startsWith('data: ')) {
+              try {
+                const data = JSON.parse(line.slice(6))
+                
+                // 提取usage信息（仅用于费用计算，不修改响应）
+                if (data.usage) {
+                  promptTokens = data.usage.prompt_tokens || 0
+                  completionTokens = data.usage.completion_tokens || 0
+                  totalTokens = data.usage.total_tokens || 0
+                }
+              } catch (e) {
+                // 忽略JSON解析错误，继续处理其他数据
+              }
+            }
+            
+            // 转发所有原始数据（包括usage数据块）
+            controller.enqueue(new TextEncoder().encode(line + '\n'))
+          }
+
+          return pump()
+        })
+      }
+
+      return pump()
+    }
+  })
+
+  return stream
 }
 
 // 调用外部 AI API
@@ -177,15 +323,34 @@ async function callExternalAI(messages: any[], model?: string, originalBody?: an
   }
 }
 
+// 检查是否为本地开发环境
+function isLocalDevelopment(): boolean {
+  return process.env.NODE_ENV === 'development' || 
+         process.env.NEXT_PUBLIC_LOCAL_DEV === 'true' ||
+         process.env.SKIP_AUTH === 'true'
+}
+
 export async function POST(req: NextRequest) {
   let stream = true // 默认值
   const startTime = Date.now()
   
   try {
-    // 验证用户身份
-    const user = await verifyToken(req.headers.get('authorization'))
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    // 本地开发环境跳过认证
+    let user = null
+    if (!isLocalDevelopment()) {
+      // 验证用户身份
+      user = await verifyToken(req.headers.get('authorization'))
+      if (!user) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      }
+    } else {
+      // 本地开发环境使用默认用户
+      user = {
+        userId: 'local-dev-user',
+        email: 'dev@localhost',
+        provider: 'local'
+      }
+      console.log('[AI API] Local development mode - skipping authentication')
     }
 
     // 解析请求体
@@ -215,9 +380,9 @@ export async function POST(req: NextRequest) {
 
     console.log(`[AI API] Starting request for user ${user.userId}, model: ${model}, messages: ${messages.length}, sessionId: ${sessionId}, isFirstCall: ${isFirstCall}`)
 
-    // 只在第一次调用时扣除用户 credit
+    // 只在第一次调用时扣除用户 credit，本地开发环境跳过
     let creditConsumptionResult = null
-    if (isFirstCall) {
+    if (isFirstCall && !isLocalDevelopment()) {
       try {
         creditConsumptionResult = await consumeUserCredit(user.email, 1)
         console.log(`[AI API] Credit consumed successfully for user ${user.email}:`, creditConsumptionResult)
@@ -241,6 +406,15 @@ export async function POST(req: NextRequest) {
           code: 'CREDIT_ERROR'
         }, { status: 500 })
       }
+    } else if (isLocalDevelopment()) {
+      // 本地开发环境模拟credit消费结果
+      creditConsumptionResult = {
+        success: true,
+        previousCredits: 1000,
+        newCredits: 999,
+        consumed: 1
+      }
+      console.log(`[AI API] Local development mode - skipping credit consumption, simulating result:`, creditConsumptionResult)
     } else {
       console.log(`[AI API] Skipping credit consumption for subsequent call in session ${sessionId}`)
     }
@@ -248,12 +422,15 @@ export async function POST(req: NextRequest) {
     // 调用外部 AI API
     const aiResponse = await callExternalAI(conversationMessages, model, body)
 
-    // 如果请求流式响应，直接转发响应
+    // 如果请求流式响应，使用带费用跟踪的流处理
     if (stream) {
       const responseTime = Date.now() - startTime
-      console.log(`[AI API] Response received in ${responseTime}ms, forwarding stream`)
+      console.log(`[AI API] Response received in ${responseTime}ms, processing stream with cost tracking`)
       
-      return new NextResponse(aiResponse.body, {
+      // 处理流式响应并跟踪费用
+      const processedStream = await processStreamWithCostTracking(aiResponse, model, user.email)
+      
+      return new NextResponse(processedStream, {
         status: aiResponse.status,
         statusText: aiResponse.statusText,
         headers: {
@@ -274,6 +451,24 @@ export async function POST(req: NextRequest) {
       const responseTime = Date.now() - startTime
       console.log(`[AI API] Non-streaming response completed in ${responseTime}ms`)
       
+      // 计算费用（如果是OpenRouter模型）
+      let costInfo = null
+      if (model && isOpenRouterModel(model) && data.usage) {
+        const cost = calculateOpenRouterCost(model, data.usage.prompt_tokens, data.usage.completion_tokens)
+        if (cost !== null) {
+          costInfo = {
+            model: model,
+            usage: data.usage,
+            cost: cost,
+            currency: 'USD'
+          }
+          console.log(`[Cost Tracking] Model: ${model}, Prompt: ${data.usage.prompt_tokens}, Completion: ${data.usage.completion_tokens}, Cost: $${cost}`)
+          
+          // 记录usage信息到数据库
+          await recordUsage(user.email, data.usage.prompt_tokens, data.usage.completion_tokens, model, cost)
+        }
+      }
+      
       return NextResponse.json({
         ...data,
         _metadata: {
@@ -282,7 +477,8 @@ export async function POST(req: NextRequest) {
           credits: {
             consumed: creditConsumptionResult?.consumed || 0,
             remaining: creditConsumptionResult?.newCredits || 0
-          }
+          },
+          ...(costInfo && { cost: costInfo })
         }
       })
     }
