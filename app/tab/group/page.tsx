@@ -16,6 +16,7 @@ import {
 import { Metadata } from 'next';
 import AipexFeatures from '@/components/ui/inner-link';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
     title: 'AIpex - Group Tabs in Chrome Made Easy',
@@ -93,14 +94,15 @@ export default function GroupTabs() {
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div className="relative w-full h-120 overflow-hidden rounded-lg">
-                      <img
+                      <Image
                         src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*9C-GLUsdt2kk2lgSnbSyxw.gif"
                         alt="Chrome tab grouping demonstration"
-                        className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                        fill
+                        className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
                       />
                     </div>
                     <p className="text-lg text-gray-600 dark:text-gray-300">
-                      Experience the most efficient way to group tabs in Chrome. Simply press Command/Ctrl + M and type "organize" to instantly group your tabs based on content similarity.
+                      Experience the most efficient way to group tabs in Chrome. Simply press Command/Ctrl + M and type &quot;organize&quot; to instantly group your tabs based on content similarity.
                     </p>
                   </CardContent>
                 </Card>
@@ -129,7 +131,7 @@ export default function GroupTabs() {
                     <div>
                       <h3 className="text-xl font-semibold mb-2 dark:text-white">Press Command + M</h3>
                       <p className="text-gray-600 dark:text-gray-300">
-                        Access AIPex's tab grouping features with this simple shortcut
+                        Access AIPex&apos;s tab grouping features with this simple shortcut
                       </p>
                     </div>
                   </div>
@@ -139,7 +141,7 @@ export default function GroupTabs() {
                       <span className="text-white font-bold">2</span>
                     </div>
                     <div>
-                      <h3 className="text-xl font-semibold mb-2 dark:text-white">Type "organize"</h3>
+                      <h3 className="text-xl font-semibold mb-2 dark:text-white">Type &quot;organize&quot;</h3>
                       <p className="text-gray-600 dark:text-gray-300">
                         Let AIPex automatically group your tabs by content and context
                       </p>
@@ -155,7 +157,7 @@ export default function GroupTabs() {
                       </svg>
                     </div>
                     <p className="ml-3 text-sm text-gray-600 dark:text-gray-300">
-                      <span className="font-medium">Pro tip:</span> AIPex's smart tab grouping algorithm understands page content for better organization
+                      <span className="font-medium">Pro tip:</span> AIPex&apos;s smart tab grouping algorithm understands page content for better organization
                     </p>
                   </div>
                 </div>
@@ -260,32 +262,30 @@ export default function GroupTabs() {
                   icon: Home,
                 },
               ].map((feature, index) => (
-                <Card
-                  key={index}
-                  className="bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer"
-                  onClick={() => window.location.href = feature.href}
-                >
-                  <CardHeader className="p-6">
-                    <div className="flex items-center gap-4">
-                      <div className="p-3 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg group-hover:from-purple-600 group-hover:to-pink-600 transition-all duration-300">
-                        <feature.icon className="w-6 h-6 text-white" />
+                <Link key={index} href={feature.href}>
+                  <Card className="bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer">
+                    <CardHeader className="p-6">
+                      <div className="flex items-center gap-4">
+                        <div className="p-3 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg group-hover:from-purple-600 group-hover:to-pink-600 transition-all duration-300">
+                          <feature.icon className="w-6 h-6 text-white" />
+                        </div>
+                        <div>
+                          <CardTitle className="text-lg font-semibold text-gray-800 dark:text-white">
+                            {feature.title}
+                          </CardTitle>
+                        </div>
                       </div>
-                      <div>
-                        <CardTitle className="text-lg font-semibold text-gray-800 dark:text-white">
-                          {feature.title}
-                        </CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-6 pt-0">
+                      <p className="text-gray-600 dark:text-gray-300">
+                        {feature.description}
+                      </p>
+                      <div className="mt-4 flex items-center text-purple-600 dark:text-purple-400 text-sm font-medium">
+                        Explore →
                       </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="p-6 pt-0">
-                    <p className="text-gray-600 dark:text-gray-300">
-                      {feature.description}
-                    </p>
-                    <div className="mt-4 flex items-center text-purple-600 dark:text-purple-400 text-sm font-medium">
-                      Explore →
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                </Link>
               ))}
             </div>
           </section>
