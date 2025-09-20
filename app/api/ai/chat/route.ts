@@ -85,6 +85,12 @@ async function consumeUserCredit(userEmail: string, amount: number = 1) {
   }
 }
 
+// 检查是否为OpenRouter模型名称
+function isOpenRouterModel(modelName: string): boolean {
+  // OpenRouter模型名称经典格式是包含斜杠，如 "deepseek/deepseek-chat-v3.1"
+  return modelName.includes('/')
+}
+
 // 调用外部 AI API
 async function callExternalAI(messages: any[], model?: string, originalBody?: any) {
   const aiHost = process.env.AI_HOST
@@ -102,8 +108,21 @@ async function callExternalAI(messages: any[], model?: string, originalBody?: an
     throw new Error('AI_MODEL environment variable is not set')
   }
 
-  // 使用传入的模型或默认模型
-  const finalModel =  defaultModel
+  // 确定最终使用的模型
+  let finalModel: string
+  if (!model) {
+    // 如果没有提供模型，使用默认模型
+    finalModel = defaultModel
+    console.log(`[AI API] No model provided, using default model: ${finalModel}`)
+  } else if (isOpenRouterModel(model)) {
+    // 如果是OpenRouter模型，使用用户指定的模型
+    finalModel = model
+    console.log(`[AI API] Using OpenRouter model: ${finalModel}`)
+  } else {
+    // 如果不是OpenRouter模型，使用默认模型
+    finalModel = defaultModel
+    console.log(`[AI API] Model "${model}" is not an OpenRouter model, falling back to default: ${finalModel}`)
+  }
 
   // 合并原始请求体和新的字段，只更新 model 字段
   const requestBody = {
@@ -176,6 +195,11 @@ export async function POST(req: NextRequest) {
 
     if (!messages || !Array.isArray(messages)) {
       return NextResponse.json({ error: 'Invalid messages format' }, { status: 400 })
+    }
+
+    // 模型参数是可选的，如果提供则必须是字符串
+    if (model && typeof model !== 'string') {
+      return NextResponse.json({ error: 'Model parameter must be a string' }, { status: 400 })
     }
 
     // 验证消息数量限制
