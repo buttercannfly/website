@@ -27,7 +27,6 @@ import {
 import { Metadata } from 'next';
 import AipexFeatures from '@/components/ui/inner-link';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 
 export const metadata: Metadata = {
     title: 'AIpex vs Google Search | Smart Alternative to Traditional Search',
