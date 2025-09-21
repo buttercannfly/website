@@ -196,80 +196,80 @@ export default function AccountPage() {
                 
                 
                 {/* Purchase Options */}
-                <div className="grid gap-4 md:grid-cols-3">
+                <div className="grid gap-8 md:grid-cols-3">
                   {/* Basic Plan */}
-                  <Card className="border-2 border-green-200 hover:border-green-300 transition-colors">
-                    <CardHeader className="pb-3">
-                      <CardTitle className="text-lg">Basic</CardTitle>
-                      <CardDescription>Perfect for getting started</CardDescription>
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-2xl font-bold text-green-600">$4.49</span>
-                        <span className="text-sm text-gray-500 line-through">$5.90</span>
+                  <Card className="border-2 border-green-200 hover:border-green-300 transition-colors h-full">
+                    <CardHeader className="pb-6">
+                      <CardTitle className="text-xl mb-2">Basic</CardTitle>
+                      <CardDescription className="text-base mb-4">Perfect for getting started</CardDescription>
+                      <div className="flex items-baseline gap-3">
+                        <span className="text-3xl font-bold text-green-600">$4.49</span>
+                        <span className="text-lg text-gray-500 line-through">$5.90</span>
                       </div>
                     </CardHeader>
-                    <CardContent className="pt-0">
-                      <div className="space-y-2 mb-4">
-                        <div className="text-sm text-gray-600">• ~100 DeepSeek tasks</div>
-                        <div className="text-sm text-gray-600">• ~10 Claude-3.5 tasks</div>
+                    <CardContent className="pt-0 pb-6">
+                      <div className="space-y-3 mb-8">
+                        <div className="text-base text-gray-700">• ~100 DeepSeek tasks</div>
+                        <div className="text-base text-gray-700">• ~10 Claude-3.5 tasks</div>
                       </div>
                       <Button 
-                        className="w-full bg-green-600 hover:bg-green-700 text-white"
+                        className="w-full bg-green-600 hover:bg-green-700 text-white h-12 text-base"
                         onClick={() => handlePurchaseCredits('aipex_basic')}
                         disabled={isProcessing}
                       >
-                        <CreditCard className="h-4 w-4 mr-2" />
+                        <CreditCard className="h-5 w-5 mr-2" />
                         {isProcessing ? 'Processing...' : 'Choose Basic'}
                       </Button>
                     </CardContent>
                   </Card>
 
                   {/* Standard Plan */}
-                  <Card className="border-2 border-blue-200 hover:border-blue-300 transition-colors">
-                    <CardHeader className="pb-3">
-                      <CardTitle className="text-lg">Standard</CardTitle>
-                      <CardDescription>Great for regular users</CardDescription>
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-2xl font-bold text-blue-600">$10.00</span>
-                        <span className="text-sm text-gray-500 line-through">$12.90</span>
+                  <Card className="border-2 border-blue-200 hover:border-blue-300 transition-colors h-full">
+                    <CardHeader className="pb-6">
+                      <CardTitle className="text-xl mb-2">Standard</CardTitle>
+                      <CardDescription className="text-base mb-4">Great for regular users</CardDescription>
+                      <div className="flex items-baseline gap-3">
+                        <span className="text-3xl font-bold text-blue-600">$10.00</span>
+                        <span className="text-lg text-gray-500 line-through">$12.90</span>
                       </div>
                     </CardHeader>
-                    <CardContent className="pt-0">
-                      <div className="space-y-2 mb-4">
-                        <div className="text-sm text-gray-600">• ~200+ DeepSeek tasks</div>
-                        <div className="text-sm text-gray-600">• ~20+ Claude-3.5 tasks</div>
+                    <CardContent className="pt-0 pb-6">
+                      <div className="space-y-3 mb-8">
+                        <div className="text-base text-gray-700">• ~200+ DeepSeek tasks</div>
+                        <div className="text-base text-gray-700">• ~20+ Claude-3.5 tasks</div>
                       </div>
                       <Button 
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white h-12 text-base"
                         onClick={() => handlePurchaseCredits('aipex_standard')}
                         disabled={isProcessing}
                       >
-                        <CreditCard className="h-4 w-4 mr-2" />
+                        <CreditCard className="h-5 w-5 mr-2" />
                         {isProcessing ? 'Processing...' : 'Choose Standard'}
                       </Button>
                     </CardContent>
                   </Card>
 
                   {/* Premium Plan */}
-                  <Card className="border-2 border-purple-200 hover:border-purple-300 transition-colors">
-                    <CardHeader className="pb-3">
-                      <CardTitle className="text-lg">Premium</CardTitle>
-                      <CardDescription>For power users</CardDescription>
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-2xl font-bold text-purple-600">$100.00</span>
-                        <span className="text-sm text-gray-500 line-through">$129.00</span>
+                  <Card className="border-2 border-purple-200 hover:border-purple-300 transition-colors h-full">
+                    <CardHeader className="pb-6">
+                      <CardTitle className="text-xl mb-2">Premium</CardTitle>
+                      <CardDescription className="text-base mb-4">For power users</CardDescription>
+                      <div className="flex items-baseline gap-3">
+                        <span className="text-3xl font-bold text-purple-600">$100.00</span>
+                        <span className="text-lg text-gray-500 line-through">$129.00</span>
                       </div>
                     </CardHeader>
-                    <CardContent className="pt-0">
-                      <div className="space-y-2 mb-4">
-                        <div className="text-sm text-gray-600">• ~2500+ DeepSeek tasks</div>
-                        <div className="text-sm text-gray-600">• ~250+ Claude-3.5 tasks</div>
+                    <CardContent className="pt-0 pb-6">
+                      <div className="space-y-3 mb-8">
+                        <div className="text-base text-gray-700">• ~2500+ DeepSeek tasks</div>
+                        <div className="text-base text-gray-700">• ~250+ Claude-3.5 tasks</div>
                       </div>
                       <Button 
-                        className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                        className="w-full bg-purple-600 hover:bg-purple-700 text-white h-12 text-base"
                         onClick={() => handlePurchaseCredits('aipex_premium')}
                         disabled={isProcessing}
                       >
-                        <CreditCard className="h-4 w-4 mr-2" />
+                        <CreditCard className="h-5 w-5 mr-2" />
                         {isProcessing ? 'Processing...' : 'Choose Premium'}
                       </Button>
                     </CardContent>
