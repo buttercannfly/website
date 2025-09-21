@@ -190,7 +190,7 @@ export default function AccountPage() {
                 {/* Remaining Balance */}
                 <div className="flex items-center gap-3">
                   <Gift className="h-5 w-5 text-gray-600" />
-                  <span className="text-gray-700">Remaining balance: {remaining.remaining}</span>
+                  <span className="text-gray-700">Remaining balance: ${remaining.remaining}</span>
                 </div>
                 
                 
