@@ -102,7 +102,6 @@ export async function POST(request: NextRequest) {
     const result = await updateUserRemaining(session.user.email, cost)
 
     return NextResponse.json({
-      success: true,
       message: `Successfully consumed ${cost} from remaining balance`,
       ...result
     })
