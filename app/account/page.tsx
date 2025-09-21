@@ -211,7 +211,6 @@ export default function AccountPage() {
                       <div className="space-y-2 mb-4">
                         <div className="text-sm text-gray-600">• ~100 DeepSeek tasks</div>
                         <div className="text-sm text-gray-600">• ~10 Claude-3.5 tasks</div>
-                        <div className="text-sm text-gray-600">• 10 credits</div>
                       </div>
                       <Button 
                         className="w-full bg-green-600 hover:bg-green-700 text-white"
@@ -238,7 +237,6 @@ export default function AccountPage() {
                       <div className="space-y-2 mb-4">
                         <div className="text-sm text-gray-600">• ~200+ DeepSeek tasks</div>
                         <div className="text-sm text-gray-600">• ~20+ Claude-3.5 tasks</div>
-                        <div className="text-sm text-gray-600">• 25 credits</div>
                       </div>
                       <Button 
                         className="w-full bg-blue-600 hover:bg-blue-700 text-white"
@@ -265,7 +263,6 @@ export default function AccountPage() {
                       <div className="space-y-2 mb-4">
                         <div className="text-sm text-gray-600">• ~2500+ DeepSeek tasks</div>
                         <div className="text-sm text-gray-600">• ~250+ Claude-3.5 tasks</div>
-                        <div className="text-sm text-gray-600">• 250 credits</div>
                       </div>
                       <Button 
                         className="w-full bg-purple-600 hover:bg-purple-700 text-white"
