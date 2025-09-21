@@ -8,9 +8,8 @@ import { Gift, DollarSign, HelpCircle, ArrowRight, LogOut, User, CreditCard, Hom
 import Link from 'next/link'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 
-interface UserCredits {
-  total: number
-  nextRefreshDate?: string
+interface UserRemaining {
+  remaining: number
 }
 
 interface PaymentHistory {
@@ -24,56 +23,12 @@ interface PaymentHistory {
 
 export default function AccountPage() {
   const { data: session, status } = useSession()
-  const [credits, setCredits] = useState<UserCredits | null>(null)
+  const [remaining, setRemaining] = useState<UserRemaining | null>(null)
   const [loading, setLoading] = useState(false)
-  const [purchasedCredits, setPurchasedCredits] = useState(0)
   const [isProcessing, setIsProcessing] = useState(false)
   const [paymentHistory, setPaymentHistory] = useState<PaymentHistory[]>([])
   const [historyLoading, setHistoryLoading] = useState(false)
 
-  const fetchCredits = async () => {
-    if (!session) return
-    
-    setLoading(true)
-    try {
-      const res = await fetch('/api/credits')
-      const data = await res.json()
-      
-      if (data.error) {
-        console.error('Failed to fetch credits:', data.error)
-      } else {
-        setCredits(data)
-        // 假设购买的credits是总credits减去免费credits(3)
-        setPurchasedCredits(Math.max(0, data.total - 3))
-      }
-    } catch (err) {
-      console.error('Failed to fetch credits:', err)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const fetchPaymentHistory = async () => {
-    if (!session) return
-    
-    setHistoryLoading(true)
-    try {
-      const res = await fetch('/api/credits', {
-        method: 'PUT'
-      })
-      const data = await res.json()
-      
-      if (data.error) {
-        console.error('Failed to fetch payment history:', data.error)
-      } else {
-        setPaymentHistory(data.payments || [])
-      }
-    } catch (err) {
-      console.error('Failed to fetch payment history:', err)
-    } finally {
-      setHistoryLoading(false)
-    }
-  }
 
   const handlePurchaseCredits = async () => {
     try {
@@ -109,10 +64,48 @@ export default function AccountPage() {
   }
 
   useEffect(() => {
-    if (session) {
-      fetchCredits()
-      fetchPaymentHistory()
+    if (!session) return
+    
+    const fetchData = async () => {
+      setLoading(true)
+      try {
+        const res = await fetch('/api/user/remaining')
+        const data = await res.json()
+        
+        if (data.error) {
+          console.error('Failed to fetch remaining:', data.error)
+        } else {
+          setRemaining(data)
+        }
+      } catch (err) {
+        console.error('Failed to fetch remaining:', err)
+      } finally {
+        setLoading(false)
+      }
     }
+
+    const fetchHistory = async () => {
+      setHistoryLoading(true)
+      try {
+        const res = await fetch('/api/credits', {
+          method: 'PUT'
+        })
+        const data = await res.json()
+        
+        if (data.error) {
+          console.error('Failed to fetch payment history:', data.error)
+        } else {
+          setPaymentHistory(data.payments || [])
+        }
+      } catch (err) {
+        console.error('Failed to fetch payment history:', err)
+      } finally {
+        setHistoryLoading(false)
+      }
+    }
+
+    fetchData()
+    fetchHistory()
   }, [session])
 
   if (status === 'loading') {
@@ -183,39 +176,23 @@ export default function AccountPage() {
         <div className="max-w-2xl">
           <h1 className="text-3xl font-bold text-gray-900 mb-8">Account</h1>
           
-          {/* Credits Section */}
+          {/* Remaining Balance Section */}
           <div className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Credits</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Remaining Balance</h2>
             
             {loading ? (
               <div className="flex items-center justify-center py-8">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-                <span className="ml-2 text-gray-600">Loading credits...</span>
+                <span className="ml-2 text-gray-600">Loading remaining balance...</span>
               </div>
-            ) : credits ? (
+            ) : remaining ? (
               <div className="space-y-4">
-                {/* Free Credits */}
+                {/* Remaining Balance */}
                 <div className="flex items-center gap-3">
                   <Gift className="h-5 w-5 text-gray-600" />
-                  <span className="text-gray-700">Total credits: {credits.total} </span>
+                  <span className="text-gray-700">Remaining balance: {remaining.remaining}</span>
                 </div>
                 
-                {/* Progress Bar for Free Credits */}
-
-                
-                {/* Next Refresh Date */}
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <div className="text-sm text-gray-600 cursor-help">
-                        Next refresh date: {credits.nextRefreshDate || new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]}
-                      </div>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>You get 3 free credits every day that refresh at midnight.</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
                 
                 
                 {/* Buy Credits Button */}
@@ -228,24 +205,24 @@ export default function AccountPage() {
                   {isProcessing ? 'Processing...' : 'Buy 10 credits'}
                 </Button>
                 
-                {/* How credits work link */}
+                {/* How remaining balance works link */}
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <div className="flex items-center gap-2 text-blue-600 hover:text-blue-800 cursor-pointer">
                         <HelpCircle className="h-4 w-4" />
-                        <span className="text-sm">How credits work?</span>
+                        <span className="text-sm">How remaining balance works?</span>
                       </div>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>Each task you perform costs 1 credit.<br/>For example: opening a new page, clicking elements, or taking screenshots.</p>
+                      <p>Each task you perform costs 1 credit from your remaining balance.<br/>For example: opening a new page, clicking elements, or taking screenshots.</p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
               </div>
             ) : (
               <div className="text-center py-8 text-gray-500">
-                Failed to load credits information
+                Failed to load remaining balance information
               </div>
             )}
           </div>

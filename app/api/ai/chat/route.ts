@@ -83,51 +83,52 @@ async function recordUsage(userEmail: string, promptTokens: number, completionTo
   }
 }
 
-// 扣除用户 credit
-async function consumeUserCredit(userEmail: string, amount: number = 1) {
+// 扣除用户 remaining balance
+async function consumeUserRemaining(userEmail: string, amount: number = 1) {
   try {
     // 获取当前用户信息
     const { data: user, error: userError } = await supabaseAdmin
       .from('users')
-      .select('*')
+      .select('remaining')
       .eq('email', userEmail)
       .single()
 
     if (userError || !user) {
-      console.error('Error fetching user for credit consumption:', userError)
+      console.error('Error fetching user for remaining consumption:', userError)
       throw new Error('User not found')
     }
 
-    const currentCredits = user.credits || 0
+    const currentRemaining = user.remaining || 0
 
-    if (currentCredits < amount) {
-      throw new Error(`Insufficient credits. Current: ${currentCredits}, Required: ${amount}`)
+    if (currentRemaining <= 0) {
+      throw new Error('余额不足')
     }
 
-    // 扣除credits
-    const newCredits = currentCredits - amount
+    // 计算新的remaining值，确保不小于0
+    const newRemaining = Math.max(0, currentRemaining - amount)
 
+    // 更新数据库
     const { data: updatedUser, error: updateError } = await supabaseAdmin
       .from('users')
-      .update({ credits: newCredits })
+      .update({ remaining: newRemaining })
       .eq('email', userEmail)
-      .select()
+      .select('remaining')
       .single()
 
     if (updateError) {
-      console.error('Error updating credits:', updateError)
-      throw new Error('Failed to update credits')
+      console.error('Error updating remaining:', updateError)
+      throw new Error('Failed to update remaining balance')
     }
 
-    console.log(`[Credit Consumption] User ${userEmail}: ${currentCredits} -> ${newCredits} (consumed ${amount})`)
+    console.log(`[Remaining Consumption] User ${userEmail}: ${currentRemaining} -> ${newRemaining} (consumed ${amount})`)
     return {
       success: true,
-      previousCredits: currentCredits,
-      newCredits: newCredits,
+      previousRemaining: currentRemaining,
+      newRemaining: newRemaining,
       consumed: amount
     }
   } catch (error) {
-    console.error('Error consuming user credit:', error)
+    console.error('Error consuming user remaining:', error)
     throw error
   }
 }
@@ -196,6 +197,29 @@ async function processStreamWithCostTracking(aiResponse: Response, modelName?: s
               // 记录usage信息到数据库
               if (userEmail) {
                 await recordUsage(userEmail, promptTokens, completionTokens, modelName, cost)
+              }
+              
+              // 扣除remaining余额（使用实际计算的cost）
+              if (userEmail && cost && cost > 0) {
+                try {
+                  const remainingResult = await consumeUserRemaining(userEmail, cost)
+                  console.log(`[Remaining Deduction] User ${userEmail} consumed ${cost} remaining balance:`, remainingResult)
+                } catch (remainingError) {
+                  console.error(`[Remaining Deduction] Failed to deduct remaining for user ${userEmail}:`, remainingError)
+                  // 不抛出错误，避免影响响应
+                }
+              }
+            } else {
+              // 如果不是OpenRouter模型或无法计算cost，使用默认cost 1
+              const defaultCost = 1
+              if (userEmail) {
+                try {
+                  const remainingResult = await consumeUserRemaining(userEmail, defaultCost)
+                  console.log(`[Remaining Deduction] User ${userEmail} consumed default ${defaultCost} remaining balance:`, remainingResult)
+                } catch (remainingError) {
+                  console.error(`[Remaining Deduction] Failed to deduct remaining for user ${userEmail}:`, remainingError)
+                  // 不抛出错误，避免影响响应
+                }
               }
             }
             
@@ -346,8 +370,8 @@ export async function POST(req: NextRequest) {
     } else {
       // 本地开发环境使用默认用户
       user = {
-        userId: 'local-dev-user',
-        email: 'dev@localhost',
+        userId: 12,
+        email: '1710085142@qq.com',
         provider: 'local'
       }
       console.log('[AI API] Local development mode - skipping authentication')
@@ -380,43 +404,19 @@ export async function POST(req: NextRequest) {
 
     console.log(`[AI API] Starting request for user ${user.userId}, model: ${model}, messages: ${messages.length}, sessionId: ${sessionId}, isFirstCall: ${isFirstCall}`)
 
-    // 只在第一次调用时扣除用户 credit，本地开发环境跳过
+    // 本地开发环境跳过remaining检查，生产环境在请求完成后扣除
     let creditConsumptionResult = null
-    if (isFirstCall && !isLocalDevelopment()) {
-      try {
-        creditConsumptionResult = await consumeUserCredit(user.email, 1)
-        console.log(`[AI API] Credit consumed successfully for user ${user.email}:`, creditConsumptionResult)
-      } catch (creditError) {
-        console.error(`[AI API] Failed to consume credit for user ${user.email}:`, creditError)
-        const errorMessage = creditError instanceof Error ? creditError.message : String(creditError)
-        
-        // 如果是因为积分不足，返回特定的错误信息
-        if (errorMessage.includes('Insufficient credits')) {
-          return NextResponse.json({ 
-            error: 'Insufficient credits',
-            message: 'You do not have enough credits to use this service. Please purchase more credits.',
-            code: 'INSUFFICIENT_CREDITS'
-          }, { status: 400 }) // 与现有系统保持一致
-        }
-        
-        // 其他错误返回通用错误信息
-        return NextResponse.json({ 
-          error: 'Credit consumption failed',
-          message: 'Unable to process your request due to a credit system error.',
-          code: 'CREDIT_ERROR'
-        }, { status: 500 })
-      }
-    } else if (isLocalDevelopment()) {
-      // 本地开发环境模拟credit消费结果
+    if (isLocalDevelopment()) {
+      // 本地开发环境模拟remaining消费结果
       creditConsumptionResult = {
         success: true,
-        previousCredits: 1000,
-        newCredits: 999,
+        previousRemaining: 1000,
+        newRemaining: 999,
         consumed: 1
       }
       console.log(`[AI API] Local development mode - skipping credit consumption, simulating result:`, creditConsumptionResult)
     } else {
-      console.log(`[AI API] Skipping credit consumption for subsequent call in session ${sessionId}`)
+      console.log(`[AI API] Will consume remaining balance after AI request completion`)
     }
 
     // 调用外部 AI API
@@ -441,7 +441,7 @@ export async function POST(req: NextRequest) {
           'Access-Control-Allow-Methods': 'POST, OPTIONS',
           'Access-Control-Allow-Headers': 'Content-Type, Authorization',
           'X-Response-Time': `${responseTime}ms`,
-          'X-User-Credits': creditConsumptionResult?.newCredits?.toString() || '0',
+          'X-User-Remaining': creditConsumptionResult?.newRemaining?.toString() || '0',
           'X-Credits-Consumed': creditConsumptionResult?.consumed?.toString() || '0'
         }
       })
@@ -453,9 +453,11 @@ export async function POST(req: NextRequest) {
       
       // 计算费用（如果是OpenRouter模型）
       let costInfo = null
+      let actualCost = null
       if (model && isOpenRouterModel(model) && data.usage) {
         const cost = calculateOpenRouterCost(model, data.usage.prompt_tokens, data.usage.completion_tokens)
         if (cost !== null) {
+          actualCost = cost
           costInfo = {
             model: model,
             usage: data.usage,
@@ -469,6 +471,30 @@ export async function POST(req: NextRequest) {
         }
       }
       
+      // 扣除remaining余额
+      // if (!isLocalDevelopment()) {
+        const costToDeduct = actualCost || 1 // 使用实际计算的cost，如果没有则使用默认值1
+        try {
+          const remainingResult = await consumeUserRemaining(user.email, costToDeduct)
+          console.log(`[Remaining Deduction] User ${user.email} consumed ${costToDeduct} remaining balance:`, remainingResult)
+          creditConsumptionResult = remainingResult
+        } catch (remainingError) {
+          console.error(`[Remaining Deduction] Failed to deduct remaining for user ${user.email}:`, remainingError)
+          const errorMessage = remainingError instanceof Error ? remainingError.message : String(remainingError)
+          
+          if (errorMessage.includes('余额不足')) {
+            return NextResponse.json({ 
+              error: '余额不足',
+              message: '您的余额不足，请充值后再试',
+              code: 'INSUFFICIENT_BALANCE'
+            }, { status: 400 })
+          }
+          
+          // 其他错误不影响响应，但记录日志
+          console.error('Failed to deduct remaining but continuing with response')
+        }
+      // }
+      
       return NextResponse.json({
         ...data,
         _metadata: {
@@ -476,7 +502,7 @@ export async function POST(req: NextRequest) {
           timestamp: new Date().toISOString(),
           credits: {
             consumed: creditConsumptionResult?.consumed || 0,
-            remaining: creditConsumptionResult?.newCredits || 0
+            remaining: creditConsumptionResult?.newRemaining || 0
           },
           ...(costInfo && { cost: costInfo })
         }

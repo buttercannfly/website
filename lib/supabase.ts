@@ -25,6 +25,7 @@ export interface User {
   type: string | null
   credits: number | null
   last_refresh_date: string | null
+  remaining: number | null
 }
 
 export interface Payment {
