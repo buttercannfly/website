@@ -18,6 +18,7 @@ export interface CreemProduct {
   price: number
   credits: number
   currency: string
+  originalPrice?: number
 }
 
 export interface CreemPaymentRequest {
@@ -56,7 +57,9 @@ export const getCreemConfig = (): CreemConfig => {
     environment,
     baseUrl: 'https://api.creem.com', // 使用统一的API端点
     products: {
-      'aipex': process.env.CREEM_BASIC_PRODUCT_ID || 'prod_3Y5uBhxL8Gu76Ts2tODWbs'
+      'aipex_basic': process.env.CREEM_BASIC_PRODUCT_ID || 'prod_xJQ96KLb6r2nZM3hvdMCa',
+      'aipex_standard': process.env.CREEM_STANDARD_PRODUCT_ID || 'prod_xJQ96KLb6r2nZM3hvdMCb',
+      'aipex_premium': process.env.CREEM_PREMIUM_PRODUCT_ID || 'prod_xJQ96KLb6r2nZM3hvdMCc'
     }
   }
 }
@@ -64,12 +67,31 @@ export const getCreemConfig = (): CreemConfig => {
 // 预定义的积分产品
 export const CREDITS_PRODUCTS: CreemProduct[] = [
   {
-    id: 'aipex',
-    name: 'AIPex Credits',
-    description: 'AIPex Credits - Perfect for getting started',
+    id: 'aipex_basic',
+    name: 'AIPex Basic',
+    description: 'Perfect for getting started - 100 DeepSeek tasks, 10 Claude-3.5 tasks',
     price: 4.49,
-    credits: 10, // 更新为10个积分
-    currency: 'USD'
+    credits: 10, // 约100次DeepSeek任务，10次Claude-3.5任务
+    currency: 'USD',
+    originalPrice: 5.90
+  },
+  {
+    id: 'aipex_standard',
+    name: 'AIPex Standard',
+    description: 'Great for regular users - 200+ DeepSeek tasks, 20+ Claude-3.5 tasks',
+    price: 10.00,
+    credits: 25, // 约200+次DeepSeek任务，20+次Claude-3.5任务
+    currency: 'USD',
+    originalPrice: 12.90
+  },
+  {
+    id: 'aipex_premium',
+    name: 'AIPex Premium',
+    description: 'For power users - 2500+ DeepSeek tasks, 250+ Claude-3.5 tasks',
+    price: 100.00,
+    credits: 250, // 约2500+次DeepSeek任务，250+次Claude-3.5任务
+    currency: 'USD',
+    originalPrice: 129.00
   }
 ]
 

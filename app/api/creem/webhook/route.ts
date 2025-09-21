@@ -67,7 +67,7 @@ async function handlePaymentCompleted(payload: CreemWebhookPayload) {
     // 获取用户信息（包括ID）
     const { data: user, error: userError } = await supabaseAdmin
       .from('users')
-      .select('id, credits')
+      .select('id, remaining')
       .eq('email', userId)
       .single()
 
@@ -89,17 +89,17 @@ async function handlePaymentCompleted(payload: CreemWebhookPayload) {
     }
 
     // 开始数据库事务
-    // 1. 更新用户积分
-    const currentCredits = user.credits || 0
-    const newCredits = currentCredits + creditsToAdd
+    // 1. 更新用户余额
+    const currentRemaining = user.remaining || 0
+    const newRemaining = currentRemaining + creditsToAdd
 
     const { error: updateError } = await supabaseAdmin
       .from('users')
-      .update({ credits: newCredits })
+      .update({ remaining: newRemaining })
       .eq('email', userId)
 
     if (updateError) {
-      console.error('Failed to update credits after payment:', updateError)
+      console.error('Failed to update remaining after payment:', updateError)
       return
     }
 
@@ -121,9 +121,9 @@ async function handlePaymentCompleted(payload: CreemWebhookPayload) {
 
     console.log(`Successfully processed payment ${paymentId}:`)
     console.log(`- User: ${userId} (ID: ${user.id})`)
-    console.log(`- Credits added: ${creditsToAdd}`)
-    console.log(`- Previous credits: ${currentCredits}`)
-    console.log(`- New total credits: ${newCredits}`)
+    console.log(`- Remaining added: ${creditsToAdd}`)
+    console.log(`- Previous remaining: ${currentRemaining}`)
+    console.log(`- New total remaining: ${newRemaining}`)
     console.log(`- Amount: $${amount}`)
 
   } catch (error) {
@@ -208,7 +208,7 @@ async function handlePaymentCancelled(payload: CreemWebhookPayload) {
 function getCreditsForProduct(productId: string): number {
   const productMap: Record<string, number> = {
     'aipex': 10, // AIPex Credits 包
-    'prod_3Y5uBhxL8Gu76Ts2tODWbs': 10 // Creem 产品ID对应的积分数量
+    'prod_xJQ96KLb6r2nZM3hvdMCa': 10 // Creem 产品ID对应的积分数量
   }
   
   return productMap[productId] || 0

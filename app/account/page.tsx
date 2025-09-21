@@ -30,7 +30,7 @@ export default function AccountPage() {
   const [historyLoading, setHistoryLoading] = useState(false)
 
 
-  const handlePurchaseCredits = async () => {
+  const handlePurchaseCredits = async (productId: string) => {
     try {
       setIsProcessing(true)
 
@@ -39,7 +39,7 @@ export default function AccountPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ productId: 'aipex' }),
+        body: JSON.stringify({ productId }),
       })
 
       const data = await response.json()
@@ -195,15 +195,89 @@ export default function AccountPage() {
                 
                 
                 
-                {/* Buy Credits Button */}
-                <Button 
-                  className="bg-green-600 hover:bg-green-700 text-white"
-                  onClick={handlePurchaseCredits}
-                  disabled={isProcessing}
-                >
-                  <CreditCard className="h-4 w-4 mr-2" />
-                  {isProcessing ? 'Processing...' : 'Buy 10 credits'}
-                </Button>
+                {/* Purchase Options */}
+                <div className="grid gap-4 md:grid-cols-3">
+                  {/* Basic Plan */}
+                  <Card className="border-2 border-green-200 hover:border-green-300 transition-colors">
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-lg">Basic</CardTitle>
+                      <CardDescription>Perfect for getting started</CardDescription>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-2xl font-bold text-green-600">$4.49</span>
+                        <span className="text-sm text-gray-500 line-through">$5.90</span>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="pt-0">
+                      <div className="space-y-2 mb-4">
+                        <div className="text-sm text-gray-600">• ~100 DeepSeek tasks</div>
+                        <div className="text-sm text-gray-600">• ~10 Claude-3.5 tasks</div>
+                        <div className="text-sm text-gray-600">• 10 credits</div>
+                      </div>
+                      <Button 
+                        className="w-full bg-green-600 hover:bg-green-700 text-white"
+                        onClick={() => handlePurchaseCredits('aipex_basic')}
+                        disabled={isProcessing}
+                      >
+                        <CreditCard className="h-4 w-4 mr-2" />
+                        {isProcessing ? 'Processing...' : 'Choose Basic'}
+                      </Button>
+                    </CardContent>
+                  </Card>
+
+                  {/* Standard Plan */}
+                  <Card className="border-2 border-blue-200 hover:border-blue-300 transition-colors">
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-lg">Standard</CardTitle>
+                      <CardDescription>Great for regular users</CardDescription>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-2xl font-bold text-blue-600">$10.00</span>
+                        <span className="text-sm text-gray-500 line-through">$12.90</span>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="pt-0">
+                      <div className="space-y-2 mb-4">
+                        <div className="text-sm text-gray-600">• ~200+ DeepSeek tasks</div>
+                        <div className="text-sm text-gray-600">• ~20+ Claude-3.5 tasks</div>
+                        <div className="text-sm text-gray-600">• 25 credits</div>
+                      </div>
+                      <Button 
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                        onClick={() => handlePurchaseCredits('aipex_standard')}
+                        disabled={isProcessing}
+                      >
+                        <CreditCard className="h-4 w-4 mr-2" />
+                        {isProcessing ? 'Processing...' : 'Choose Standard'}
+                      </Button>
+                    </CardContent>
+                  </Card>
+
+                  {/* Premium Plan */}
+                  <Card className="border-2 border-purple-200 hover:border-purple-300 transition-colors">
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-lg">Premium</CardTitle>
+                      <CardDescription>For power users</CardDescription>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-2xl font-bold text-purple-600">$100.00</span>
+                        <span className="text-sm text-gray-500 line-through">$129.00</span>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="pt-0">
+                      <div className="space-y-2 mb-4">
+                        <div className="text-sm text-gray-600">• ~2500+ DeepSeek tasks</div>
+                        <div className="text-sm text-gray-600">• ~250+ Claude-3.5 tasks</div>
+                        <div className="text-sm text-gray-600">• 250 credits</div>
+                      </div>
+                      <Button 
+                        className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                        onClick={() => handlePurchaseCredits('aipex_premium')}
+                        disabled={isProcessing}
+                      >
+                        <CreditCard className="h-4 w-4 mr-2" />
+                        {isProcessing ? 'Processing...' : 'Choose Premium'}
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </div>
                 
                 {/* How remaining balance works link */}
                 <TooltipProvider>

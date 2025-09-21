@@ -28,8 +28,9 @@ CREEM_API_KEY=your-creem-api-key
 CREEM_WEBHOOK_SECRET=your_creem_webhook_secret
 
 # Creem Product IDs
-CREEM_BASIC_PRODUCT_ID=prod_3Y5uBhxL8Gu76Ts2tODWbs
-CREEM_STANDARD_PRODUCT_ID=prod_standard_id
+CREEM_BASIC_PRODUCT_ID=prod_xJQ96KLb6r2nZM3hvdMCa
+CREEM_STANDARD_PRODUCT_ID=prod_xJQ96KLb6r2nZM3hvdMCb
+CREEM_PREMIUM_PRODUCT_ID=prod_xJQ96KLb6r2nZM3hvdMCc
 
 # Creem Payment URLs
 NEXT_PUBLIC_CREEM_SUCCESS_URL=https://funny-meme.com/payment/success

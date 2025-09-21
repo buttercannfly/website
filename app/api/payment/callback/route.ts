@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
     const getCreditsForProduct = (productId: string): number => {
       const productMap: Record<string, number> = {
         'aipex': 10,
-        'prod_3Y5uBhxL8Gu76Ts2tODWbs': 10
+        'prod_xJQ96KLb6r2nZM3hvdMCa': 10
       }
       return productMap[productId] || 0
     }
@@ -98,7 +98,7 @@ export async function POST(request: NextRequest) {
     // 获取用户信息
     const { data: user, error: userError } = await supabaseAdmin
       .from('users')
-      .select('id, credits')
+      .select('id, remaining')
       .eq('email', session.user.email)
       .single()
 
@@ -110,20 +110,20 @@ export async function POST(request: NextRequest) {
       }, { status: 404 })
     }
 
-    // 更新用户积分
-    const currentCredits = user.credits || 0
-    const newCredits = currentCredits + creditsToAdd
+    // 更新用户余额
+    const currentRemaining = user.remaining || 0
+    const newRemaining = currentRemaining + creditsToAdd
 
     const { error: updateError } = await supabaseAdmin
       .from('users')
-      .update({ credits: newCredits })
+      .update({ remaining: newRemaining })
       .eq('email', session.user.email)
 
     if (updateError) {
-      console.error('Failed to update credits:', updateError)
+      console.error('Failed to update remaining:', updateError)
       return NextResponse.json({
         success: false,
-        message: 'Failed to update credits'
+        message: 'Failed to update remaining'
       }, { status: 500 })
     }
 
@@ -144,15 +144,15 @@ export async function POST(request: NextRequest) {
 
     console.log(`Payment callback processed successfully:`)
     console.log(`- User: ${session.user.email} (ID: ${user.id})`)
-    console.log(`- Credits added: ${creditsToAdd}`)
-    console.log(`- New total credits: ${newCredits}`)
+    console.log(`- Remaining added: ${creditsToAdd}`)
+    console.log(`- New total remaining: ${newRemaining}`)
     console.log(`- Payment ID: ${paymentData.checkout_id || paymentData.order_id}`)
 
     return NextResponse.json({
       success: true,
       message: 'Payment processed successfully',
-      creditsAdded: creditsToAdd,
-      totalCredits: newCredits
+      remainingAdded: creditsToAdd,
+      totalRemaining: newRemaining
     })
 
   } catch (error) {

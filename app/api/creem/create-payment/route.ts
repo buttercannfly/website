@@ -18,9 +18,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Product ID is required' }, { status: 400 })
     }
 
-    // 验证产品ID是否有效 (目前只支持aipex产品)
-    if (productId !== 'aipex') {
-      return NextResponse.json({ error: 'Invalid product ID. Only "aipex" is supported.' }, { status: 400 })
+    // 验证产品ID是否有效 (支持三种产品)
+    const validProductIds = ['aipex_basic', 'aipex_standard', 'aipex_premium']
+    if (!validProductIds.includes(productId)) {
+      return NextResponse.json({ error: 'Invalid product ID. Supported products: aipex_basic, aipex_standard, aipex_premium.' }, { status: 400 })
     }
 
     const product = CREDITS_PRODUCTS.find(p => p.id === productId)
