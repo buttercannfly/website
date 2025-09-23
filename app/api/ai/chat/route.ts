@@ -302,6 +302,14 @@ async function callExternalAI(messages: any[], model?: string, originalBody?: an
     stream: originalBody.stream !== undefined ? originalBody.stream : true
   }
 
+
+
+
+
+
+
+  
+
   // 生成调试用的curl命令
   const curlCommand = generateCurlCommand(aiHost, aiToken, requestBody)
   console.log('\n=== AI API Request Debug Info ===')
