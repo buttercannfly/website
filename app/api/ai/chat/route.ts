@@ -83,6 +83,39 @@ async function recordUsage(userEmail: string, promptTokens: number, completionTo
   }
 }
 
+// 检查用户 remaining balance（不扣除）
+async function checkUserRemaining(userEmail: string, requiredAmount: number = 1) {
+  try {
+    // 获取当前用户信息
+    const { data: user, error: userError } = await supabaseAdmin
+      .from('users')
+      .select('remaining')
+      .eq('email', userEmail)
+      .single()
+
+    if (userError || !user) {
+      console.error('Error fetching user for remaining check:', userError)
+      throw new Error('User not found')
+    }
+
+    const currentRemaining = user.remaining || 0
+
+    if (currentRemaining < requiredAmount) {
+      throw new Error('Insufficient balance')
+    }
+
+    return {
+      success: true,
+      currentRemaining: currentRemaining,
+      requiredAmount: requiredAmount,
+      sufficient: true
+    }
+  } catch (error) {
+    console.error('Error checking user remaining:', error)
+    throw error
+  }
+}
+
 // 扣除用户 remaining balance
 async function consumeUserRemaining(userEmail: string, amount: number = 1) {
   try {
@@ -101,7 +134,7 @@ async function consumeUserRemaining(userEmail: string, amount: number = 1) {
     const currentRemaining = user.remaining || 0
 
     if (currentRemaining <= 0) {
-      throw new Error('余额不足')
+      throw new Error('Insufficient balance')
     }
 
     // 计算新的remaining值，确保不小于0
@@ -412,6 +445,34 @@ export async function POST(req: NextRequest) {
 
     console.log(`[AI API] Starting request for user ${user.userId}, model: ${model}, messages: ${messages.length}, sessionId: ${sessionId}, isFirstCall: ${isFirstCall}`)
 
+    // 在AI请求开始前检查用户余额
+    if (!isLocalDevelopment()) {
+      try {
+        // 预估cost，对于OpenRouter模型使用最低预估，对于其他模型使用默认值1
+        const estimatedCost = model && isOpenRouterModel(model) ? 0.01 : 1
+        await checkUserRemaining(user.email, estimatedCost)
+        console.log(`[AI API] User ${user.email} has sufficient remaining balance for estimated cost ${estimatedCost}`)
+      } catch (balanceError) {
+        console.error(`[AI API] Insufficient balance for user ${user.email}:`, balanceError)
+        const errorMessage = balanceError instanceof Error ? balanceError.message : String(balanceError)
+        
+        if (errorMessage.includes('Insufficient balance')) {
+          return NextResponse.json({ 
+            error: 'Insufficient balance',
+            message: 'Your balance is insufficient, please top up and try again',
+            code: 'INSUFFICIENT_BALANCE'
+          }, { status: 400 })
+        }
+        
+        // 其他错误也返回错误响应，避免继续处理
+        return NextResponse.json({ 
+          error: 'Balance check failed',
+          message: 'Unable to verify user balance',
+          code: 'BALANCE_CHECK_ERROR'
+        }, { status: 500 })
+      }
+    }
+
     // 本地开发环境跳过remaining检查，生产环境在请求完成后扣除
     let creditConsumptionResult = null
     if (isLocalDevelopment()) {
@@ -490,10 +551,10 @@ export async function POST(req: NextRequest) {
           console.error(`[Remaining Deduction] Failed to deduct remaining for user ${user.email}:`, remainingError)
           const errorMessage = remainingError instanceof Error ? remainingError.message : String(remainingError)
           
-          if (errorMessage.includes('余额不足')) {
+          if (errorMessage.includes('Insufficient balance')) {
             return NextResponse.json({ 
-              error: '余额不足',
-              message: '您的余额不足，请充值后再试',
+              error: 'Insufficient balance',
+              message: 'Your balance is insufficient, please top up and try again',
               code: 'INSUFFICIENT_BALANCE'
             }, { status: 400 })
           }
