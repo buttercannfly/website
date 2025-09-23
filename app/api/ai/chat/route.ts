@@ -299,7 +299,7 @@ async function callExternalAI(messages: any[], model?: string, originalBody?: an
     ...originalBody,
     model: finalModel,
     messages,
-    stream: true
+    stream: originalBody.stream !== undefined ? originalBody.stream : true
   }
 
   // 生成调试用的curl命令
