@@ -57,10 +57,10 @@ async function handlePaymentCompleted(payload: CreemWebhookPayload) {
   try {
     const { userId, productId, paymentId, amount } = payload
 
-    // 根据产品ID获取积分数量
-    const creditsToAdd = getCreditsForProduct(productId)
-    if (creditsToAdd <= 0) {
-      console.error('Invalid product ID for credits:', productId)
+    // 根据产品ID获取原始价格（用于添加到remaining字段）
+    const originalPriceToAdd = getOriginalPriceForProduct(productId)
+    if (originalPriceToAdd <= 0) {
+      console.error('Invalid product ID for original price:', productId)
       return
     }
 
@@ -89,9 +89,9 @@ async function handlePaymentCompleted(payload: CreemWebhookPayload) {
     }
 
     // 开始数据库事务
-    // 1. 更新用户余额
+    // 1. 更新用户余额（添加原始价格到remaining字段）
     const currentRemaining = user.remaining || 0
-    const newRemaining = currentRemaining + creditsToAdd
+    const newRemaining = currentRemaining + originalPriceToAdd
 
     const { error: updateError } = await supabaseAdmin
       .from('users')
@@ -108,23 +108,23 @@ async function handlePaymentCompleted(payload: CreemWebhookPayload) {
       .from('payments')
       .insert({
         user_id: user.id,
-        credits: creditsToAdd,
+        credits: 0, // credits字段不再使用，设为0
         payment_id: paymentId,
         verified: true
       })
 
     if (paymentRecordError) {
       console.error('Failed to record payment:', paymentRecordError)
-      // 如果记录支付失败，可以考虑回滚credits更新
+      // 如果记录支付失败，可以考虑回滚remaining更新
       // 这里为了简单起见，只记录错误
     }
 
     console.log(`Successfully processed payment ${paymentId}:`)
     console.log(`- User: ${userId} (ID: ${user.id})`)
-    console.log(`- Remaining added: ${creditsToAdd}`)
-    console.log(`- Previous remaining: ${currentRemaining}`)
-    console.log(`- New total remaining: ${newRemaining}`)
-    console.log(`- Amount: $${amount}`)
+    console.log(`- Original price added to remaining: $${originalPriceToAdd}`)
+    console.log(`- Previous remaining: $${currentRemaining}`)
+    console.log(`- New total remaining: $${newRemaining}`)
+    console.log(`- Amount paid: $${amount}`)
 
   } catch (error) {
     console.error('Error handling payment completion:', error)
@@ -203,12 +203,15 @@ async function handlePaymentCancelled(payload: CreemWebhookPayload) {
 }
 
 /**
- * 根据产品ID获取对应的积分数量
+ * 根据产品ID获取对应的原始价格（用于添加到remaining字段）
  */
-function getCreditsForProduct(productId: string): number {
+function getOriginalPriceForProduct(productId: string): number {
   const productMap: Record<string, number> = {
-    'aipex': 10, // AIPex Credits 包
-    'prod_xJQ96KLb6r2nZM3hvdMCa': 10 // Creem 产品ID对应的积分数量
+    'aipex_basic': 5.90,     // AIPex Basic 原始价格
+    'aipex_standard': 12.90, // AIPex Standard 原始价格  
+    'aipex_premium': 129.00, // AIPex Premium 原始价格
+    'aipex': 5.90,           // 默认使用Basic价格
+    'prod_xJQ96KLb6r2nZM3hvdMCa': 5.90 // Creem 产品ID对应的原始价格
   }
   
   return productMap[productId] || 0

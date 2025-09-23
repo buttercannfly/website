@@ -77,18 +77,21 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    // 根据产品ID获取积分数量
-    const getCreditsForProduct = (productId: string): number => {
+    // 根据产品ID获取原始价格（用于添加到remaining字段）
+    const getOriginalPriceForProduct = (productId: string): number => {
       const productMap: Record<string, number> = {
-        'aipex': 10,
-        'prod_xJQ96KLb6r2nZM3hvdMCa': 10
+        'aipex_basic': 5.90,     // AIPex Basic 原始价格
+        'aipex_standard': 12.90, // AIPex Standard 原始价格  
+        'aipex_premium': 129.00, // AIPex Premium 原始价格
+        'aipex': 5.90,           // 默认使用Basic价格
+        'prod_xJQ96KLb6r2nZM3hvdMCa': 5.90 // Creem 产品ID对应的原始价格
       }
       return productMap[productId] || 0
     }
 
-    const creditsToAdd = getCreditsForProduct(paymentData.product_id || '')
+    const originalPriceToAdd = getOriginalPriceForProduct(paymentData.product_id || '')
     
-    if (creditsToAdd <= 0) {
+    if (originalPriceToAdd <= 0) {
       return NextResponse.json({
         success: false,
         message: 'Invalid product ID'
@@ -110,9 +113,9 @@ export async function POST(request: NextRequest) {
       }, { status: 404 })
     }
 
-    // 更新用户余额
+    // 更新用户余额（添加原始价格到remaining字段）
     const currentRemaining = user.remaining || 0
-    const newRemaining = currentRemaining + creditsToAdd
+    const newRemaining = currentRemaining + originalPriceToAdd
 
     const { error: updateError } = await supabaseAdmin
       .from('users')
@@ -132,7 +135,7 @@ export async function POST(request: NextRequest) {
       .from('payments')
       .insert({
         user_id: user.id,
-        credits: creditsToAdd,
+        credits: 0, // credits字段不再使用，设为0
         payment_id: paymentData.checkout_id || paymentData.order_id,
         verified: true
       })
@@ -144,14 +147,15 @@ export async function POST(request: NextRequest) {
 
     console.log(`Payment callback processed successfully:`)
     console.log(`- User: ${session.user.email} (ID: ${user.id})`)
-    console.log(`- Remaining added: ${creditsToAdd}`)
-    console.log(`- New total remaining: ${newRemaining}`)
+    console.log(`- Original price added to remaining: $${originalPriceToAdd}`)
+    console.log(`- Previous remaining: $${currentRemaining}`)
+    console.log(`- New total remaining: $${newRemaining}`)
     console.log(`- Payment ID: ${paymentData.checkout_id || paymentData.order_id}`)
 
     return NextResponse.json({
       success: true,
       message: 'Payment processed successfully',
-      remainingAdded: creditsToAdd,
+      remainingAdded: originalPriceToAdd,
       totalRemaining: newRemaining
     })
 

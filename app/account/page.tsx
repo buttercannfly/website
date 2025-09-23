@@ -4,7 +4,7 @@ import { useSession, signIn, signOut } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Gift, DollarSign, HelpCircle, ArrowRight, LogOut, User, CreditCard, Home, Chrome } from 'lucide-react'
+import { Gift, DollarSign, HelpCircle, ArrowRight, LogOut, User, CreditCard, Home, Chrome, ExternalLink } from 'lucide-react'
 import Link from 'next/link'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 
@@ -277,19 +277,29 @@ export default function AccountPage() {
                 </div>
                 
                 {/* How remaining balance works link */}
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <div className="flex items-center gap-2 text-blue-600 hover:text-blue-800 cursor-pointer">
-                        <HelpCircle className="h-4 w-4" />
-                        <span className="text-sm">How remaining balance works?</span>
-                      </div>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Each task you perform costs 1 credit from your remaining balance.<br/>For example: opening a new page, clicking elements, or taking screenshots.</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
+                <div className="flex items-center justify-between">
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div className="flex items-center gap-2 text-blue-600 hover:text-blue-800 cursor-pointer">
+                          <HelpCircle className="h-4 w-4" />
+                          <span className="text-sm">How remaining balance works?</span>
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Each task you perform costs 1 credit from your remaining balance.<br/>For example: opening a new page, clicking elements, or taking screenshots.</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                  
+                  <Link 
+                    href="/pricing" 
+                    className="flex items-center gap-2 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                    View Pricing
+                  </Link>
+                </div>
               </div>
             ) : (
               <div className="text-center py-8 text-gray-500">
@@ -300,7 +310,16 @@ export default function AccountPage() {
           
           {/* Payment History Section */}
           <div className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Payment History</h2>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-semibold text-gray-900">Payment History</h2>
+              <Link 
+                href="/pricing" 
+                className="flex items-center gap-2 text-blue-600 hover:text-blue-800 text-sm font-medium"
+              >
+                <ExternalLink className="h-4 w-4" />
+                View Pricing Details
+              </Link>
+            </div>
             
             {historyLoading ? (
               <div className="flex items-center justify-center py-8">
