@@ -80,13 +80,23 @@ export async function POST(request: NextRequest) {
     // 根据产品ID获取原始价格（用于添加到remaining字段）
     const getOriginalPriceForProduct = (productId: string): number => {
       const productMap: Record<string, number> = {
+        // 内部产品ID映射
         'aipex_basic': 5.90,     // AIPex Basic 原始价格
         'aipex_standard': 12.90, // AIPex Standard 原始价格  
         'aipex_premium': 129.00, // AIPex Premium 原始价格
         'aipex': 5.90,           // 默认使用Basic价格
-        'prod_xJQ96KLb6r2nZM3hvdMCa': 5.90 // Creem 产品ID对应的原始价格
+        
+        // Creem 实际产品ID映射（根据你的线上配置）
+        'prod_3Y5uBhxL8Gu76Ts2tODWbs': 5.90,  // CREEM_BASIC_PRODUCT_ID
+        'prod_xJQ96KLb6r2nZM3hvdMCa': 12.90, // CREEM_STANDARD_PRODUCT_ID  
+        'prod_2o9UYfe0MsWbp9m8TZGpx6': 129.00 // CREEM_PREMIUM_PRODUCT_ID
       }
-      return productMap[productId] || 0
+      
+      console.log(`Looking up original price for product ID: ${productId}`)
+      const price = productMap[productId] || 0
+      console.log(`Found original price: $${price}`)
+      
+      return price
     }
 
     const originalPriceToAdd = getOriginalPriceForProduct(paymentData.product_id || '')
