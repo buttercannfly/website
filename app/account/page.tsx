@@ -337,7 +337,9 @@ export default function AccountPage() {
                       }`}></div>
                       <div>
                         <div className="font-medium text-gray-900">
-                          {payment.credits > 0 ? `+${payment.credits} Credits` : 'Payment Failed'}
+                          {payment.status === 'completed' ? 'Payment Successful' : 
+                           payment.status === 'failed' ? 'Payment Failed' : 
+                           'Payment Pending'}
                         </div>
                         <div className="text-sm text-gray-500">
                           {new Date(payment.date).toLocaleDateString()} {new Date(payment.date).toLocaleTimeString()}

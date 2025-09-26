@@ -20,6 +20,8 @@ export default function PaymentCallbackPage() {
   const [processing, setProcessing] = useState(true)
   const [status, setStatus] = useState<'processing' | 'success' | 'error' | 'cancelled'>('processing')
   const [message, setMessage] = useState('Processing your payment...')
+  const [remainingAdded, setRemainingAdded] = useState<number>(0)
+  const [totalRemaining, setTotalRemaining] = useState<number>(0)
 
   useEffect(() => {
     const processPaymentCallback = async () => {
@@ -58,6 +60,14 @@ export default function PaymentCallbackPage() {
 
         if (response.ok && result.success) {
           setStatus('success')
+          // 保存remaining信息用于显示
+          if (result.remainingAdded) {
+            setRemainingAdded(result.remainingAdded)
+          }
+          if (result.totalRemaining) {
+            setTotalRemaining(result.totalRemaining)
+          }
+          
           if (result.alreadyProcessed) {
             setMessage('Payment was already processed! Redirecting to your account...')
           } else {
@@ -161,10 +171,21 @@ export default function PaymentCallbackPage() {
           
           {status === 'success' && (
             <div className="space-y-2">
-              <p className="text-green-600 font-medium">+10 Credits Added</p>
-              <p className="text-sm text-gray-500">
-                Your credits have been added to your account
-              </p>
+              {remainingAdded > 0 ? (
+                <>
+                  <p className="text-green-600 font-medium">+${remainingAdded.toFixed(2)} Remaining Added</p>
+                  <p className="text-sm text-gray-500">
+                    Your remaining balance has been updated
+                  </p>
+                  {totalRemaining > 0 && (
+                    <p className="text-xs text-gray-400">
+                      Total remaining: ${totalRemaining.toFixed(2)}
+                    </p>
+                  )}
+                </>
+              ) : (
+                <p className="text-green-600 font-medium">Payment Successful!</p>
+              )}
             </div>
           )}
           
